@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT/Ordinals Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar for Filters -->
+        <aside class="sidebar">
+            <h2>Filters</h2>
+            <label for="search">Search by Inscription #</label>
+            <input type="number" id="search" placeholder="Enter number">
+
+            <h3>Sort By</h3>
+            <select id="sort">
+                <option value="asc">Inscription # (Ascending)</option>
+                <option value="desc">Inscription # (Descending)</option>
+            </select>
+
+            <h3>Filter by Traits</h3>
+            <div id="traits">
+                <label><input type="checkbox" value="trait1"> Trait 1</label><br>
+                <label><input type="checkbox" value="trait2"> Trait 2</label><br>
+                <label><input type="checkbox" value="trait3"> Trait 3</label><br>
+            </div>
+        </aside>
+
+        <!-- NFT Gallery -->
+        <main class="gallery">
+            <h1>NFT/Ordinals Explorer</h1>
+            <div id="nft-container">
+                <!-- NFTs will be loaded dynamically here -->
+            </div>
+        </main>
+    </div>
+</body>
+</html>

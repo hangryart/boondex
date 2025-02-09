@@ -1,105 +1,115 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
     background-color: #121212;
     color: #ffffff;
-    height: 100vh;
-    overflow: hidden;
 }
 
+/* Header */
 .header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #1e1e1e;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header Rows */
-.header .header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    background-color: #1e1e1e;
     padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-title {
     font-size: 1.5em;
     font-weight: bold;
 }
 
-.header .header-row.mobile-only {
-    display: none;
-    padding: 10px 20px;
-    background-color: #282828;
-}
-
 .filter-toggle {
     display: none;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .header .header-row.mobile-only {
-        display: flex;
-    }
-
-    .filter-toggle {
-        display: block;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background-color: #1e1e1e;
-        transition: left 0.3s ease;
-        z-index: 1100;
-        padding: 20px;
-    }
-
-    .sidebar.open {
-        left: 0;
-    }
-
-    .close-sidebar {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        cursor: pointer;
-        font-size: 1.5em;
-    }
+/* Sidebar */
+.sidebar {
+    background-color: #1e1e1e;
+    padding: 20px;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 1100;
 }
 
-@media (min-width: 769px) {
-    .sidebar {
-        position: static;
-        width: 250px;
-        height: 100%;
-        padding: 20px;
-        background-color: #1e1e1e;
-    }
+.sidebar.open {
+    left: 0;
+}
 
-    .container {
-        display: flex;
-        flex-direction: row;
-    }
+.close-sidebar {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5em;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
 
-    .gallery {
-        flex-grow: 1;
-        overflow-y: auto;
-    }
+/* Gallery */
+.gallery {
+    margin-top: 70px; /* Space for header */
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .nft-item {
     background-color: #1e1e1e;
+    padding: 15px;
     border: 1px solid #444;
-    padding: 10px;
-    text-align: center;
     border-radius: 8px;
+    text-align: center;
+    max-width: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-toggle {
+        display: block;
+    }
+
+    .gallery {
+        margin-top: 110px; /* Extra space for mobile header */
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        display: flex;
+    }
+
+    .sidebar {
+        position: static;
+        width: 250px;
+    }
+
+    .gallery {
+        margin-top: 70px;
+    }
 }

@@ -10,16 +10,17 @@ body {
     overflow: hidden;
 }
 
-/* ✅ Fixes Header Overlap */
+/* ✅ Header now aligned left */
 .header {
     position: fixed;
     top: 0;
     width: 100%;
     background-color: #1e1e1e;
     padding: 15px;
-    text-align: center;
+    text-align: left;
     font-size: 1.5em;
     font-weight: bold;
+    padding-left: 20px; /* ✅ Adds space from the left edge */
     z-index: 1000;
 }
 

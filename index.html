@@ -8,14 +8,20 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Static Header -->
+    <!-- Static Header with Two Rows -->
     <div class="header">
-        <span class="header-title">Boondex</span>
+        <div class="header-row">
+            <span class="header-title">Boondex</span>
+        </div>
+        <div class="header-row mobile-only">
+            <span class="filter-toggle" onclick="openSidebar()">Filters</span>
+            <span class="close-sidebar" onclick="closeSidebar()">🞪</span>
+        </div>
     </div>
 
     <div class="container">
-        <!-- Sticky Sidebar -->
-        <aside class="sidebar">
+        <!-- Collapsible Sidebar -->
+        <aside class="sidebar" id="sidebar">
             <h2>Filters</h2>
             <label for="search">Search by Inscription No.</label>
             <input type="number" id="search" placeholder="Enter number">

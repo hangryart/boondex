@@ -8,8 +8,11 @@
     <script defer src="script.js"></script>
 </head>
 <body>
+    <!-- Static Header -->
+    <div class="header">NFT/Ordinals Explorer</div>
+
     <div class="container">
-        <!-- Sidebar for Filters -->
+        <!-- Sticky Sidebar -->
         <aside class="sidebar">
             <h2>Filters</h2>
             <label for="search">Search by Inscription #</label>
@@ -29,9 +32,8 @@
             </div>
         </aside>
 
-        <!-- NFT Gallery -->
+        <!-- Scrollable NFT Gallery -->
         <main class="gallery">
-            <h1>NFT/Ordinals Explorer</h1>
             <div id="nft-container">
                 <!-- NFTs will be loaded dynamically here -->
             </div>

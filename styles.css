@@ -28,8 +28,8 @@ body {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: calc(100vh - 60px); /* Adjusts height so it doesn't overlap */
-    margin-top: 60px; /* Push content below header */
+    height: calc(100vh - 60px);
+    margin-top: 60px;
 }
 
 /* ✅ Sidebar remains fixed but starts below the header */
@@ -40,7 +40,7 @@ body {
     height: 100%;
     overflow-y: auto;
     position: sticky;
-    top: 60px; /* Matches header height */
+    top: 60px;
 }
 
 /* ✅ NFT Gallery scrolls properly */
@@ -49,6 +49,16 @@ body {
     padding: 20px;
     overflow-y: auto;
     height: 100%;
+}
+
+/* ✅ Removes up/down arrows from number input */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 #nft-container {

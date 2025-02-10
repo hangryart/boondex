@@ -98,11 +98,14 @@
     margin-bottom: 10px;
   }
   
+  /* Ensure h3 titles match label styling */
   .filter-group h3 {
+    font-size: 1em;
+    font-weight: normal;
     margin-bottom: 10px;
   }
   
-  /* Input and select styling (10px radius) */
+  /* Input and select styling (5px radius) */
   .filter-group input,
   .filter-group select {
     width: 100%;
@@ -110,7 +113,7 @@
     border: 1px solid var(--border-color);
     background-color: var(--bg-dark);
     color: var(--text-color);
-    border-radius: 10px;
+    border-radius: 5px;
   }
   
   /* Attributes Section Styling */
@@ -121,7 +124,7 @@
     border: 1px solid var(--border-color);
     background-color: var(--bg-dark);
     color: var(--text-color);
-    border-radius: 10px;
+    border-radius: 5px;
   }
   
   .attributes-accordion {

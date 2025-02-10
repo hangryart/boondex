@@ -116,9 +116,14 @@
     border-radius: 5px;
   }
   
-  /* Force a minimum height on the select box so it doesn't appear thin on mobile */
+  /* Force the select box to have consistent dimensions */
   .filter-group select {
     min-height: 40px;
+    height: 40px;
+    line-height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
   
   /* Attributes Section Styling */

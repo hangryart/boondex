@@ -1,13 +1,13 @@
 /* CSS Variables for consistency */
 :root {
     --header-height: 70px;
-    --sidebar-width: 287px;  /* 15% wider than 250px */
+    --sidebar-width: 287px;  /* 15% wider than original 250px */
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;
+    --text-color: #CCCCCC;       /* General text color */
     --input-text-color: #888888;  /* For inputs and select text */
-    --border-color: #444;
+    --border-color: #444;         /* One-pixel border color */
     --checkbox-color: #555555;    /* Custom checkbox color */
   }
   
@@ -42,7 +42,7 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #FF0000;  /* Boondex title now red */
+    color: #4CC2FF; /* Boondex title now blue */
   }
   
   /* Layout Container */
@@ -101,12 +101,14 @@
     margin-bottom: 10px;
   }
   
+  /* h3 titles: same size and weight as labels */
   .filter-group h3 {
     font-size: 1em;
     font-weight: normal;
     margin-bottom: 10px;
   }
   
+  /* Attributes title spacing */
   .filter-group.attributes h3 {
     margin-bottom: 10px;
   }
@@ -150,11 +152,13 @@
     margin-top: 10px;
   }
   
+  /* Attribute Category */
   .attribute-category {
     border-top: 1px solid var(--border-color);
     padding: 5px 0;
   }
   
+  /* Attribute Category Header */
   .attribute-category-header {
     display: flex;
     justify-content: space-between;
@@ -168,15 +172,20 @@
     margin-left: 10px;
   }
   
+  /* Add extra space between category header and its list */
   .attribute-list {
-    display: none;
+    display: none; /* Hidden by default */
     padding-left: 10px;
+    margin-top: 10px;
   }
   
-  /* Updated attribute item layout using grid for three columns */
+  /* Updated attribute item layout using grid for three columns:
+     - 20px for checkbox
+     - auto for trait name
+     - 40px for trait count (aligned right) */
   .attribute-item {
     display: grid;
-    grid-template-columns: 20px 1fr 40px;
+    grid-template-columns: 20px auto 40px;
     align-items: center;
     gap: 10px;
     padding: 5px 0;
@@ -201,7 +210,7 @@
     background-color: var(--input-text-color);
   }
   
-  /* Trait name styling */
+  /* Trait name styling: add margin and vertical offset for centering */
   .attribute-item span:not(.attribute-count) {
     margin-left: 5px;
     display: inline-block;
@@ -209,8 +218,9 @@
     color: var(--input-text-color);
   }
   
-  /* Trait count styling */
+  /* Trait count styling: force to far right with fixed 40px cell */
   .attribute-count {
+    width: 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;

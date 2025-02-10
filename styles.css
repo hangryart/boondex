@@ -5,10 +5,10 @@
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC; /* general text */
-    --input-text-color: #888888; /* for inputs */
-    --border-color: #444; /* one-pixel border color */
-    --checkbox-color: #555555; /* custom checkbox color (if used) */
+    --text-color: #CCCCCC;       /* General text color */
+    --input-text-color: #888888;  /* For inputs and select text */
+    --border-color: #444;         /* One-pixel border color */
+    --checkbox-color: #555555;    /* Custom checkbox color */
   }
   
   /* Global resets */
@@ -42,6 +42,7 @@
   
   .header-title {
     font-size: 1.2em;
+    color: #4CC2FF;  /* Boondex title color */
   }
   
   /* Layout Container */
@@ -175,6 +176,7 @@
   }
   
   /* Updated attribute item layout using flex for inline alignment */
+  /* Now only two elements: the custom checkbox and the trait name */
   .attribute-item {
     display: flex;
     align-items: center;
@@ -194,40 +196,22 @@
     border-radius: 5px;
     background-color: var(--bg-dark);
     cursor: pointer;
-    position: relative;
+    /* No check symbol, just a background color change when checked */
   }
   
   .attribute-item input[type="checkbox"]:checked {
     background-color: var(--input-text-color);
-    border: 1px solid var(--border-color);
   }
   
-  .attribute-item input[type="checkbox"]:checked::after {
-    content: '✓';
-    position: absolute;
-    top: 0;
-    left: 3px;
-    color: var(--bg-dark);
-    font-size: 12px;
-  }
-  
-  /* Trait name styling */
-  .attribute-item span:not(.attribute-count) {
+  /* Trait name styling: add margin and vertical offset for centering */
+  .attribute-item span {
     margin-left: 5px;
     display: inline-block;
     transform: translateY(-2px);
     color: var(--input-text-color);
   }
   
-  /* Trait count styling: push to right and align */
-  .attribute-count {
-    margin-left: auto;
-    font-size: 0.9em;
-    color: var(--input-text-color);
-    text-align: right;
-    align-self: center;
-    transform: translateY(-2px);
-  }
+  /* (Attribute count styling removed since trait numbers are no longer shown) */
   
   /* Gallery */
   .gallery {

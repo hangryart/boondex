@@ -101,7 +101,6 @@
     margin-bottom: 10px;
   }
   
-  /* h3 titles: same size and weight as labels */
   .filter-group h3 {
     font-size: 1em;
     font-weight: normal;
@@ -172,25 +171,27 @@
     margin-left: 10px;
   }
   
-  /* Add extra space between category header and its list */
+  /* Space between category header and its list */
   .attribute-list {
-    display: none; /* Hidden by default */
+    display: none;
     padding-left: 10px;
     margin-top: 10px;
   }
   
-  /* Updated attribute item layout using grid for three columns:
-     - 20px for checkbox
-     - auto for trait name
-     - 40px for trait count (aligned right) */
+  /* Updated attribute item layout using flex for proper inline alignment */
   .attribute-item {
-    display: grid;
-    grid-template-columns: 20px auto 40px;
+    display: flex;
     align-items: center;
-    gap: 10px;
+    width: 100%;
     padding: 5px 0;
     font-size: 0.9em;
-    width: 100%;
+  }
+  
+  /* Container for checkbox and trait name */
+  .trait-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   
   /* Custom checkbox styling */
@@ -210,22 +211,20 @@
     background-color: var(--input-text-color);
   }
   
-  /* Trait name styling: add margin and vertical offset for centering */
-  .attribute-item span:not(.attribute-count) {
-    margin-left: 5px;
+  /* Trait name styling */
+  .trait-left .trait-name {
     display: inline-block;
     transform: translateY(-2px);
     color: var(--input-text-color);
   }
   
-  /* Trait count styling: force to far right with fixed 40px cell */
+  /* Trait count styling: pushed to far right */
   .attribute-count {
     width: 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
-    justify-self: end;
-    align-self: center;
+    margin-left: auto;
     transform: translateY(-2px);
   }
   

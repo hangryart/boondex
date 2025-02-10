@@ -5,9 +5,9 @@
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;       /* General text color */
+    --text-color: #CCCCCC;
     --input-text-color: #888888;  /* For inputs and select text */
-    --border-color: #444;         /* One-pixel border color */
+    --border-color: #444;
     --checkbox-color: #555555;    /* Custom checkbox color */
   }
   
@@ -42,7 +42,7 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #FF0000;  /* Boondex title now red */
+    color: #FF0000; /* Boondex title now red */
   }
   
   /* Layout Container */
@@ -53,7 +53,7 @@
     height: calc(100vh - var(--header-height));
   }
   
-  /* Sidebar (Filters Panel) */
+  /* Sidebar */
   .sidebar {
     background-color: var(--bg-light);
     border-right: 1px solid var(--border-color);
@@ -81,7 +81,7 @@
     cursor: pointer;
   }
   
-  /* Hide mobile-only controls on desktop */
+  /* Desktop: Hide mobile-only controls */
   @media (min-width: 769px) {
     .filter-toggle {
       display: none;
@@ -107,12 +107,11 @@
     margin-bottom: 10px;
   }
   
-  /* Attributes title spacing */
+  /* Attributes Section */
   .filter-group.attributes h3 {
-    margin-bottom: 15px;  /* Slightly more space below Attributes title */
+    margin-bottom: 15px; /* Extra spacing below the Attributes title */
   }
   
-  /* Input and select styling (5px radius) */
   .filter-group input,
   .filter-group select {
     width: 100%;
@@ -134,7 +133,6 @@
     color: var(--input-text-color) !important;
   }
   
-  /* Attributes Section Styling */
   .filter-group.attributes input[type="text"] {
     width: 100%;
     padding: 8px;
@@ -176,7 +174,7 @@
     margin-top: 10px;
   }
   
-  /* Updated attribute item layout using flex */
+  /* Attribute Item Layout using Flex */
   .attribute-item {
     display: flex;
     align-items: center;
@@ -192,7 +190,7 @@
     gap: 5px;
   }
   
-  /* Custom checkbox styling */
+  /* Custom Checkbox Styling */
   .attribute-item input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -209,19 +207,18 @@
     background-color: var(--input-text-color);
   }
   
-  /* Trait name styling */
+  /* Trait Name Styling */
   .trait-left .trait-name {
     transform: translateY(-2px);
     color: var(--input-text-color);
   }
   
-  /* Trait count styling: pushed to far right */
-  .attribute-count {
+  /* Trait Count Styling: push to far right */
+  .trait-count {
     margin-left: auto;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
-    /* Ensure alignment with the toggle icon by not forcing a fixed width */
     transform: translateY(-2px);
   }
   

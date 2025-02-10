@@ -11,17 +11,14 @@
   <!-- Header -->
   <header class="header">
     <div class="header-title">Boondex</div>
-    <!-- Filter toggle appears only on mobile -->
     <button class="filter-toggle" id="filter-toggle">Filters</button>
   </header>
 
   <!-- Layout Container -->
   <div class="layout">
-    <!-- Sidebar for filters (always visible on desktop, toggleable on mobile) -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2>Filters</h2>
-        <!-- Close button appears only on mobile -->
         <button class="close-sidebar" id="close-sidebar">✖</button>
       </div>
       <div class="filter-group">
@@ -40,60 +37,58 @@
         <h3>Attributes</h3>
         <input type="text" id="attributes-search" placeholder="Search attributes">
         <div class="attributes-accordion">
-          <!-- Attribute Category 1 -->
+          <!-- Attribute Category: Background -->
           <div class="attribute-category">
             <div class="attribute-category-header">
               <span>Background (2)</span>
               <span class="toggle-icon">+</span>
             </div>
             <div class="attribute-list">
-              <label class="attribute-item">
+              <div class="attribute-item">
                 <div class="trait-left">
                   <input type="checkbox" value="blue">
                   <span class="trait-name">Blue</span>
                 </div>
-                <span class="attribute-count">120</span>
-              </label>
-              <label class="attribute-item">
+                <span class="trait-count">120</span>
+              </div>
+              <div class="attribute-item">
                 <div class="trait-left">
                   <input type="checkbox" value="red">
                   <span class="trait-name">Red</span>
                 </div>
-                <span class="attribute-count">50</span>
-              </label>
+                <span class="trait-count">50</span>
+              </div>
             </div>
           </div>
-          <!-- Attribute Category 2 -->
+          <!-- Attribute Category: Eyes -->
           <div class="attribute-category">
             <div class="attribute-category-header">
               <span>Eyes (2)</span>
               <span class="toggle-icon">+</span>
             </div>
             <div class="attribute-list">
-              <label class="attribute-item">
+              <div class="attribute-item">
                 <div class="trait-left">
                   <input type="checkbox" value="blue-eyes">
                   <span class="trait-name">Blue Eyes</span>
                 </div>
-                <span class="attribute-count">80</span>
-              </label>
-              <label class="attribute-item">
+                <span class="trait-count">80</span>
+              </div>
+              <div class="attribute-item">
                 <div class="trait-left">
                   <input type="checkbox" value="green-eyes">
                   <span class="trait-name">Green Eyes</span>
                 </div>
-                <span class="attribute-count">40</span>
-              </label>
+                <span class="trait-count">40</span>
+              </div>
             </div>
           </div>
-          <!-- Additional attribute categories can be added here -->
+          <!-- Add additional attribute categories as needed -->
         </div>
       </div>
     </aside>
 
-    <!-- Gallery for NFT items -->
     <main class="gallery">
-      <!-- Placeholder NFT Items -->
       <div class="nft-item">
         <img src="placeholder.jpg" alt="NFT Placeholder">
         <p>NFT Title 1</p>
@@ -106,7 +101,6 @@
         <img src="placeholder.jpg" alt="NFT Placeholder">
         <p>NFT Title 3</p>
       </div>
-      <!-- Additional NFT items can be added here -->
     </main>
   </div>
 </body>

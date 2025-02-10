@@ -14,8 +14,8 @@ body {
 /* Header */
 .header {
     display: flex;
-    justify-content: space-between; /* Adjust layout for sidebar alignment */
-    align-items: center; /* Center title vertically */
+    justify-content: space-between; /* Align title and Filters */
+    align-items: center; /* Center elements vertically */
     background-color: #1e1e1e;
     padding: 15px 20px;
     position: fixed;
@@ -24,62 +24,70 @@ body {
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid #444; /* Matches placeholder box outline */
-    height: 72px; /* Fixed height to ensure consistent layout */
+    height: 72px; /* Fixed height for layout consistency */
     box-sizing: border-box;
+}
+
+.header-title {
+    font-size: 1.2em; /* Consistent with sidebar titles */
+    font-weight: normal; /* Not bold */
+}
+
+.filter-row {
+    text-align: left;
+    margin-top: 0;
+}
+
+.filter-toggle {
+    display: none; /* Hidden on desktop */
+    color: #CCCCCC;
+    cursor: pointer;
 }
 
 /* Sidebar */
 .sidebar {
-    position: fixed; /* Sidebar is fixed to align seamlessly with the header */
+    position: fixed;
     top: 72px; /* Positioned directly below the header */
     left: 0;
-    width: 250px; /* Fixed width */
-    height: calc(100vh - 72px); /* Fills the remaining vertical space */
+    width: 250px;
+    height: calc(100vh - 72px); /* Fill the remaining vertical space */
     background-color: #1e1e1e;
     padding: 20px;
     overflow-y: auto;
-    border-right: 1px solid #444; /* Optional: Add a subtle border to separate the sidebar */
+    border-right: 1px solid #444; /* Optional: Visual separation */
     z-index: 1100;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.close-sidebar {
+    background: none;
+    border: none;
+    color: #CCCCCC; /* Matches text color */
+    font-size: 1.5em; /* Ensure X is large and readable */
+    cursor: pointer;
+    padding: 0; /* Remove padding to avoid button appearance */
+    margin-right: 5px;
 }
 
 /* Container */
 .container {
     display: grid;
-    grid-template-columns: 250px auto; /* Sidebar width matches */
-    gap: 20px;
-    margin-left: 250px; /* Offset main content by sidebar width */
-    padding-top: 72px; /* Align content directly below the header */
+    grid-template-columns: 250px auto;
+    margin-left: 250px; /* Sidebar width */
+    padding-top: 72px; /* Account for fixed header */
     height: calc(100vh - 72px); /* Fill remaining vertical space */
-    overflow: hidden; /* Prevent black space from appearing */
-}
-
-/* Remove Arrows from Number Input */
-input#search {
-    width: 200px; /* Matches width of the label above */
-    margin-top: 10px;
-    margin-bottom: 20px;
-    padding: 5px;
-    background-color: #333;
-    border: 1px solid #555;
-    color: #CCCCCC;
-}
-
-/* ✅ Removes up/down arrows */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-/* Titles in Sidebar */
-.sidebar h2,
-.sidebar h3 {
-    font-size: 1.2em; /* Matches Boondex font size */
-    font-weight: normal; /* Not bold */
+    overflow: hidden; /* Prevent extra scrolling */
 }
 
 /* Gallery */
@@ -89,15 +97,15 @@ input[type=number] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-top: 0; /* Remove unnecessary margins */
-    height: calc(100vh - 72px); /* Fill remaining space below the header */
+    margin: 0; /* No extra margins */
+    height: 100%; /* Fill remaining container height */
     box-sizing: border-box;
 }
 
 .nft-item {
     background-color: #1e1e1e;
     padding: 15px;
-    border: 1px solid #444; /* Outline matches header separator line */
+    border: 1px solid #444; /* Matches header separator */
     border-radius: 8px;
     text-align: center;
 }
@@ -110,23 +118,33 @@ input[type=number] {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Stack title and Filters */
+        align-items: flex-start; /* Align content to the left */
+        height: auto; /* Let height adapt dynamically */
+    }
+
     .filter-toggle {
-        display: inline-block; /* Visible on mobile */
-        margin-top: 5px; /* Proper spacing below Boondex title */
+        display: block; /* Visible on mobile */
+        margin-top: 5px; /* Add spacing below the title */
     }
 
     .sidebar {
-        position: fixed;
-        top: 100px; /* Adjust for taller mobile header */
+        top: 0; /* Cover the header when open */
         width: 100%;
-        height: calc(100vh - 100px);
-        margin-left: 0;
+        height: 100%;
+        margin-left: 0; /* Remove margin for mobile */
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
     }
 
     .container {
-        margin-left: 0; /* Reset for mobile */
-        padding-top: 100px; /* Account for taller header */
-        height: calc(100vh - 100px);
+        margin-left: 0; /* Remove margin for mobile */
+        padding-top: 100px; /* Account for mobile header */
+        height: calc(100vh - 100px); /* Adjust for header height */
     }
 
     .gallery {

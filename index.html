@@ -11,15 +11,19 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">Boondex</div>
-        <button class="filter-toggle" id="filter-toggle">Filters</button>
+        <div class="filter-row">
+            <button class="filter-toggle" id="filter-toggle">Filters</button>
+        </div>
     </header>
 
     <!-- Main Container -->
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
-            <button class="close-sidebar" id="close-sidebar">🞪</button>
-            <h2>Filters</h2>
+            <div class="sidebar-header">
+                <h2>Filters</h2>
+                <button class="close-sidebar" id="close-sidebar">🞪</button>
+            </div>
             <label for="search">Search by Inscription No.</label>
             <input type="number" id="search" placeholder="Enter number">
 

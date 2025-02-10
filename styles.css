@@ -1,166 +1,81 @@
-/* CSS Variables for consistency */
-:root {
-    --header-height: 70px;
-    --sidebar-width: 250px;
-    --gap: 20px;
-    --bg-dark: #121212;
-    --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;
-    --border-color: #444; /* one-pixel border color */
-  }
-  
-  /* Global resets */
-  * {
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-color);
-  }
-  
-  /* Header */
-  .header {
+    background-color: #121212;
+    color: #CCCCCC;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    display: flex;
+    flex-direction: column; /* Stack title and filters for mobile */
+    background-color: #1e1e1e;
+    padding: 15px 20px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--header-height);
-    background-color: var(--bg-light);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
     z-index: 1000;
-  }
-  
-  .header-title {
+    border-bottom: 1px solid #444;
+    box-sizing: border-box;
+}
+
+.header-title {
     font-size: 1.2em;
-  }
-  
-  /* Layout Container */
-  .layout {
-    margin-top: var(--header-height);
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
-    height: calc(100vh - var(--header-height));
-  }
-  
-  /* Sidebar (Filters Panel) */
-  .sidebar {
-    background-color: var(--bg-light);
-    border-right: 1px solid var(--border-color);
+    font-weight: normal;
+}
+
+.filter-row {
+    margin-top: 5px;
+    align-self: flex-start; /* Align filters to the left */
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Cover the entire screen */
+    height: 100%;
+    background-color: #1e1e1e;
     padding: 20px;
     overflow-y: auto;
-  }
-  
-  .sidebar-header {
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--gap);
-  }
-  
-  .close-sidebar {
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.close-sidebar {
     background: none;
     border: none;
+    color: #CCCCCC;
     font-size: 1.5em;
-    color: var(--text-color);
     cursor: pointer;
-  }
-  
-  /* Hide mobile-specific controls on desktop */
-  @media (min-width: 769px) {
-    .filter-toggle {
-      display: none;
-    }
-    .close-sidebar {
-      display: none;
-    }
-  }
-  
-  /* Filter Groups */
-  .filter-group {
-    margin-bottom: var(--gap);
-  }
-  
-  .filter-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .filter-group input,
-  .filter-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-dark);
-    color: var(--text-color);
-    border-radius: 2px;
-  }
-  
-  /* Gallery */
-  .gallery {
-    padding: var(--gap);
+    padding: 0;
+    margin-right: 0;
+}
+
+/* Gallery */
+.gallery {
+    padding: 20px;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: var(--gap);
-    background-color: var(--bg-dark);
-  }
-  
-  /* NFT Item styling */
-  .nft-item {
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .nft-item img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid var(--border-color);
-  }
-  
-  /* Mobile Styles */
-  @media (max-width: 768px) {
-    /* Switch layout to full-width gallery */
-    .layout {
-      display: block;
-    }
-    /* Sidebar becomes an overlay */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 80%;
-      height: 100%;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease-in-out;
-      z-index: 1100;
-    }
-    .sidebar.open {
-      transform: translateX(0);
-    }
-    /* Gallery takes full width below the header */
-    .gallery {
-      margin-top: var(--header-height);
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-    /* Show the filter toggle button in the header */
-    .filter-toggle {
-      display: block;
-      background: none;
-      border: none;
-      font-size: 1em;
-      color: var(--text-color);
-      cursor: pointer;
-    }
-  }
-  
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    box-sizing: border-box;
+}

@@ -1,67 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boondex - NFT Explorer</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boondex - NFT Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-title">Boondex</div>
-        <div class="filter-row">
-            <span class="filter-toggle" id="filter-toggle">Filters</span>
-        </div>
-    </header>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">Boondex</div>
+    <button class="filter-toggle" id="filter-toggle">Filters</button>
+  </header>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h2>Filters</h2>
-                <button class="close-sidebar" id="close-sidebar">✖</button>
-            </div>
-            <label for="search">Search by Inscription No.</label>
-            <input type="number" id="search" placeholder="Enter number">
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Filters</h2>
+        <button class="close-sidebar" id="close-sidebar">✖</button>
+      </div>
+      <div class="filter-group">
+        <label for="search">Search by Inscription No.</label>
+        <input type="number" id="search" placeholder="Enter number">
+      </div>
 
-            <h3>Sort By</h3>
-            <select id="sort">
-                <option value="asc">Inscription No. (Ascending)</option>
-                <option value="desc">Inscription No. (Descending)</option>
-            </select>
+      <div class="filter-group">
+        <h3>Sort By</h3>
+        <select id="sort">
+          <option value="asc">Inscription No. (Ascending)</option>
+          <option value="desc">Inscription No. (Descending)</option>
+        </select>
+      </div>
 
-            <h3>Filter by Traits</h3>
-            <label><input type="checkbox" value="trait1"> Trait 1</label><br>
-            <label><input type="checkbox" value="trait2"> Trait 2</label><br>
-            <label><input type="checkbox" value="trait3"> Trait 3</label><br>
-        </aside>
+      <div class="filter-group">
+        <h3>Filter by Traits</h3>
+        <label><input type="checkbox" value="trait1"> Trait 1</label><br>
+        <label><input type="checkbox" value="trait2"> Trait 2</label><br>
+        <label><input type="checkbox" value="trait3"> Trait 3</label><br>
+      </div>
+    </aside>
 
-        <!-- Gallery -->
-        <main class="gallery">
-            <!-- Placeholder NFT Boxes -->
-            <div class="nft-item">
-                <img src="nft1.jpg" alt="NFT 1">
-                <p>Inscription No. 123</p>
-            </div>
-            <div class="nft-item">
-                <img src="nft2.jpg" alt="NFT 2">
-                <p>Inscription No. 456</p>
-            </div>
-            <!-- Add 10 more placeholders -->
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-            <div class="nft-item">Placeholder NFT</div>
-        </main>
-    </div>
+    <!-- Gallery -->
+    <main class="gallery">
+      <!-- Placeholder NFT Boxes -->
+      <div class="nft-item">
+        <img src="nft1.jpg" alt="NFT 1">
+        <p>Inscription No. 123</p>
+      </div>
+      <div class="nft-item">
+        <img src="nft2.jpg" alt="NFT 2">
+        <p>Inscription No. 456</p>
+      </div>
+      <!-- Additional placeholders -->
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+      <div class="nft-item">Placeholder NFT</div>
+    </main>
+  </div>
 </body>
 </html>

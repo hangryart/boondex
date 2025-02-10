@@ -6,6 +6,7 @@
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
     --text-color: #CCCCCC;
+    --select-text-color: #888888; /* darker gray for select box text */
     --border-color: #444; /* one-pixel border color */
   }
   
@@ -105,9 +106,9 @@
     margin-bottom: 10px;
   }
   
-  /* Increase spacing below Attributes title */
+  /* Remove extra spacing below Attributes title (keep it consistent) */
   .filter-group.attributes h3 {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   
   /* Input and select styling (5px radius) */
@@ -130,7 +131,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    color: var(--text-color) !important;
+    color: var(--select-text-color) !important;
   }
   
   /* Attributes Section Styling */
@@ -175,11 +176,12 @@
   /* Updated attribute item layout using grid for perfect inline alignment */
   .attribute-item {
     display: grid;
-    grid-template-columns: 20px 1fr 40px;
+    grid-template-columns: 20px 1fr auto;
     align-items: center;
     gap: 10px;
     padding: 5px 0;
     font-size: 0.9em;
+    width: 100%;
   }
   
   /* For the checkbox: force a dark appearance and fixed dimensions */
@@ -188,17 +190,20 @@
     width: 16px;
     height: 16px;
     accent-color: var(--border-color);
+    /* Removed any hover effect */
   }
   
-  /* Center the trait name vertically relative to the checkbox */
+  /* Add extra margin between checkbox and trait name; vertically center trait name */
   .attribute-item span:not(.attribute-count) {
+    white-space: nowrap;
+    margin-left: 5px;
     display: inline-block;
     transform: translateY(-2px);
   }
   
-  /* Ensure the count is right aligned */
+  /* Ensure the count is aligned right and uses the same font styling as the trait name */
   .attribute-count {
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: var(--text-color);
     opacity: 0.8;
     text-align: right;

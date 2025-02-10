@@ -116,11 +116,11 @@
     border-radius: 5px;
   }
   
-  /* Force the select box to have consistent dimensions */
+  /* Force the select box to have consistent dimensions (36px height) */
   .filter-group select {
-    min-height: 40px;
-    height: 40px;
-    line-height: 40px;
+    min-height: 36px;
+    height: 36px;
+    line-height: 36px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

@@ -15,7 +15,6 @@
     padding: 0;
     background-color: var(--bg-dark);
     color: var(--text-color);
-    /* Keep body height auto to allow inner scrolling if needed */
     min-height: 100vh;
   }
   
@@ -54,11 +53,9 @@
     overflow-y: auto;
     z-index: 1100;
     transition: transform 0.3s ease-in-out;
-    /* Ensure sidebar is visible on desktop */
-    transform: translateX(0);
+    transform: translateX(0); /* Visible on desktop */
   }
   
-  /* For toggling sidebar in mobile view */
   .sidebar.hidden {
     transform: translateX(-100%);
   }
@@ -68,25 +65,26 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--gap);
+    position: relative;
   }
   
   .close-sidebar {
     background: none;
     border: none;
     color: var(--text-color);
-    font-size: 1.5em; /* Ensure X is large and readable */
+    font-size: 1.5em;
     cursor: pointer;
     padding: 0;
-    margin-right: 10px;
+    /* On mobile, we'll reposition this button */
   }
   
   /* Sidebar Titles and Spacing */
   .sidebar h2,
   .sidebar h3,
   label {
-    font-size: 1.2em; /* Uniform font size */
+    font-size: 1.2em;
     font-weight: normal;
-    margin-bottom: 10px; /* Consistent spacing between titles and inputs */
+    margin-bottom: 10px;
   }
   
   label {
@@ -108,23 +106,18 @@
   
   /* Container */
   .container {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr; /* Sidebar + Gallery */
-    margin-left: var(--sidebar-width);
-    padding-top: var(--header-height);
-    height: calc(100vh - var(--header-height));
-    overflow: hidden;
+    /* Removed grid layout; the sidebar is fixed and the gallery will be spaced accordingly */
   }
   
-  /* Gallery */
+  /* Gallery on Desktop */
   .gallery {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
     padding: var(--gap);
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(8, 1fr); /* 8 columns per row */
     gap: var(--gap);
-    margin: 0;
-    height: 100%; /* Fill remaining container height */
     box-sizing: border-box;
   }
   
@@ -159,13 +152,15 @@
       color: var(--text-color);
       font-size: 1em;
       cursor: pointer;
+      text-align: left;
+      width: 100%;
     }
   
-    /* Adjust sidebar to be full screen overlay (below header) */
+    /* Sidebar covers entire screen when opened */
     .sidebar {
-      top: var(--header-height);
+      top: 0;
       width: 100%;
-      height: calc(100vh - var(--header-height));
+      height: 100%;
       transform: translateX(-100%);
     }
     
@@ -173,14 +168,24 @@
       transform: translateX(0);
     }
   
-    .container {
-      margin-left: 0;
-      padding-top: var(--header-height);
-      height: calc(100vh - var(--header-height));
+    /* Reposition the close (X) button so it’s fully visible */
+    .close-sidebar {
+      position: absolute;
+      top: 10px;
+      left: 20px;
     }
   
+    /* Adjust input and select widths in the sidebar to 50% */
+    .sidebar .filter-group input[type="number"],
+    .sidebar .filter-group select {
+      width: 50%;
+    }
+  
+    /* Gallery adjustments on mobile */
     .gallery {
-      margin: 0;
+      margin-left: 0;
+      width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
   

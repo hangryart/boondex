@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #121212;
-    color: #ffffff;
+    color: #CCCCCC; /* Updated white to #CCCCCC */
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -25,6 +25,7 @@ body {
 .header-title {
     font-size: 1.2em; /* 35% smaller */
     font-weight: normal; /* Not bold */
+    color: #CCCCCC; /* Updated */
 }
 
 .filter-row {
@@ -34,7 +35,7 @@ body {
 
 .filter-toggle {
     display: none; /* Hidden on desktop */
-    color: #fff;
+    color: #CCCCCC; /* Updated */
     cursor: pointer;
 }
 
@@ -56,6 +57,7 @@ body {
     transition: transform 0.3s ease;
     transform: translateX(0);
     z-index: 1100;
+    color: #CCCCCC; /* Updated */
 }
 
 .sidebar.hidden {
@@ -71,7 +73,7 @@ body {
 .close-sidebar {
     background: none;
     border: none;
-    color: #fff;
+    color: #CCCCCC; /* Updated */
     font-size: 1.5em;
     cursor: pointer;
 }
@@ -81,6 +83,9 @@ input#search {
     margin-top: 10px;
     margin-bottom: 20px;
     padding: 5px;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #CCCCCC; /* Updated */
 }
 
 /* Gallery */
@@ -98,6 +103,7 @@ input#search {
     border: 1px solid #444;
     border-radius: 8px;
     text-align: center;
+    color: #CCCCCC; /* Updated */
 }
 
 .nft-item img {

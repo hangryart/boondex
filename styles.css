@@ -1,7 +1,7 @@
 /* CSS Variables for consistency */
 :root {
     --header-height: 70px;
-    --sidebar-width: 287px;  /* 15% wider than original 250px */
+    --sidebar-width: 320px;  /* Increased sidebar width */
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
@@ -42,7 +42,7 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #4CC2FF; /* Boondex title now blue */
+    color: #FF0000;  /* Boondex title now red */
   }
   
   /* Layout Container */
@@ -109,7 +109,7 @@
   
   /* Attributes title spacing */
   .filter-group.attributes h3 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;  /* Slightly more space below Attributes title */
   }
   
   /* Input and select styling (5px radius) */
@@ -124,7 +124,6 @@
     box-sizing: border-box;
   }
   
-  /* Updated select styling */
   .filter-group select {
     height: 36px;
     padding: 4px 8px;
@@ -157,7 +156,6 @@
     padding: 5px 0;
   }
   
-  /* Attribute Category Header */
   .attribute-category-header {
     display: flex;
     justify-content: space-between;
@@ -178,7 +176,7 @@
     margin-top: 10px;
   }
   
-  /* Updated attribute item layout using flex for proper inline alignment */
+  /* Updated attribute item layout using flex */
   .attribute-item {
     display: flex;
     align-items: center;
@@ -213,18 +211,17 @@
   
   /* Trait name styling */
   .trait-left .trait-name {
-    display: inline-block;
     transform: translateY(-2px);
     color: var(--input-text-color);
   }
   
   /* Trait count styling: pushed to far right */
   .attribute-count {
-    width: 40px;
+    margin-left: auto;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
-    margin-left: auto;
+    /* Ensure alignment with the toggle icon by not forcing a fixed width */
     transform: translateY(-2px);
   }
   
@@ -238,7 +235,6 @@
     background-color: var(--bg-dark);
   }
   
-  /* NFT Item styling */
   .nft-item {
     background-color: var(--bg-light);
     border: 1px solid var(--border-color);
@@ -278,7 +274,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 80%;
+      width: 100%;  /* Mobile panel covers full width */
       height: 100%;
       transform: translateX(-100%);
       transition: transform 0.3s ease-in-out;

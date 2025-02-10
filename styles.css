@@ -98,7 +98,7 @@
     margin-bottom: 10px;
   }
   
-  /* Ensure h3 titles match label styling */
+  /* Ensure h3 titles match label styling (non-bold, same size) */
   .filter-group h3 {
     font-size: 1em;
     font-weight: normal;
@@ -114,6 +114,11 @@
     background-color: var(--bg-dark);
     color: var(--text-color);
     border-radius: 5px;
+  }
+  
+  /* Force a minimum height on the select box so it doesn't appear thin on mobile */
+  .filter-group select {
+    min-height: 40px;
   }
   
   /* Attributes Section Styling */
@@ -154,16 +159,24 @@
     padding-left: 10px;
   }
   
+  /* Updated attribute item layout using flex for proper inline alignment */
   .attribute-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     align-items: center;
     padding: 5px 0;
     font-size: 0.9em;
   }
   
   .attribute-item input {
-    margin: 0;
+    margin: 0 10px 0 0;
+  }
+  
+  .attribute-item span {
+    white-space: nowrap;
+  }
+  
+  .attribute-item span:not(.attribute-count) {
+    flex: 1;
   }
   
   .attribute-count {
@@ -171,6 +184,7 @@
     color: var(--text-color);
     opacity: 0.8;
     text-align: right;
+    margin-left: 10px;
   }
   
   /* Gallery */

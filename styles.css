@@ -5,10 +5,8 @@ body {
     padding: 0;
     background-color: #121212;
     color: #CCCCCC;
-    display: flex;
-    flex-direction: column;
     height: 100vh;
-    overflow: hidden; /* Prevent layout glitches */
+    overflow: hidden;
 }
 
 /* Header */
@@ -23,39 +21,27 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    border-bottom: 1px solid #444; /* Matches placeholder box outline */
-    height: 72px; /* Fixed height for layout consistency */
+    border-bottom: 1px solid #444;
+    height: 72px;
     box-sizing: border-box;
 }
 
 .header-title {
-    font-size: 1.2em; /* Uniform font size */
+    font-size: 1.2em;
     font-weight: normal;
     margin: 0;
-}
-
-.filter-row {
-    text-align: left;
-    margin-top: 5px;
-}
-
-.filter-toggle {
-    display: none; /* Hidden on desktop */
-    color: #CCCCCC;
-    cursor: pointer;
 }
 
 /* Sidebar */
 .sidebar {
     position: fixed;
-    top: 72px; /* Positioned directly below the header */
+    top: 72px;
     left: 0;
     width: 250px;
-    height: calc(100vh - 72px); /* Fill the remaining vertical space */
+    height: calc(100vh - 72px);
     background-color: #1e1e1e;
     padding: 20px;
     overflow-y: auto;
-    border-right: 1px solid #444;
     z-index: 1100;
 }
 
@@ -78,16 +64,42 @@ body {
     font-size: 1.5em; /* Ensure X is large and readable */
     cursor: pointer;
     padding: 0;
-    margin-right: 0; /* Fully visible */
+    margin-right: 10px;
+}
+
+/* Sidebar Titles and Spacing */
+.sidebar h2,
+.sidebar h3,
+label {
+    font-size: 1.2em; /* Uniform font size */
+    font-weight: normal;
+    margin-bottom: 10px; /* Consistent spacing between titles and inputs */
+}
+
+label {
+    display: block;
+}
+
+/* Sidebar Inputs */
+input[type="number"],
+select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #CCCCCC;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 /* Container */
 .container {
     display: grid;
-    grid-template-columns: 250px auto; /* Sidebar and gallery */
-    margin-left: 250px; /* Sidebar width */
-    padding-top: 72px; /* Account for fixed header */
-    height: calc(100vh - 72px); /* Fill remaining vertical space */
+    grid-template-columns: 250px 1fr; /* Sidebar + Gallery */
+    margin-left: 250px;
+    padding-top: 72px;
+    height: calc(100vh - 72px);
     overflow: hidden;
 }
 
@@ -101,7 +113,6 @@ body {
     margin: 0;
     height: 100%; /* Fill remaining container height */
     box-sizing: border-box;
-    scroll-behavior: smooth; /* Smooth scrolling */
 }
 
 .nft-item {
@@ -116,16 +127,6 @@ body {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
-}
-
-/* Titles and Labels */
-.sidebar h2,
-.sidebar h3,
-.header-title,
-label {
-    font-size: 1.2em; /* Uniform font size for titles and labels */
-    font-weight: normal;
-    margin-bottom: 10px; /* Consistent spacing */
 }
 
 /* Responsive Design */
@@ -152,27 +153,13 @@ label {
         transform: translateX(0);
     }
 
-    .close-sidebar {
-        margin-right: 10px; /* Ensure X is fully visible */
-    }
-
     .container {
         margin-left: 0;
-        padding-top: 100px; /* Adjust for mobile header */
+        padding-top: 100px;
         height: calc(100vh - 100px);
     }
 
     .gallery {
         margin: 0;
-    }
-}
-
-@media (min-width: 769px) {
-    .filter-toggle {
-        display: none;
-    }
-
-    .close-sidebar {
-        display: none;
     }
 }

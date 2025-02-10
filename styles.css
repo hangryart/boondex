@@ -5,8 +5,8 @@
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;
-    --select-text-color: #888888; /* darker gray for select box text */
+    --text-color: #CCCCCC; /* For general text where needed */
+    --input-text-color: #888888; /* Darker gray for input/search/select text */
     --border-color: #444; /* one-pixel border color */
   }
   
@@ -118,7 +118,7 @@
     padding: 8px;
     border: 1px solid var(--border-color);
     background-color: var(--bg-dark);
-    color: var(--text-color);
+    color: var(--input-text-color);
     border-radius: 5px;
     box-sizing: border-box;
   }
@@ -131,7 +131,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    color: var(--select-text-color) !important;
+    color: var(--input-text-color) !important;
   }
   
   /* Attributes Section Styling */
@@ -141,7 +141,7 @@
     margin-bottom: 10px;
     border: 1px solid var(--border-color);
     background-color: var(--bg-dark);
-    color: var(--text-color);
+    color: var(--input-text-color);
     border-radius: 5px;
     box-sizing: border-box;
   }
@@ -189,7 +189,7 @@
     width: 16px;
     height: 16px;
     accent-color: var(--border-color);
-    /* No hover effect */
+    /* Removed hover effect */
   }
   
   /* Adjust trait name: add extra left margin and vertical offset for centering */
@@ -198,13 +198,13 @@
     margin-left: 5px;
     display: inline-block;
     transform: translateY(-2px);
+    color: var(--input-text-color);
   }
   
-  /* Force the attribute count to be aligned to the right with same styling as the trait name */
+  /* Force the attribute count to use the same styling as the trait name and align to the far right */
   .attribute-count {
     font-size: 0.9em;
-    color: var(--text-color);
-    opacity: 0.8;
+    color: var(--input-text-color);
     text-align: right;
     justify-self: end;
   }

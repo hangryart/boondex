@@ -56,29 +56,22 @@
     transform: translateX(0); /* Visible on desktop */
   }
   
-  .sidebar.hidden {
-    transform: translateX(-100%);
-  }
-  
+  /* Sidebar header remains flexed on all devices */
   .sidebar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--gap);
-    position: relative;
   }
   
-  .close-sidebar {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 1.5em;
-    cursor: pointer;
-    padding: 0;
-    /* On mobile, we'll reposition this button */
+  /* On desktop, hide the close (X) button */
+  @media (min-width: 769px) {
+    .close-sidebar {
+      display: none;
+    }
   }
   
-  /* Sidebar Titles and Spacing */
+  /* Sidebar Inputs and Titles */
   .sidebar h2,
   .sidebar h3,
   label {
@@ -104,21 +97,25 @@
     box-sizing: border-box;
   }
   
-  /* Container */
-  .container {
-    /* Removed grid layout; the sidebar is fixed and the gallery will be spaced accordingly */
+  /* Specific adjustments for the "Filter by Traits" section */
+  .filter-group.traits label {
+    margin-bottom: 5px;
+    font-size: 0.9em;
   }
   
   /* Gallery on Desktop */
   .gallery {
     margin-left: var(--sidebar-width);
     width: calc(100% - var(--sidebar-width));
+    /* Push gallery content below the fixed header */
+    margin-top: var(--header-height);
     padding: var(--gap);
     overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(8, 1fr); /* 8 columns per row */
     gap: var(--gap);
     box-sizing: border-box;
+    height: calc(100vh - var(--header-height) - var(--gap));
   }
   
   .nft-item {
@@ -135,7 +132,14 @@
     border-radius: 4px;
   }
   
-  /* Responsive Design */
+  /* Desktop adjustments to hide mobile-only elements */
+  @media (min-width: 769px) {
+    .filter-toggle {
+      display: none;
+    }
+  }
+  
+  /* Responsive Design for Mobile */
   @media (max-width: 768px) {
     .header {
       flex-direction: column;
@@ -156,7 +160,7 @@
       width: 100%;
     }
   
-    /* Sidebar covers entire screen when opened */
+    /* Sidebar covers the entire screen (including header area) when opened */
     .sidebar {
       top: 0;
       width: 100%;
@@ -168,11 +172,17 @@
       transform: translateX(0);
     }
   
-    /* Reposition the close (X) button so it’s fully visible */
+    /* Adjust sidebar header to let the close button sit on the same line */
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
     .close-sidebar {
-      position: absolute;
-      top: 10px;
-      left: 20px;
+      /* Remove absolute positioning for mobile so it flows in the flex container */
+      position: static;
+      margin-left: auto;
     }
   
     /* Adjust input and select widths in the sidebar to 50% */
@@ -186,6 +196,8 @@
       margin-left: 0;
       width: 100%;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      margin-top: var(--header-height);
+      height: calc(100vh - var(--header-height));
     }
   }
   

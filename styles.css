@@ -114,13 +114,14 @@
     background-color: var(--bg-dark);
     color: var(--text-color);
     border-radius: 5px;
+    box-sizing: border-box;
   }
   
-  /* Force the select box to have consistent dimensions (36px height) */
+  /* Updated select styling for consistent height and visible text */
   .filter-group select {
-    min-height: 36px;
     height: 36px;
-    line-height: 36px;
+    padding: 4px 8px;
+    min-height: 36px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -135,6 +136,7 @@
     background-color: var(--bg-dark);
     color: var(--text-color);
     border-radius: 5px;
+    box-sizing: border-box;
   }
   
   .attributes-accordion {
@@ -164,24 +166,24 @@
     padding-left: 10px;
   }
   
-  /* Updated attribute item layout using flex for proper inline alignment */
+  /* Updated attribute item layout using grid for perfect inline alignment */
   .attribute-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 20px 1fr 40px;
     align-items: center;
+    gap: 10px;
     padding: 5px 0;
     font-size: 0.9em;
   }
   
   .attribute-item input {
-    margin: 0 10px 0 0;
+    margin: 0;
+    width: 16px;
+    height: 16px;
   }
   
   .attribute-item span {
     white-space: nowrap;
-  }
-  
-  .attribute-item span:not(.attribute-count) {
-    flex: 1;
   }
   
   .attribute-count {
@@ -189,7 +191,6 @@
     color: var(--text-color);
     opacity: 0.8;
     text-align: right;
-    margin-left: 10px;
   }
   
   /* Gallery */

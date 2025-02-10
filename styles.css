@@ -5,7 +5,7 @@
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC; /* For general text where needed */
+    --text-color: #CCCCCC;
     --input-text-color: #888888; /* Darker gray for input/search/select text */
     --border-color: #444; /* one-pixel border color */
   }
@@ -189,10 +189,8 @@
     width: 16px;
     height: 16px;
     accent-color: var(--border-color);
-    /* Removed hover effect */
   }
   
-  /* Adjust trait name: add extra left margin and vertical offset for centering */
   .attribute-item span:not(.attribute-count) {
     white-space: nowrap;
     margin-left: 5px;
@@ -201,12 +199,13 @@
     color: var(--input-text-color);
   }
   
-  /* Force the attribute count to use the same styling as the trait name and align to the far right */
   .attribute-count {
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
     justify-self: end;
+    align-self: center;
+    transform: translateY(-2px);
   }
   
   /* Gallery */

@@ -110,9 +110,35 @@
   }
   
   /* Trait Filters specific styling */
-  .filter-group.traits label {
+  .filter-group.traits h3 {
+    margin-bottom: 10px;
+  }
+  
+  /* New Trait Filters Container */
+  .traits-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+  
+  .trait-option {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px 8px;
     font-size: 0.9em;
-    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .trait-option:hover {
+    background-color: var(--bg-light);
+  }
+  
+  .trait-option input {
+    margin-right: 5px;
   }
   
   /* Gallery */

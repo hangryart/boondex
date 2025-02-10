@@ -41,6 +41,12 @@
     margin: 0;
   }
   
+  /* Container (used for mobile positioning if needed) */
+  .container {
+    position: relative;
+    height: 100vh;
+  }
+  
   /* Sidebar */
   .sidebar {
     position: fixed;
@@ -53,26 +59,42 @@
     overflow-y: auto;
     z-index: 1100;
     transition: transform 0.3s ease-in-out;
-    transform: translateX(0); /* Visible on desktop */
+    transform: translateX(0); /* Always visible on desktop */
   }
   
-  /* Sidebar header remains flexed on all devices */
   .sidebar-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: var(--gap);
   }
   
-  /* On desktop, hide the close (X) button */
+  .sidebar-header h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: normal;
+  }
+  
+  .close-sidebar {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  /* On desktop, hide mobile-only elements */
   @media (min-width: 769px) {
     .close-sidebar {
+      display: none;
+    }
+    .filter-toggle {
       display: none;
     }
   }
   
   /* Sidebar Inputs and Titles */
-  .sidebar h2,
   .sidebar h3,
   label {
     font-size: 1.2em;
@@ -97,49 +119,40 @@
     box-sizing: border-box;
   }
   
-  /* Specific adjustments for the "Filter by Traits" section */
+  /* Traits options styling */
   .filter-group.traits label {
     margin-bottom: 5px;
     font-size: 0.9em;
   }
   
   /* Gallery on Desktop */
-  .gallery {
-    margin-left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-    /* Push gallery content below the fixed header */
-    margin-top: var(--header-height);
-    padding: var(--gap);
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr); /* 8 columns per row */
-    gap: var(--gap);
-    box-sizing: border-box;
-    height: calc(100vh - var(--header-height) - var(--gap));
-  }
-  
-  .nft-item {
-    background-color: var(--bg-medium);
-    padding: 15px;
-    border: 1px solid #444;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .nft-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  /* Desktop adjustments to hide mobile-only elements */
   @media (min-width: 769px) {
-    .filter-toggle {
-      display: none;
+    .gallery {
+      position: fixed;
+      top: var(--header-height);
+      left: var(--sidebar-width);
+      right: 0;
+      bottom: 0;
+      padding: var(--gap);
+      overflow-y: auto;
+      box-sizing: border-box;
+      display: grid;
+      gap: var(--gap);
+    }
+    /* For large screens, force 8 columns; otherwise, allow dynamic resizing */
+    @media (min-width: 1024px) {
+      .gallery {
+        grid-template-columns: repeat(8, 1fr);
+      }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
     }
   }
   
-  /* Responsive Design for Mobile */
+  /* Mobile Styles */
   @media (max-width: 768px) {
     .header {
       flex-direction: column;
@@ -147,7 +160,6 @@
       height: auto;
       padding: 10px 20px;
     }
-  
     .filter-toggle {
       display: block;
       margin-top: 5px;
@@ -159,45 +171,58 @@
       text-align: left;
       width: 100%;
     }
-  
-    /* Sidebar covers the entire screen (including header area) when opened */
+    /* Sidebar covers entire screen when opened on mobile */
     .sidebar {
       top: 0;
       width: 100%;
       height: 100%;
       transform: translateX(-100%);
     }
-    
     .sidebar.open {
       transform: translateX(0);
     }
-  
-    /* Adjust sidebar header to let the close button sit on the same line */
     .sidebar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-  
     .close-sidebar {
-      /* Remove absolute positioning for mobile so it flows in the flex container */
-      position: static;
+      display: block;
       margin-left: auto;
     }
-  
-    /* Adjust input and select widths in the sidebar to 50% */
+    /* Make input/select boxes 50% width */
     .sidebar .filter-group input[type="number"],
     .sidebar .filter-group select {
       width: 50%;
     }
-  
-    /* Gallery adjustments on mobile */
+    /* Gallery on mobile */
     .gallery {
+      position: relative;
+      margin-top: var(--header-height);
       margin-left: 0;
       width: 100%;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      margin-top: var(--header-height);
-      height: calc(100vh - var(--header-height));
+      padding: var(--gap);
+      overflow-y: auto;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--gap);
     }
+  }
+  
+  /* NFT Item styling */
+  .nft-item {
+    background-color: var(--bg-medium);
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .nft-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
   }
   

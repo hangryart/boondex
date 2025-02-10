@@ -79,3 +79,23 @@ body {
     gap: 20px;
     box-sizing: border-box;
 }
+
+.nft-item {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    text-align: center;
+    color: #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nft-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}

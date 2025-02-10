@@ -1,16 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const sidebar = document.getElementById("sidebar");
-    const filterToggle = document.getElementById("filter-toggle");
-    const closeSidebar = document.getElementById("close-sidebar");
-  
-    // Open sidebar on mobile
-    filterToggle.addEventListener("click", () => {
-      sidebar.classList.add("open");
+document.addEventListener("DOMContentLoaded", function() {
+    const filterToggle = document.getElementById('filter-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const closeSidebar = document.getElementById('close-sidebar');
+    
+    // Open sidebar on mobile when "Filters" is clicked
+    filterToggle.addEventListener('click', function() {
+      sidebar.classList.add('open');
     });
-  
-    // Close sidebar on mobile
-    closeSidebar.addEventListener("click", () => {
-      sidebar.classList.remove("open");
-    });
+    
+    // Close sidebar on mobile when "✖" is clicked
+    if (closeSidebar) {
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+      });
+    }
   });
   

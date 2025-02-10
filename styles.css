@@ -14,73 +14,43 @@ body {
 /* Header */
 .header {
     display: flex;
-    flex-direction: column; /* Stack title and filters button */
-    align-items: flex-start; /* Align left */
+    justify-content: space-between; /* Adjust layout for sidebar alignment */
+    align-items: center; /* Center title vertically */
     background-color: #1e1e1e;
     padding: 15px 20px;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid #444; /* Matches placeholder box outline */
-    height: auto; /* Ensure header adapts to its content */
+    height: 72px; /* Fixed height to ensure consistent layout */
     box-sizing: border-box;
 }
 
-.header-title {
-    font-size: 1.2em; /* Consistent with sidebar titles */
-    font-weight: normal; /* Not bold */
-    margin-bottom: 5px; /* Add space between title and filters button */
-}
-
-.filter-row {
-    text-align: left;
-    margin-top: 0;
-}
-
-.filter-toggle {
-    display: none; /* Hidden on desktop */
-    color: #CCCCCC;
-    cursor: pointer;
+/* Sidebar */
+.sidebar {
+    position: fixed; /* Sidebar is fixed to align seamlessly with the header */
+    top: 72px; /* Positioned directly below the header */
+    left: 0;
+    width: 250px; /* Fixed width */
+    height: calc(100vh - 72px); /* Fills the remaining vertical space */
+    background-color: #1e1e1e;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #444; /* Optional: Add a subtle border to separate the sidebar */
+    z-index: 1100;
 }
 
 /* Container */
 .container {
     display: grid;
-    grid-template-columns: 250px auto;
+    grid-template-columns: 250px auto; /* Sidebar width matches */
     gap: 20px;
-    margin-top: 72px; /* Align content directly below the header */
-    height: calc(100vh - 72px); /* Ensure the gallery fits in the remaining space */
+    margin-left: 250px; /* Offset main content by sidebar width */
+    padding-top: 72px; /* Align content directly below the header */
+    height: calc(100vh - 72px); /* Fill remaining vertical space */
     overflow: hidden; /* Prevent black space from appearing */
-}
-
-/* Sidebar */
-.sidebar {
-    background-color: #1e1e1e;
-    padding: 20px;
-    overflow-y: auto;
-    transition: transform 0.3s ease;
-    transform: translateX(0);
-    z-index: 1100;
-}
-
-.sidebar.hidden {
-    transform: translateX(-100%);
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.close-sidebar {
-    background: none;
-    border: none;
-    color: #CCCCCC; /* Matches text color */
-    font-size: 1.5em;
-    cursor: pointer;
-    margin-right: 15px; /* Adds margin to the right */
 }
 
 /* Remove Arrows from Number Input */
@@ -120,7 +90,7 @@ input[type=number] {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin-top: 0; /* Remove unnecessary margins */
-    height: 100%; /* Fill remaining container height */
+    height: calc(100vh - 72px); /* Fill remaining space below the header */
     box-sizing: border-box;
 }
 
@@ -145,23 +115,18 @@ input[type=number] {
         margin-top: 5px; /* Proper spacing below Boondex title */
     }
 
-    .container {
-        grid-template-columns: 1fr;
-        margin-top: 100px; /* Account for mobile header height */
-        height: calc(100vh - 100px); /* Adjust for mobile header height */
-    }
-
     .sidebar {
         position: fixed;
-        top: 0;
-        left: 0;
+        top: 100px; /* Adjust for taller mobile header */
         width: 100%;
-        height: 100%;
-        transform: translateX(-100%);
+        height: calc(100vh - 100px);
+        margin-left: 0;
     }
 
-    .sidebar.open {
-        transform: translateX(0);
+    .container {
+        margin-left: 0; /* Reset for mobile */
+        padding-top: 100px; /* Account for taller header */
+        height: calc(100vh - 100px);
     }
 
     .gallery {

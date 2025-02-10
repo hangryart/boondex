@@ -14,8 +14,8 @@ body {
 /* Header */
 .header {
     display: flex;
-    justify-content: space-between; /* Align title and Filters */
-    align-items: center; /* Center elements vertically */
+    justify-content: space-between;
+    align-items: center;
     background-color: #1e1e1e;
     padding: 15px 20px;
     position: fixed;
@@ -29,14 +29,14 @@ body {
 }
 
 .header-title {
-    font-size: 1.2em; /* Consistent with sidebar titles */
-    font-weight: normal; /* Not bold */
+    font-size: 1.2em; /* Uniform font size */
+    font-weight: normal;
     margin: 0;
 }
 
 .filter-row {
     text-align: left;
-    margin-top: 5px; /* Adjust spacing below title */
+    margin-top: 5px;
 }
 
 .filter-toggle {
@@ -55,7 +55,7 @@ body {
     background-color: #1e1e1e;
     padding: 20px;
     overflow-y: auto;
-    border-right: 1px solid #444; /* Optional: Visual separation */
+    border-right: 1px solid #444;
     z-index: 1100;
 }
 
@@ -68,17 +68,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px; /* Adjust spacing */
+    margin-bottom: 15px;
 }
 
 .close-sidebar {
     background: none;
     border: none;
-    color: #CCCCCC; /* Matches text color */
+    color: #CCCCCC;
     font-size: 1.5em; /* Ensure X is large and readable */
     cursor: pointer;
-    padding: 0; /* Remove padding to avoid button appearance */
-    margin-right: 5px;
+    padding: 0;
+    margin-right: 0; /* Fully visible */
 }
 
 /* Container */
@@ -88,7 +88,7 @@ body {
     margin-left: 250px; /* Sidebar width */
     padding-top: 72px; /* Account for fixed header */
     height: calc(100vh - 72px); /* Fill remaining vertical space */
-    overflow: hidden; /* Prevent extra scrolling */
+    overflow: hidden;
 }
 
 /* Gallery */
@@ -98,7 +98,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
     gap: 20px;
-    margin: 0; /* No extra margins */
+    margin: 0;
     height: 100%; /* Fill remaining container height */
     box-sizing: border-box;
     scroll-behavior: smooth; /* Smooth scrolling */
@@ -107,7 +107,7 @@ body {
 .nft-item {
     background-color: #1e1e1e;
     padding: 15px;
-    border: 1px solid #444; /* Matches header separator */
+    border: 1px solid #444;
     border-radius: 8px;
     text-align: center;
 }
@@ -121,36 +121,30 @@ body {
 /* Titles and Labels */
 .sidebar h2,
 .sidebar h3,
-.header-title {
-    font-size: 1.2em;
-    font-weight: normal;
-    margin-bottom: 10px; /* Uniform spacing for all titles */
-}
-
+.header-title,
 label {
-    font-size: 1em;
-    margin-bottom: 5px;
-    display: block;
+    font-size: 1.2em; /* Uniform font size for titles and labels */
+    font-weight: normal;
+    margin-bottom: 10px; /* Consistent spacing */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column; /* Stack title and Filters */
-        align-items: flex-start; /* Align content to the left */
-        height: auto; /* Let height adapt dynamically */
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
     }
 
     .filter-toggle {
-        display: block; /* Visible on mobile */
-        margin-top: 5px; /* Add spacing below the title */
+        display: block;
+        margin-top: 5px;
     }
 
     .sidebar {
-        top: 0; /* Cover the header when open */
+        top: 0;
         width: 100%;
         height: 100%;
-        margin-left: 0; /* Remove margin for mobile */
         transform: translateX(-100%);
     }
 
@@ -158,23 +152,27 @@ label {
         transform: translateX(0);
     }
 
+    .close-sidebar {
+        margin-right: 10px; /* Ensure X is fully visible */
+    }
+
     .container {
-        margin-left: 0; /* Remove margin for mobile */
-        padding-top: 100px; /* Account for mobile header */
-        height: calc(100vh - 100px); /* Adjust for header height */
+        margin-left: 0;
+        padding-top: 100px; /* Adjust for mobile header */
+        height: calc(100vh - 100px);
     }
 
     .gallery {
-        margin-top: 0;
+        margin: 0;
     }
 }
 
 @media (min-width: 769px) {
     .filter-toggle {
-        display: none; /* Hidden on desktop */
+        display: none;
     }
 
     .close-sidebar {
-        display: none; /* Hidden on desktop */
+        display: none;
     }
 }

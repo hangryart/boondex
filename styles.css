@@ -142,9 +142,29 @@
   
   /* Mobile Styles */
   @media (max-width: 768px) {
+    /* Adjust header to use column layout */
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 10px 20px;
+    }
+    /* Ensure the filter toggle is left aligned below the title */
+    .filter-toggle {
+      margin-top: 10px;
+      align-self: flex-start;
+      display: block;
+      background: none;
+      border: none;
+      font-size: 1em;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+    /* Switch layout to a block layout */
     .layout {
       display: block;
     }
+    /* Sidebar becomes an overlay */
     .sidebar {
       position: fixed;
       top: 0;
@@ -158,17 +178,10 @@
     .sidebar.open {
       transform: translateX(0);
     }
+    /* Gallery takes full width below the header */
     .gallery {
       margin-top: var(--header-height);
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-    .filter-toggle {
-      display: block;
-      background: none;
-      border: none;
-      font-size: 1em;
-      color: var(--text-color);
-      cursor: pointer;
     }
   }
   

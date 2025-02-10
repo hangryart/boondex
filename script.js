@@ -14,5 +14,20 @@ document.addEventListener("DOMContentLoaded", function() {
         sidebar.classList.remove('open');
       });
     }
+    
+    // Accordion functionality for attribute categories
+    const attributeHeaders = document.querySelectorAll('.attribute-category-header');
+    attributeHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const attributeList = header.nextElementSibling;
+        if (attributeList.style.display === 'block') {
+          attributeList.style.display = 'none';
+          header.querySelector('.toggle-icon').textContent = '+';
+        } else {
+          attributeList.style.display = 'block';
+          header.querySelector('.toggle-icon').textContent = '-';
+        }
+      });
+    });
   });
   

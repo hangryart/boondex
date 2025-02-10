@@ -109,36 +109,56 @@
     border-radius: 2px;
   }
   
-  /* Trait Filters specific styling */
-  .filter-group.traits h3 {
+  /* Attributes Section Styling */
+  .filter-group.attributes input[type="text"] {
+    width: 100%;
+    padding: 8px;
     margin-bottom: 10px;
-  }
-  
-  /* New Trait Filters Container */
-  .traits-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
-  }
-  
-  .trait-option {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-dark);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 5px 8px;
-    font-size: 0.9em;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    border-radius: 2px;
+  }
+  
+  .attributes-accordion {
+    margin-top: 10px;
+  }
+  
+  .attribute-category {
+    border-top: 1px solid var(--border-color);
+    padding: 5px 0;
+  }
+  
+  .attribute-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 1em;
+    padding: 5px 0;
   }
   
-  .trait-option:hover {
-    background-color: var(--bg-light);
+  .attribute-list {
+    display: none; /* Hidden by default */
+    padding-left: 10px;
   }
   
-  .trait-option input {
+  .attribute-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 0.9em;
+  }
+  
+  .attribute-item input {
     margin-right: 5px;
+  }
+  
+  .attribute-count {
+    font-size: 0.8em;
+    color: var(--text-color);
+    opacity: 0.8;
   }
   
   /* Gallery */
@@ -168,14 +188,12 @@
   
   /* Mobile Styles */
   @media (max-width: 768px) {
-    /* Adjust header to use column layout */
     .header {
       flex-direction: column;
       align-items: flex-start;
       height: auto;
       padding: 10px 20px;
     }
-    /* Ensure the filter toggle is left aligned below the title */
     .filter-toggle {
       margin-top: 10px;
       align-self: flex-start;
@@ -186,11 +204,9 @@
       color: var(--text-color);
       cursor: pointer;
     }
-    /* Switch layout to a block layout */
     .layout {
       display: block;
     }
-    /* Sidebar becomes an overlay */
     .sidebar {
       position: fixed;
       top: 0;
@@ -204,7 +220,6 @@
     .sidebar.open {
       transform: translateX(0);
     }
-    /* Gallery takes full width below the header */
     .gallery {
       margin-top: var(--header-height);
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

@@ -35,22 +35,51 @@
           <option value="desc">Descending</option>
         </select>
       </div>
-      <div class="filter-group traits">
-        <h3>Trait Filters</h3>
-        <div class="traits-container">
-          <label class="trait-option">
-            <input type="checkbox" value="trait1">
-            <span>Trait 1</span>
-          </label>
-          <label class="trait-option">
-            <input type="checkbox" value="trait2">
-            <span>Trait 2</span>
-          </label>
-          <label class="trait-option">
-            <input type="checkbox" value="trait3">
-            <span>Trait 3</span>
-          </label>
-          <!-- Add additional trait options as needed -->
+      <!-- Updated Attributes Section -->
+      <div class="filter-group attributes">
+        <h3>Attributes</h3>
+        <!-- Search box to filter attribute names -->
+        <input type="text" id="attributes-search" placeholder="Search attributes">
+        <div class="attributes-accordion">
+          <!-- Attribute Category 1 -->
+          <div class="attribute-category">
+            <div class="attribute-category-header">
+              <span>Background</span>
+              <span class="toggle-icon">+</span>
+            </div>
+            <div class="attribute-list">
+              <label class="attribute-item">
+                <input type="checkbox" value="blue">
+                <span>Blue</span>
+                <span class="attribute-count">120</span>
+              </label>
+              <label class="attribute-item">
+                <input type="checkbox" value="red">
+                <span>Red</span>
+                <span class="attribute-count">50</span>
+              </label>
+            </div>
+          </div>
+          <!-- Attribute Category 2 -->
+          <div class="attribute-category">
+            <div class="attribute-category-header">
+              <span>Eyes</span>
+              <span class="toggle-icon">+</span>
+            </div>
+            <div class="attribute-list">
+              <label class="attribute-item">
+                <input type="checkbox" value="blue-eyes">
+                <span>Blue Eyes</span>
+                <span class="attribute-count">80</span>
+              </label>
+              <label class="attribute-item">
+                <input type="checkbox" value="green-eyes">
+                <span>Green Eyes</span>
+                <span class="attribute-count">40</span>
+              </label>
+            </div>
+          </div>
+          <!-- Additional attribute categories can be added here -->
         </div>
       </div>
     </aside>

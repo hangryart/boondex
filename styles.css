@@ -8,6 +8,7 @@
     --text-color: #CCCCCC;
     --input-text-color: #888888; /* Darker gray for input/search/select text */
     --border-color: #444; /* one-pixel border color */
+    --checkbox-color: #555555; /* new variable for checkbox color */
   }
   
   /* Global resets */
@@ -188,7 +189,7 @@
     margin: 0;
     width: 16px;
     height: 16px;
-    accent-color: var(--border-color);
+    accent-color: var(--checkbox-color);
   }
   
   .attribute-item span:not(.attribute-count) {
@@ -199,6 +200,7 @@
     color: var(--input-text-color);
   }
   
+  /* Force the attribute count to use the same styling as the trait name and align to the far right */
   .attribute-count {
     font-size: 0.9em;
     color: var(--input-text-color);

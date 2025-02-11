@@ -42,7 +42,7 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #FF0000; /* Boondex title now red */
+    color: #4CC2FF;  /* Boondex title now blue */
   }
   
   /* Layout Container */
@@ -109,7 +109,7 @@
   
   /* Attributes Section */
   .filter-group.attributes h3 {
-    margin-bottom: 15px; /* Extra spacing below the Attributes title */
+    margin-bottom: 15px;  /* Extra spacing below Attributes title */
   }
   
   .filter-group input,
@@ -213,13 +213,20 @@
     color: var(--input-text-color);
   }
   
-  /* Trait Count Styling: push to far right */
+  /* Trait Count Styling: pushed to far right */
   .trait-count {
     margin-left: auto;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
     transform: translateY(-2px);
+  }
+  
+  /* Mobile-specific override for attribute item alignment */
+  @media (max-width: 768px) {
+    .attribute-item {
+      justify-content: space-between;
+    }
   }
   
   /* Gallery */

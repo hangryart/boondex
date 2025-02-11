@@ -58,6 +58,12 @@
     display: flex;
     align-items: center;
   }
+
+  .social-icon img {
+    width: 24px;  /* Adjust width as needed */
+    height: 24px; /* Adjust height as needed */
+    display: block;
+  }  
   
   /* Optional: hover effect for the social icon */
   .social-icon:hover {

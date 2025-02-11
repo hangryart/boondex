@@ -1,7 +1,7 @@
 /* CSS Variables for consistency */
 :root {
     --header-height: 70px;
-    --sidebar-width: 320px;  /* Increased sidebar width */
+    --sidebar-width: 320px; /* Increased sidebar width */
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
@@ -41,7 +41,10 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #7642ed;  /* Changed Boondex title color */
+    /* Horizontal gradient for title */
+    background: linear-gradient(to right, #9755FD, #F34DAF, #FA7C80, #FF9D5F, #FFBC50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   /* New header actions container */
@@ -59,17 +62,25 @@
     align-items: center;
   }
   
-  /* Desktop: make the social icon 25% smaller (18px instead of 24px)
-     and on hover, change its color to #7642ed (if SVG uses currentColor) */
-  .social-icon img {
-    width: 18px;
-    height: 18px;
-    display: block;
+  /* Default social icon SVG styling */
+  .social-icon-svg {
+    width: 24px;
+    height: 24px;
+    fill: #CCCCCC; /* Default fill color */
+    transition: fill 0.3s ease;
   }
   
-  .social-icon:hover {
-    /* This sets the anchor's color; if the SVG uses currentColor, it will update */
-    color: #7642ed;
+  /* Hover effect for social icon: apply gradient fill */
+  .social-icon:hover .social-icon-svg {
+    fill: url(#xIconGradient);
+  }
+  
+  /* Desktop: make the social icon 25% smaller */
+  @media (min-width: 769px) {
+    .social-icon-svg {
+      width: 18px;
+      height: 18px;
+    }
   }
   
   /* Layout Container */
@@ -136,7 +147,7 @@
   
   /* Attributes Section */
   .filter-group.attributes h3 {
-    margin-bottom: 15px;  /* Extra spacing below Attributes title */
+    margin-bottom: 15px; /* Extra spacing below Attributes title */
   }
   
   .filter-group input,
@@ -216,6 +227,7 @@
     padding: 5px 0;
     font-size: 0.9em;
     width: 100%;
+    white-space: nowrap; /* Prevent wrapping */
   }
   
   /* Custom Checkbox Styling */
@@ -240,6 +252,10 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .trait-left .trait-name {
@@ -247,7 +263,6 @@
     color: var(--input-text-color);
   }
   
-  /* Updated trait-count: use flex to force right alignment */
   .trait-count {
     width: 40px;
     font-size: 0.9em;
@@ -256,6 +271,7 @@
     justify-content: flex-end;
     align-items: center;
     transform: translateY(-2px);
+    white-space: nowrap;
   }
   
   /* Gallery */
@@ -304,12 +320,6 @@
       cursor: pointer;
       margin-right: 10px;
     }
-    /* For mobile, you can decide to keep the same icon size or adjust differently.
-       Here we keep it at 18px (desktop size) or adjust if needed. */
-    .social-icon img {
-      width: 18px;
-      height: 18px;
-    }
     .layout {
       display: block;
     }
@@ -317,7 +327,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;  /* Mobile panel covers full width */
+      width: 100%; /* Mobile panel covers full width */
       height: 100%;
       transform: translateX(-100%);
       transition: transform 0.3s ease-in-out;

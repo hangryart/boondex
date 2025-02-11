@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boondex Gallery</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -14,7 +14,19 @@
     <div class="header-actions">
       <button class="filter-toggle" id="filter-toggle" aria-label="Open Filters">Filters</button>
       <a href="https://x.com/hangryart" target="_blank" rel="noopener" class="social-icon" aria-label="X.com Profile">
-        <img src="images/x-logo.svg" alt="X Logo">
+        <!-- Inline SVG for the X icon -->
+        <svg class="social-icon-svg" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="xIconGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#9755FD" />
+              <stop offset="25%" stop-color="#F34DAF" />
+              <stop offset="50%" stop-color="#FA7C80" />
+              <stop offset="75%" stop-color="#FF9D5F" />
+              <stop offset="100%" stop-color="#FFBC50" />
+            </linearGradient>
+          </defs>
+          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.95 13.536l-1.414 1.414L12 13.414l-3.536 3.536-1.414-1.414L10.586 12 7.05 8.464l1.414-1.414L12 10.586l3.536-3.536 1.414 1.414L13.414 12l3.536 3.536z"/>
+        </svg>
       </a>
     </div>
   </header>
@@ -28,7 +40,7 @@
       </div>
       <div class="filter-group">
         <label for="search">Search by NFT Name or ID</label>
-        <input type="text" id="search" placeholder="Enter search term">
+        <input type="text" id="search" placeholder="Enter search term" />
       </div>
       <div class="filter-group">
         <h3>Sort By</h3>
@@ -40,7 +52,7 @@
       <!-- Attributes Section -->
       <div class="filter-group attributes">
         <h3>Attributes</h3>
-        <input type="text" id="attributes-search" placeholder="Search attributes">
+        <input type="text" id="attributes-search" placeholder="Search attributes" />
         <div class="attributes-accordion">
           <!-- Attribute Category: Background -->
           <div class="attribute-category">
@@ -51,14 +63,14 @@
             <div class="attribute-list">
               <label class="attribute-item">
                 <div class="trait-left">
-                  <input type="checkbox" value="blue">
+                  <input type="checkbox" value="blue" />
                   <span class="trait-name">Blue</span>
                 </div>
                 <span class="trait-count">120</span>
               </label>
               <label class="attribute-item">
                 <div class="trait-left">
-                  <input type="checkbox" value="red">
+                  <input type="checkbox" value="red" />
                   <span class="trait-name">Red</span>
                 </div>
                 <span class="trait-count">50</span>
@@ -74,14 +86,14 @@
             <div class="attribute-list">
               <label class="attribute-item">
                 <div class="trait-left">
-                  <input type="checkbox" value="blue-eyes">
+                  <input type="checkbox" value="blue-eyes" />
                   <span class="trait-name">Blue Eyes</span>
                 </div>
                 <span class="trait-count">80</span>
               </label>
               <label class="attribute-item">
                 <div class="trait-left">
-                  <input type="checkbox" value="green-eyes">
+                  <input type="checkbox" value="green-eyes" />
                   <span class="trait-name">Green Eyes</span>
                 </div>
                 <span class="trait-count">40</span>
@@ -95,15 +107,15 @@
 
     <main class="gallery">
       <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
+        <img src="placeholder.jpg" alt="NFT Placeholder" />
         <p>NFT Title 1</p>
       </div>
       <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
+        <img src="placeholder.jpg" alt="NFT Placeholder" />
         <p>NFT Title 2</p>
       </div>
       <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
+        <img src="placeholder.jpg" alt="NFT Placeholder" />
         <p>NFT Title 3</p>
       </div>
       <!-- Additional NFT items can be added here -->

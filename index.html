@@ -6,15 +6,17 @@
   <title>Boondex Gallery</title>
   <!-- Google Font for improved typography -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome Free Version CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <!-- Updated Font Awesome Free Version CDN (v6.4.0) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
 <body>
   <!-- Header -->
   <header class="header">
-    <div class="header-title">Boondex</div>
+    <div class="header-title">
+      <i class="fa-solid fa-hexagon"></i> Boondex
+    </div>
     <div class="header-actions">
       <a href="https://x.com/hangryart" target="_blank" class="social-icon">
         <img src="images/x-logo.svg" alt="X Icon" class="social-icon-img">
@@ -25,29 +27,25 @@
 
   <!-- Layout Container -->
   <div class="layout">
+    <!-- Sidebar for filtering traits -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2>Filters</h2>
-        <button class="close-sidebar" id="close-sidebar">✖</button>
+        <button class="close-sidebar" id="close-sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-      <div class="filter-group">
-        <label for="search">Search by NFT Name or ID</label>
-        <input type="text" id="search" placeholder="Enter search term">
-      </div>
-      <div class="filter-group">
-        <h3>Sort By</h3>
-        <select id="sort">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-      <!-- Attributes Section -->
+      <!-- Selected Traits Area -->
+      <div class="selected-traits"></div>
+      <!-- Divider -->
+      <hr class="divider">
+      <!-- Traits Section -->
       <div class="filter-group attributes">
-        <h3>Attributes</h3>
-        <input type="text" id="attributes-search" placeholder="Search attributes">
+        <h3>Traits</h3>
+        <input type="text" id="attributes-search" placeholder="Search traits">
         <div class="attributes-container">
           <div class="attributes-accordion">
-            <!-- Attribute Category: Background -->
+            <!-- Trait Category: Background -->
             <div class="attribute-category">
               <div class="attribute-category-header">
                 <span class="category-title">Background</span>
@@ -77,7 +75,7 @@
                 </label>
               </div>
             </div>
-            <!-- Attribute Category: Eyes -->
+            <!-- Trait Category: Eyes -->
             <div class="attribute-category">
               <div class="attribute-category-header">
                 <span class="category-title">Eyes</span>
@@ -107,26 +105,38 @@
                 </label>
               </div>
             </div>
-            <!-- Additional attribute categories can be added here -->
+            <!-- Additional trait categories can be added here -->
           </div>
         </div>
       </div>
     </aside>
 
-    <main class="gallery">
-      <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
-        <p>NFT Title 1</p>
+    <!-- Main content area including toolbar and NFT gallery -->
+    <main class="main-content">
+      <!-- Toolbar Subheader -->
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search by NFT Name or ID">
+        <select id="sort">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
       </div>
-      <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
-        <p>NFT Title 2</p>
+      <!-- NFT Gallery -->
+      <div class="gallery">
+        <div class="nft-item">
+          <img src="placeholder.jpg" alt="NFT Placeholder">
+          <p>NFT Title 1</p>
+        </div>
+        <div class="nft-item">
+          <img src="placeholder.jpg" alt="NFT Placeholder">
+          <p>NFT Title 2</p>
+        </div>
+        <div class="nft-item">
+          <img src="placeholder.jpg" alt="NFT Placeholder">
+          <p>NFT Title 3</p>
+        </div>
+        <!-- Additional NFT items can be added here -->
       </div>
-      <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
-        <p>NFT Title 3</p>
-      </div>
-      <!-- Additional NFT items can be added here -->
     </main>
   </div>
 </body>

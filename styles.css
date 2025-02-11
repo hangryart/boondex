@@ -5,10 +5,10 @@
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;       /* General text color */
-    --input-text-color: #888888;  /* For inputs and select text */
-    --border-color: #444;         /* One-pixel border color */
-    --checkbox-color: #555555;    /* Custom checkbox color */
+    --text-color: #CCCCCC;
+    --input-text-color: #888888;
+    --border-color: #444;
+    --checkbox-color: #555555;
   }
   
   /* Global resets */
@@ -41,7 +41,8 @@
   
   .header-title {
     font-size: 1.2em;
-    /* Horizontal gradient using background‑clip */
+    font-weight: bold;
+    /* Horizontal gradient using background‑clip trick */
     background: linear-gradient(to right, #9755FD, #F34DAF, #FA7C80, #FF9D5F, #FFBC50);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -60,12 +61,11 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    /* Set a default color (used by the SVG if it supports currentColor) */
     color: #CCCCCC;
     transition: color 0.3s ease;
   }
   
-  /* Use the external SVG from the images folder */
+  /* Social icon image from images folder */
   .social-icon-img {
     width: 24px;
     height: 24px;
@@ -149,7 +149,7 @@
   
   /* Attributes Section */
   .filter-group.attributes h3 {
-    margin-bottom: 15px; /* Extra spacing below Attributes title */
+    margin-bottom: 15px;
   }
   
   .filter-group input,
@@ -217,22 +217,24 @@
   }
   
   .attribute-list.open {
-    max-height: 500px; /* Adjust if needed */
+    max-height: 500px;
   }
   
-  /* Attribute Item Layout using flex for inline alignment */
+  /* Attribute Item Layout using flex */
   .attribute-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 10px;
     padding: 5px 0;
     font-size: 0.9em;
     width: 100%;
-    white-space: nowrap;
+    flex-wrap: nowrap;
   }
   
   /* Custom Checkbox Styling */
   .attribute-item input[type="checkbox"] {
+    display: inline-block;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -249,21 +251,22 @@
   }
   
   /* Trait Name and Count Alignment */
-  /* The trait-left container (with checkbox and trait name) uses flex */
+  /* trait-left: container for checkbox and trait name; allow it to shrink */
   .trait-left {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 5px;
     flex: 1;
+    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   
-  /* The trait count is pushed to the far right */
+  /* trait-count: fixed width container for the number, pushed to the right */
   .trait-count {
-    margin-left: auto;
-    width: 40px;
+    flex: 0 0 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
     white-space: nowrap;
@@ -322,7 +325,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%; /* Mobile panel covers full width */
+      width: 100%;
       height: 100%;
       transform: translateX(-100%);
       transition: transform 0.3s ease-in-out;

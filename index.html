@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boondex Gallery</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -12,12 +12,11 @@
   <header class="header">
     <div class="header-title">Boondex</div>
     <div class="header-actions">
-      <button class="filter-toggle" id="filter-toggle" aria-label="Open Filters">Filters</button>
-      <a href="https://x.com/hangryart" target="_blank" rel="noopener" class="social-icon" aria-label="X.com Profile">
-        <!-- Use the X icon from the images folder -->
-        <img src="images/x-logo.svg" alt="X Logo" class="social-icon-img" />
+      <a href="https://x.com/hangryart" target="_blank" class="social-icon">
+        <img src="images/x-logo.svg" alt="X Icon" class="social-icon-img">
       </a>
     </div>
+    <button class="filter-toggle" id="filter-toggle">Filters</button>
   </header>
 
   <!-- Layout Container -->
@@ -25,11 +24,11 @@
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2>Filters</h2>
-        <button class="close-sidebar" id="close-sidebar" aria-label="Close Filters">✖</button>
+        <button class="close-sidebar" id="close-sidebar">✖</button>
       </div>
       <div class="filter-group">
         <label for="search">Search by NFT Name or ID</label>
-        <input type="text" id="search" placeholder="Enter search term" />
+        <input type="text" id="search" placeholder="Enter search term">
       </div>
       <div class="filter-group">
         <h3>Sort By</h3>
@@ -41,71 +40,80 @@
       <!-- Attributes Section -->
       <div class="filter-group attributes">
         <h3>Attributes</h3>
-        <input type="text" id="attributes-search" placeholder="Search attributes" />
-        <div class="attributes-accordion">
-          <!-- Attribute Category: Background -->
-          <div class="attribute-category">
-            <div class="attribute-category-header">
-              <span>Background (2)</span>
-              <span class="toggle-icon">+</span>
+        <input type="text" id="attributes-search" placeholder="Search attributes">
+        <div class="attributes-container">
+          <div class="attributes-accordion">
+            <!-- Attribute Category: Background -->
+            <div class="attribute-category">
+              <div class="attribute-category-header">
+                <span>Background (2)</span>
+                <span class="toggle-icon">+</span>
+              </div>
+              <div class="attribute-list">
+                <label class="attribute-item">
+                  <div class="trait-left">
+                    <div class="checkbox-wrapper">
+                      <input type="checkbox" value="blue">
+                    </div>
+                    <span class="trait-text">Blue</span>
+                  </div>
+                  <span class="trait-count">120</span>
+                </label>
+                <label class="attribute-item">
+                  <div class="trait-left">
+                    <div class="checkbox-wrapper">
+                      <input type="checkbox" value="red">
+                    </div>
+                    <span class="trait-text">Red</span>
+                  </div>
+                  <span class="trait-count">50</span>
+                </label>
+              </div>
             </div>
-            <div class="attribute-list">
-              <label class="attribute-item">
-                <!-- Changed from div to span -->
-                <span class="trait-left">
-                  <input type="checkbox" value="blue" />
-                  <span class="trait-name">Blue</span>
-                </span>
-                <span class="trait-count">120</span>
-              </label>
-              <label class="attribute-item">
-                <span class="trait-left">
-                  <input type="checkbox" value="red" />
-                  <span class="trait-name">Red</span>
-                </span>
-                <span class="trait-count">50</span>
-              </label>
+            <!-- Attribute Category: Eyes -->
+            <div class="attribute-category">
+              <div class="attribute-category-header">
+                <span>Eyes (2)</span>
+                <span class="toggle-icon">+</span>
+              </div>
+              <div class="attribute-list">
+                <label class="attribute-item">
+                  <div class="trait-left">
+                    <div class="checkbox-wrapper">
+                      <input type="checkbox" value="blue-eyes">
+                    </div>
+                    <span class="trait-text">Blue Eyes</span>
+                  </div>
+                  <span class="trait-count">80</span>
+                </label>
+                <label class="attribute-item">
+                  <div class="trait-left">
+                    <div class="checkbox-wrapper">
+                      <input type="checkbox" value="green-eyes">
+                    </div>
+                    <span class="trait-text">Green Eyes</span>
+                  </div>
+                  <span class="trait-count">40</span>
+                </label>
+              </div>
             </div>
+            <!-- Additional attribute categories can be added here -->
           </div>
-          <!-- Attribute Category: Eyes -->
-          <div class="attribute-category">
-            <div class="attribute-category-header">
-              <span>Eyes (2)</span>
-              <span class="toggle-icon">+</span>
-            </div>
-            <div class="attribute-list">
-              <label class="attribute-item">
-                <span class="trait-left">
-                  <input type="checkbox" value="blue-eyes" />
-                  <span class="trait-name">Blue Eyes</span>
-                </span>
-                <span class="trait-count">80</span>
-              </label>
-              <label class="attribute-item">
-                <span class="trait-left">
-                  <input type="checkbox" value="green-eyes" />
-                  <span class="trait-name">Green Eyes</span>
-                </span>
-                <span class="trait-count">40</span>
-              </label>
-            </div>
-          </div>
-          <!-- Additional attribute categories can be added here -->
         </div>
       </div>
     </aside>
 
     <main class="gallery">
       <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder" />
+        <img src="placeholder.jpg" alt="NFT Placeholder">
         <p>NFT Title 1</p>
       </div>
       <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder" />
+        <img src="placeholder.jpg" alt="NFT Placeholder">
         <p>NFT Title 2</p>
       </div>
       <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder" />
+        <img src="placeholder.jpg" alt="NFT Placeholder">
         <p>NFT Title 3</p>
       </div>
       <!-- Additional NFT items can be added here -->

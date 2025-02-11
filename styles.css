@@ -1,340 +1,160 @@
-/* CSS Variables for consistency */
+/* CSS Variables */
 :root {
-    --header-height: 70px;
-    --sidebar-width: 320px; /* Increased sidebar width */
-    --gap: 20px;
-    --bg-dark: #121212;
-    --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;
-    --input-text-color: #888888;
-    --border-color: #444;
-    --checkbox-color: #555555;
-  }
-  
-  /* Global resets */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-color);
-  }
-  
-  /* Header */
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
-    background-color: var(--bg-light);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    z-index: 1000;
-  }
-  
-  .header-title {
-    font-size: 1.2em;
-    font-weight: normal;  /* Not bold */
-    color: #00eeff;       /* Solid color per request */
-  }
-  
-  /* Header actions */
-  .header-actions {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Social icon styling */
-  .social-icon {
-    margin-left: 20px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    color: #CCCCCC;
-    transition: color 0.3s ease;
-  }
-  
-  /* Social icon image from images folder */
-  .social-icon-img {
-    width: 24px;
-    height: 24px;
-    display: block;
-  }
-  
-  .social-icon:hover {
-    color: #FFBC50;
-  }
-  
-  @media (min-width: 769px) {
-    .social-icon-img {
-      width: 18px;
-      height: 18px;
-    }
-  }
-  
-  /* Layout Container */
-  .layout {
-    margin-top: var(--header-height);
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
-    height: calc(100vh - var(--header-height));
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    background-color: var(--bg-light);
-    border-right: 1px solid var(--border-color);
-    padding: 20px;
-    overflow-y: auto;
-  }
-  
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--gap);
-  }
-  
-  .sidebar-header h2 {
-    font-size: 1.2em;
-    margin: 0;
-  }
-  
-  .close-sidebar {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    color: var(--text-color);
-    cursor: pointer;
-  }
-  
-  @media (min-width: 769px) {
-    .filter-toggle {
-      display: none;
-    }
-    .close-sidebar {
-      display: none;
-    }
-  }
-  
-  /* Filter Groups */
-  .filter-group {
-    margin-bottom: var(--gap);
-  }
-  
-  .filter-group label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .filter-group h3 {
-    font-size: 1em;
-    font-weight: normal;
-    margin-bottom: 10px;
-  }
-  
-  /* Attributes Section */
-  .filter-group.attributes h3 {
-    margin-bottom: 15px;
-  }
-  
-  .filter-group input,
-  .filter-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-dark);
-    color: var(--input-text-color);
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .filter-group select {
-    height: 36px;
-    padding: 4px 8px;
-    min-height: 36px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    color: var(--input-text-color) !important;
-  }
-  
-  .filter-group.attributes input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-dark);
-    color: var(--input-text-color);
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .attributes-accordion {
-    margin-top: 10px;
-  }
-  
-  /* Attribute Category */
-  .attribute-category {
-    border-top: 1px solid var(--border-color);
-    padding: 5px 0;
-  }
-  
-  .attribute-category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1em;
-    padding: 5px 0;
-  }
-  
-  .attribute-category-header .toggle-icon {
-    margin-left: 10px;
-  }
-  
-  /* Accordion: smooth transition for attribute list */
-  .attribute-list {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease;
-    padding-left: 10px;
-    margin-top: 10px;
-  }
-  
-  .attribute-list.open {
-    max-height: 500px;
-  }
-  
-  /* Attribute Item Layout using flex with vertical center alignment */
-  .attribute-item {
-    display: flex;
-    align-items: center; /* Center all children vertically */
-    gap: 10px;
-    padding: 5px 0;
-    font-size: 0.9em;
-    width: 100%;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-  }
-  
-  /* Custom Checkbox Styling as a circular checkbox, now 10% smaller (11x11px) */
-  .attribute-item input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 11px;
-    height: 11px;
-    border: 1px solid var(--border-color);
-    border-radius: 50%; /* Circular shape */
-    background-color: var(--bg-dark);
-    cursor: pointer;
-    vertical-align: middle;
-  }
-  
-  .attribute-item input[type="checkbox"]:checked {
-    background-color: #00eeff; /* Solid fill color when checked */
-    border: 1px solid transparent;
-  }
-  
-  /* Trait Name and Count Alignment */
-  /* trait-left: inline container for checkbox and trait text (left side) */
-  .trait-left {
-    display: inline-flex;
-    align-items: center; /* Center items vertically */
-    gap: 5px;
-    flex: 1;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  /* trait-count: container for the number (right side) */
-  .trait-count {
-    display: inline-flex;
-    align-items: center; /* Center the number vertically */
-    justify-content: flex-end;
-    width: 40px;
-    font-size: 0.9em;
-    color: var(--input-text-color);
-    white-space: nowrap;
-    margin-left: auto;
-    line-height: 1;
-  }
-  
-  /* Gallery */
-  .gallery {
-    padding: var(--gap);
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: var(--gap);
-    background-color: var(--bg-dark);
-  }
-  
-  .nft-item {
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .nft-item img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid var(--border-color);
-  }
-  
-  /* Mobile Styles */
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      height: var(--header-height);
-      padding: 10px 20px;
-    }
-    .header-actions {
-      display: flex;
-      align-items: center;
-    }
-    .filter-toggle {
-      background: none;
-      border: none;
-      font-size: 1em;
-      color: var(--text-color);
-      cursor: pointer;
-      margin-right: 10px;
-    }
-    .layout {
-      display: block;
-    }
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease-in-out;
-      z-index: 1100;
-    }
-    .sidebar.open {
-      transform: translateX(0);
-    }
-    .gallery {
-      margin-top: var(--header-height);
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-  }
-  
+  --header-height: 70px;
+  --sidebar-width: 320px;
+  --gap: 20px;
+  --bg-dark: #1A1A1E;
+  --bg-light: #121214;
+  --text-color: #CCCCCC;
+  --input-text-color: #6E6E78;
+  --border-color: #222225;
+}
+
+/* Global Resets */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-color); }
+
+/* Header */
+.header {
+  position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height);
+  background-color: #15151A;
+  border-bottom: 1px solid var(--border-color);
+  display: flex; align-items: center; padding: 0 20px; z-index: 1000;
+}
+.header-title { font-size: 1.2em; font-weight: bold; color: #00eeff; }
+.header-actions { margin-left: auto; display: flex; align-items: center; }
+
+/* Social Icon */
+.social-icon { text-decoration: none; display: flex; align-items: center; color: var(--text-color); transition: color 0.3s ease; margin-right: 10px; }
+.social-icon-img { width: 24px; height: 24px; display: block; }
+.social-icon:hover { color: #FFBC50; }
+@media (min-width: 769px) { .social-icon-img { width: 18px; height: 18px; } }
+
+/* Layout Container */
+.layout {
+  margin-top: var(--header-height);
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  height: calc(100vh - var(--header-height));
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--bg-light);
+  border-right: 1px solid var(--border-color);
+  padding: 20px; overflow-y: auto;
+}
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--gap); }
+.sidebar-header h2 { font-size: 1.2em; margin: 0; }
+.close-sidebar { background: none; border: none; font-size: 1.5em; color: var(--text-color); cursor: pointer; }
+@media (min-width: 769px) { .filter-toggle { display: none; } .close-sidebar { display: none; } }
+
+/* Filter Groups */
+.filter-group { margin-bottom: var(--gap); }
+.filter-group label { display: block; margin-bottom: 10px; }
+.filter-group h3 { font-size: 1em; font-weight: normal; margin-bottom: 10px; }
+
+/* Attributes Section */
+.filter-group.attributes h3 { margin-bottom: 15px; }
+
+/* Search/Sort Boxes */
+.filter-group input,
+.filter-group select {
+  width: 100%; padding: 8px; border: 1px solid var(--border-color);
+  background-color: var(--bg-dark); color: var(--input-text-color);
+  border-radius: 5px; box-sizing: border-box; transition: border-color 0.3s ease;
+}
+.filter-group input::placeholder,
+.filter-group select::placeholder { color: var(--input-text-color); opacity: 1; }
+.filter-group.attributes input[type="text"] {
+  width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid var(--border-color);
+  background-color: var(--bg-dark); color: var(--input-text-color);
+  border-radius: 5px; box-sizing: border-box;
+}
+.attributes-accordion { margin-top: 10px; transition: max-height 0.3s ease; }
+
+/* Focus Styles for Search/Sort Boxes */
+.filter-group input:focus,
+.filter-group select:focus,
+.filter-group.attributes input[type="text"]:focus {
+  outline: none; border: 1px solid #3C3C45;
+}
+
+/* Accordion Styles for Attributes Section */
+.attribute-category {
+  border-top: 1px solid var(--border-color);
+  padding: 5px 10px;
+}
+.attribute-category-header {
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; font-size: 1em; padding: 5px 10px; color: var(--text-color);
+}
+.attribute-category-header .toggle-icon {
+  margin: 0 10px; transition: transform 0.3s ease; cursor: pointer;
+}
+.attribute-list {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+  padding-left: 10px; margin-top: 10px;
+}
+.attribute-list.open { max-height: 500px; }
+
+/* ATTRIBUTE ROW LAYOUT USING ABSOLUTE POSITIONING */
+.attribute-item {
+  position: relative;
+  display: flex; align-items: center; padding: 5px 0;
+  font-size: 0.9em; white-space: nowrap; line-height: 1;
+}
+.trait-left {
+  flex: 1; display: flex; align-items: center; gap: 5px;
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  color: var(--text-color);
+}
+.trait-count {
+  position: absolute; right: 5px; top: 50%;
+  transform: translateY(-50%);
+  width: 40px; text-align: right; line-height: 1; color: var(--text-color);
+}
+
+/* Within .trait-left, wrap the checkbox and trait text inline */
+.checkbox-wrapper {
+  display: inline-block; vertical-align: middle; margin-right: 5px;
+}
+.checkbox-wrapper input[type="checkbox"] {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  width: 10px; height: 10px; border: 1px solid var(--border-color);
+  border-radius: 3px; background-color: #212125; cursor: pointer;
+  vertical-align: middle;
+}
+.checkbox-wrapper input[type="checkbox"]:checked {
+  background-color: #00eeff; border: 1px solid transparent;
+}
+.trait-text { display: inline-block; vertical-align: middle; line-height: 1; color: var(--text-color); }
+
+/* GALLERY */
+.gallery {
+  padding: var(--gap); overflow-y: auto;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--gap); background-color: var(--bg-dark);
+}
+.nft-item {
+  background-color: var(--bg-light); border: 1px solid var(--border-color);
+  border-radius: 2px; padding: 10px; text-align: center;
+}
+.nft-item img {
+  max-width: 100%; height: auto; border: 1px solid var(--border-color);
+}
+
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+  .header { flex-direction: row; align-items: center; justify-content: space-between;
+    height: var(--header-height); padding: 10px 20px; }
+  .header-actions { display: flex; align-items: center; }
+  .filter-toggle { background: none; border: none; font-size: 1em;
+    color: var(--text-color); cursor: pointer; margin-right: 10px; }
+  .layout { display: block; }
+  .sidebar { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    transform: translateX(-100%); transition: transform 0.3s ease-in-out; z-index: 1100; }
+  .sidebar.open { transform: translateX(0); }
+  .gallery { margin-top: var(--header-height);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}

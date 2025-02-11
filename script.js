@@ -1,16 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Accordion functionality for attribute categories
+    // Accordion functionality for attribute categories using class toggle
     const categoryHeaders = document.querySelectorAll('.attribute-category-header');
     categoryHeaders.forEach(header => {
       header.addEventListener('click', () => {
         const list = header.nextElementSibling;
-        if (list.style.display === 'block') {
-          list.style.display = 'none';
-          header.querySelector('.toggle-icon').textContent = '+';
-        } else {
-          list.style.display = 'block';
-          header.querySelector('.toggle-icon').textContent = '-';
-        }
+        list.classList.toggle('open');
+        header.querySelector('.toggle-icon').textContent = list.classList.contains('open') ? '-' : '+';
       });
     });
     

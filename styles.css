@@ -1,5 +1,5 @@
- /* CSS Variables for consistency */
- :root {
+/* CSS Variables for consistency */
+:root {
     --header-height: 70px;
     --sidebar-width: 320px;  /* Increased sidebar width */
     --gap: 20px;
@@ -167,18 +167,23 @@
     margin-left: 10px;
   }
   
-  /* Space between category header and its list */
+  /* Accordion: Use max-height for smooth transition */
   .attribute-list {
-    display: none;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
     padding-left: 10px;
     margin-top: 10px;
   }
   
-  /* Attribute Item Layout using Grid for Desktop */
-  /* This grid layout is retained for desktop alignment */
+  .attribute-list.open {
+    max-height: 500px; /* Adjust if needed based on content size */
+  }
+  
+  /* Attribute Item Layout using Grid */
   .attribute-item {
     display: grid;
-    grid-template-columns: 20px 1fr 40px;
+    grid-template-columns: 20px 1fr 40px; /* Checkbox, trait name, trait count */
     align-items: center;
     gap: 10px;
     padding: 5px 0;
@@ -203,7 +208,7 @@
     background-color: var(--input-text-color);
   }
   
-  /* Trait Name Styling */
+  /* Trait Name and Count Alignment */
   .trait-left {
     display: flex;
     align-items: center;
@@ -215,7 +220,6 @@
     color: var(--input-text-color);
   }
   
-  /* Trait Count Styling: fixed at 40px, aligned right */
   .trait-count {
     width: 40px;
     font-size: 0.9em;
@@ -225,8 +229,6 @@
     transform: translateY(-2px);
   }
   
-  /* Mobile: Keep desktop grid layout for attribute-item; no override needed */
-    
   /* Gallery */
   .gallery {
     padding: var(--gap);

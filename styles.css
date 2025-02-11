@@ -51,6 +51,7 @@
     align-items: center;
   }
   
+  /* Social icon styling */
   .social-icon {
     margin-left: 20px;
     color: var(--text-color);
@@ -58,12 +59,12 @@
     display: flex;
     align-items: center;
   }
-
+  
   .social-icon img {
     width: 24px;  /* Adjust width as needed */
     height: 24px; /* Adjust height as needed */
     display: block;
-  }  
+  }
   
   /* Optional: hover effect for the social icon */
   .social-icon:hover {
@@ -286,10 +287,15 @@
       height: auto;
       padding: 10px 20px;
     }
-    .filter-toggle {
+    /* New mobile header layout: title on top; actions in a full-width row below */
+    .header-actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-top: 10px;
-      align-self: flex-start;
-      display: block;
+    }
+    .filter-toggle {
       background: none;
       border: none;
       font-size: 1em;

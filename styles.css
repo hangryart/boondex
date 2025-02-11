@@ -5,9 +5,9 @@
     --gap: 20px;
     --bg-dark: #121212;
     --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;
+    --text-color: #CCCCCC;       /* General text color */
     --input-text-color: #888888;  /* For inputs and select text */
-    --border-color: #444;
+    --border-color: #444;         /* One-pixel border color */
     --checkbox-color: #555555;    /* Custom checkbox color */
   }
   
@@ -216,16 +216,18 @@
   /* Trait Count Styling: pushed to far right */
   .trait-count {
     margin-left: auto;
+    width: 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
     transform: translateY(-2px);
   }
   
-  /* Mobile-specific override for attribute item alignment */
+  /* Mobile override for trait count alignment */
   @media (max-width: 768px) {
-    .attribute-item {
-      justify-content: space-between;
+    .trait-count {
+      flex-shrink: 0;
+      width: 40px;
     }
   }
   

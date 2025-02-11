@@ -41,11 +41,8 @@
   
   .header-title {
     font-size: 1.2em;
-    font-weight: bold;
-    /* Horizontal gradient using background‑clip trick */
-    background: linear-gradient(to right, #9755FD, #F34DAF, #FA7C80, #FF9D5F, #FFBC50);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-weight: normal;  /* Not bold */
+    color: #00eeff;       /* Solid color per request */
   }
   
   /* Header actions */
@@ -72,12 +69,10 @@
     display: block;
   }
   
-  /* Hover effect for social icon: change color to #FFBC50 */
   .social-icon:hover {
     color: #FFBC50;
   }
   
-  /* For desktop, make the social icon 25% smaller */
   @media (min-width: 769px) {
     .social-icon-img {
       width: 18px;
@@ -121,7 +116,6 @@
     cursor: pointer;
   }
   
-  /* Desktop: Hide mobile-only controls */
   @media (min-width: 769px) {
     .filter-toggle {
       display: none;
@@ -220,10 +214,10 @@
     max-height: 500px;
   }
   
-  /* Attribute Item Layout using flex */
+  /* Attribute Item Layout using flex with vertical center alignment */
   .attribute-item {
     display: flex;
-    align-items: center;
+    align-items: center; /* Center all children vertically */
     gap: 10px;
     padding: 5px 0;
     font-size: 0.9em;
@@ -232,28 +226,30 @@
     white-space: nowrap;
   }
   
-  /* Custom Checkbox Styling */
+  /* Custom Checkbox Styling as a circular checkbox, now 10% smaller (11x11px) */
   .attribute-item input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 11px;
+    height: 11px;
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 50%; /* Circular shape */
     background-color: var(--bg-dark);
     cursor: pointer;
+    vertical-align: middle;
   }
   
   .attribute-item input[type="checkbox"]:checked {
-    background-color: var(--input-text-color);
+    background-color: #00eeff; /* Solid fill color when checked */
+    border: 1px solid transparent;
   }
   
   /* Trait Name and Count Alignment */
-  /* trait-left: inline container for checkbox and trait name */
+  /* trait-left: inline container for checkbox and trait text (left side) */
   .trait-left {
     display: inline-flex;
-    align-items: center;
+    align-items: center; /* Center items vertically */
     gap: 5px;
     flex: 1;
     min-width: 0;
@@ -262,15 +258,17 @@
     text-overflow: ellipsis;
   }
   
-  /* trait-count: fixed width container for the number, kept inline */
-  /* Added align-self: baseline to align its baseline with the text */
+  /* trait-count: container for the number (right side) */
   .trait-count {
-    flex: 0 0 40px;
+    display: inline-flex;
+    align-items: center; /* Center the number vertically */
+    justify-content: flex-end;
+    width: 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
     white-space: nowrap;
-    text-align: right;
-    align-self: baseline;
+    margin-left: auto;
+    line-height: 1;
   }
   
   /* Gallery */

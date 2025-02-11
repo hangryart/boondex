@@ -1,108 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boondex Gallery</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NFT Explorer</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
-    <div class="header-title">Boondex</div>
-    <button class="filter-toggle" id="filter-toggle">Filters</button>
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <h1>NFT Explorer</h1>
   </header>
 
-  <!-- Layout Container -->
-  <div class="layout">
+  <div class="container">
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <h2>Filters</h2>
-        <button class="close-sidebar" id="close-sidebar">✖</button>
-      </div>
-      <div class="filter-group">
-        <label for="search">Search by NFT Name or ID</label>
-        <input type="text" id="search" placeholder="Enter search term">
-      </div>
-      <div class="filter-group">
-        <h3>Sort By</h3>
-        <select id="sort">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-      <!-- Attributes Section -->
-      <div class="filter-group attributes">
-        <h3>Attributes</h3>
-        <input type="text" id="attributes-search" placeholder="Search attributes">
-        <div class="attributes-accordion">
-          <!-- Attribute Category: Background -->
-          <div class="attribute-category">
-            <div class="attribute-category-header">
-              <span>Background (2)</span>
-              <span class="toggle-icon">+</span>
-            </div>
-            <div class="attribute-list">
-              <label class="attribute-item">
-                <div class="trait-left">
-                  <input type="checkbox" value="blue">
-                  <span class="trait-name">Blue</span>
-                </div>
-                <span class="trait-count">120</span>
-              </label>
-              <label class="attribute-item">
-                <div class="trait-left">
-                  <input type="checkbox" value="red">
-                  <span class="trait-name">Red</span>
-                </div>
-                <span class="trait-count">50</span>
-              </label>
-            </div>
-          </div>
-          <!-- Attribute Category: Eyes -->
-          <div class="attribute-category">
-            <div class="attribute-category-header">
-              <span>Eyes (2)</span>
-              <span class="toggle-icon">+</span>
-            </div>
-            <div class="attribute-list">
-              <label class="attribute-item">
-                <div class="trait-left">
-                  <input type="checkbox" value="blue-eyes">
-                  <span class="trait-name">Blue Eyes</span>
-                </div>
-                <span class="trait-count">80</span>
-              </label>
-              <label class="attribute-item">
-                <div class="trait-left">
-                  <input type="checkbox" value="green-eyes">
-                  <span class="trait-name">Green Eyes</span>
-                </div>
-                <span class="trait-count">40</span>
-              </label>
-            </div>
-          </div>
-          <!-- Additional attribute categories can be added here -->
-        </div>
+      <h2>Filters</h2>
+      <!-- Accordion for Attributes & Traits -->
+      <div class="accordion">
+        <details class="accordion-item">
+          <summary>Backgrounds</summary>
+          <ul class="traits">
+            <li>Blue</li>
+            <li>Red</li>
+            <li>Green</li>
+          </ul>
+        </details>
+        <details class="accordion-item">
+          <summary>Characters</summary>
+          <ul class="traits">
+            <li>Warrior</li>
+            <li>Mage</li>
+            <li>Rogue</li>
+          </ul>
+        </details>
+        <details class="accordion-item">
+          <summary>Accessories</summary>
+          <ul class="traits">
+            <li>Sword</li>
+            <li>Shield</li>
+            <li>Amulet</li>
+          </ul>
+        </details>
+        <!-- Add more attribute categories as needed -->
       </div>
     </aside>
 
-    <main class="gallery">
-      <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
-        <p>NFT Title 1</p>
+    <main class="main-content">
+      <h2>NFT Listings</h2>
+      <div class="nft-grid">
+        <!-- Example NFT card -->
+        <div class="nft-card">
+          <img src="https://via.placeholder.com/300" alt="NFT Example" />
+          <div class="nft-info">
+            <h3>NFT Title</h3>
+            <p>Short description of the NFT.</p>
+          </div>
+        </div>
+        <!-- More NFT cards can be added here -->
       </div>
-      <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
-        <p>NFT Title 2</p>
-      </div>
-      <div class="nft-item">
-        <img src="placeholder.jpg" alt="NFT Placeholder">
-        <p>NFT Title 3</p>
-      </div>
-      <!-- Additional NFT items can be added here -->
     </main>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

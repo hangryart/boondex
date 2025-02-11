@@ -1,293 +1,150 @@
-/* CSS Variables for consistency */
+/* Define dark theme colors */
 :root {
-    --header-height: 70px;
-    --sidebar-width: 320px;  /* Increased sidebar width */
-    --gap: 20px;
-    --bg-dark: #121212;
-    --bg-light: #1e1e1e;
-    --text-color: #CCCCCC;       /* General text color */
-    --input-text-color: #888888;  /* For inputs and select text */
-    --border-color: #444;         /* One-pixel border color */
-    --checkbox-color: #555555;    /* Custom checkbox color */
+    --bg-color: #121212;
+    --sidebar-bg: #1e1e1e;
+    --main-bg: #181818;
+    --text-color: #e0e0e0;
+    --accent-color: #bb86fc;
+    --border-color: #333;
   }
   
-  /* Global resets */
+  /* Reset and base styles */
   * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
   }
   
   body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-color);
+    line-height: 1.6;
   }
   
-  /* Header */
+  /* Header styling */
   .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
-    background-color: var(--bg-light);
-    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 1000;
+    background-color: var(--sidebar-bg);
+    padding: 1rem;
   }
   
-  .header-title {
-    font-size: 1.2em;
-    color: #00CC66;  /* Boondex title now green */
-  }
-  
-  /* Layout Container */
-  .layout {
-    margin-top: var(--header-height);
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
-    height: calc(100vh - var(--header-height));
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    background-color: var(--bg-light);
-    border-right: 1px solid var(--border-color);
-    padding: 20px;
-    overflow-y: auto;
-  }
-  
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--gap);
-  }
-  
-  .sidebar-header h2 {
-    font-size: 1.2em;
-    margin: 0;
-  }
-  
-  .close-sidebar {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    color: var(--text-color);
-    cursor: pointer;
-  }
-  
-  /* Desktop: Hide mobile-only controls */
-  @media (min-width: 769px) {
-    .filter-toggle {
-      display: none;
-    }
-    .close-sidebar {
-      display: none;
-    }
-  }
-  
-  /* Filter Groups */
-  .filter-group {
-    margin-bottom: var(--gap);
-  }
-  
-  .filter-group label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .filter-group h3 {
-    font-size: 1em;
-    font-weight: normal;
-    margin-bottom: 10px;
-  }
-  
-  /* Attributes Section */
-  .filter-group.attributes h3 {
-    margin-bottom: 15px;  /* Extra spacing below Attributes title */
-  }
-  
-  .filter-group input,
-  .filter-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-dark);
-    color: var(--input-text-color);
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .filter-group select {
-    height: 36px;
-    padding: 4px 8px;
-    min-height: 36px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    color: var(--input-text-color) !important;
-  }
-  
-  .filter-group.attributes input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-dark);
-    color: var(--input-text-color);
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .attributes-accordion {
-    margin-top: 10px;
-  }
-  
-  /* Attribute Category */
-  .attribute-category {
-    border-top: 1px solid var(--border-color);
-    padding: 5px 0;
-  }
-  
-  .attribute-category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1em;
-    padding: 5px 0;
-  }
-  
-  .attribute-category-header .toggle-icon {
-    margin-left: 10px;
-  }
-  
-  /* Space between category header and its list */
-  .attribute-list {
-    display: none;
-    padding-left: 10px;
-    margin-top: 10px;
-  }
-  
-  /* Attribute Item Layout using Grid for Desktop */
-  /* This grid layout is retained for desktop alignment */
-  .attribute-item {
-    display: grid;
-    grid-template-columns: 20px 1fr 40px;
-    align-items: center;
-    gap: 10px;
-    padding: 5px 0;
-    font-size: 0.9em;
-    width: 100%;
-  }
-  
-  /* Custom Checkbox Styling */
-  .attribute-item input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    background-color: var(--bg-dark);
-    cursor: pointer;
-  }
-  
-  .attribute-item input[type="checkbox"]:checked {
-    background-color: var(--input-text-color);
-  }
-  
-  /* Trait Name Styling */
-  .trait-left {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .trait-left .trait-name {
-    transform: translateY(-2px);
-    color: var(--input-text-color);
-  }
-  
-  /* Trait Count Styling: fixed at 40px, aligned right */
-  .trait-count {
-    width: 40px;
-    font-size: 0.9em;
-    color: var(--input-text-color);
-    text-align: right;
-    align-self: center;
-    transform: translateY(-2px);
-  }
-  
-  /* Mobile: Keep desktop grid layout for attribute-item; no override needed */
-    
-  /* Gallery */
-  .gallery {
-    padding: var(--gap);
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: var(--gap);
-    background-color: var(--bg-dark);
-  }
-  
-  .nft-item {
-    background-color: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 2px;
-    padding: 10px;
+  .header h1 {
+    flex: 1;
+    font-size: 1.5rem;
     text-align: center;
   }
   
-  .nft-item img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid var(--border-color);
+  .menu-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
   }
   
-  /* Mobile Styles */
+  /* Layout container */
+  .container {
+    display: flex;
+    min-height: calc(100vh - 60px); /* Adjust if header height changes */
+  }
+  
+  /* Sidebar (Filter Panel) */
+  .sidebar {
+    background-color: var(--sidebar-bg);
+    width: 250px;
+    padding: 1rem;
+    border-right: 1px solid var(--border-color);
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  /* Accordion styles for Attributes & Traits */
+  .accordion-item {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .accordion-item summary {
+    padding: 0.75rem;
+    cursor: pointer;
+    background-color: var(--main-bg);
+    list-style: none;
+  }
+  
+  .accordion-item[open] summary {
+    background-color: var(--accent-color);
+  }
+  
+  .traits {
+    list-style: none;
+    padding: 0.5rem 1rem;
+    background-color: var(--main-bg);
+  }
+  
+  .traits li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+  }
+  
+  .traits li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Main content styling */
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .nft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .nft-card {
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  
+  .nft-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .nft-card img {
+    width: 100%;
+    display: block;
+  }
+  
+  .nft-info {
+    padding: 0.5rem;
+  }
+  
+  /* Responsive styles for mobile devices */
   @media (max-width: 768px) {
-    .header {
+    .container {
       flex-direction: column;
-      align-items: flex-start;
-      height: auto;
-      padding: 10px 20px;
     }
-    .filter-toggle {
-      margin-top: 10px;
-      align-self: flex-start;
-      display: block;
-      background: none;
-      border: none;
-      font-size: 1em;
-      color: var(--text-color);
-      cursor: pointer;
-    }
-    .layout {
-      display: block;
-    }
+    
     .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;  /* Mobile panel covers full width */
-      height: 100%;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease-in-out;
-      z-index: 1100;
+      width: 100%;
+      display: none; /* Hidden by default on mobile, toggled via JavaScript */
     }
-    .sidebar.open {
-      transform: translateX(0);
-    }
-    .gallery {
-      margin-top: var(--header-height);
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    
+    .menu-toggle {
+      display: block;
     }
   }
   

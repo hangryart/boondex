@@ -41,13 +41,12 @@
   
   .header-title {
     font-size: 1.2em;
-    /* Horizontal gradient for title */
-    background: linear-gradient(to right, #9755FD, #F34DAF, #FA7C80, #FF9D5F, #FFBC50);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #7642ed; /* Updated title color */
+    /* For a gradient title, additional styling would be required, 
+       but per your latest instructions we're simply setting a solid color */
   }
   
-  /* New header actions container */
+  /* Header actions */
   .header-actions {
     margin-left: auto;
     display: flex;
@@ -62,7 +61,6 @@
     align-items: center;
   }
   
-  /* Default social icon SVG styling */
   .social-icon-svg {
     width: 24px;
     height: 24px;
@@ -70,12 +68,12 @@
     transition: fill 0.3s ease;
   }
   
-  /* Hover effect for social icon: apply gradient fill */
+  /* Hover effect for social icon: change fill to #7642ed */
   .social-icon:hover .social-icon-svg {
-    fill: url(#xIconGradient);
+    fill: #7642ed;
   }
   
-  /* Desktop: make the social icon 25% smaller */
+  /* For desktop, make the social icon 25% smaller */
   @media (min-width: 769px) {
     .social-icon-svg {
       width: 18px;
@@ -205,7 +203,7 @@
     margin-left: 10px;
   }
   
-  /* Accordion: Use max-height for smooth transition */
+  /* Accordion: smooth transition for attribute list */
   .attribute-list {
     overflow: hidden;
     max-height: 0;
@@ -215,19 +213,17 @@
   }
   
   .attribute-list.open {
-    max-height: 500px; /* Adjust if needed based on content size */
+    max-height: 500px; /* Adjust if needed */
   }
   
-  /* Attribute Item Layout using Grid */
+  /* Attribute Item Layout using flex */
   .attribute-item {
-    display: grid;
-    grid-template-columns: 20px 1fr 40px; /* Checkbox, trait name, trait count */
+    display: flex;
     align-items: center;
     gap: 10px;
     padding: 5px 0;
     font-size: 0.9em;
     width: 100%;
-    white-space: nowrap; /* Prevent wrapping */
   }
   
   /* Custom Checkbox Styling */
@@ -248,29 +244,21 @@
   }
   
   /* Trait Name and Count Alignment */
+  /* .trait-left contains the checkbox and trait name */
   .trait-left {
     display: flex;
     align-items: center;
     gap: 5px;
-    flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   
-  .trait-left .trait-name {
-    transform: translateY(-2px);
-    color: var(--input-text-color);
-  }
-  
+  /* Ensure the trait count remains on the same line by pushing it to the right */
   .trait-count {
-    width: 40px;
+    margin-left: auto;
     font-size: 0.9em;
     color: var(--input-text-color);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    transform: translateY(-2px);
     white-space: nowrap;
   }
   
@@ -301,7 +289,6 @@
   /* Mobile Styles */
   @media (max-width: 768px) {
     .header {
-      /* Keep inline layout so title and actions appear on one row */
       flex-direction: row;
       align-items: center;
       justify-content: space-between;

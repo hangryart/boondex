@@ -1,14 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Accordion toggle for attribute categories
+  // Accordion toggle for attribute categories using Font Awesome icons
   const categoryHeaders = document.querySelectorAll('.attribute-category-header');
   categoryHeaders.forEach(header => {
     header.addEventListener('click', () => {
       const list = header.nextElementSibling;
       list.classList.toggle('open');
+      const icon = header.querySelector('.toggle-icon i');
       if (list.classList.contains('open')) {
-        header.querySelector('.toggle-icon').textContent = '-';
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
       } else {
-        header.querySelector('.toggle-icon').textContent = '+';
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
       }
     });
   });

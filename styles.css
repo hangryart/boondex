@@ -41,7 +41,7 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #00CC66;  /* Boondex title now green */
+    color: #7642ed;  /* Changed Boondex title color */
   }
   
   /* New header actions container */
@@ -54,21 +54,22 @@
   /* Social icon styling */
   .social-icon {
     margin-left: 20px;
-    color: var(--text-color);
     text-decoration: none;
     display: flex;
     align-items: center;
   }
   
+  /* Desktop: make the social icon 25% smaller (18px instead of 24px)
+     and on hover, change its color to #7642ed (if SVG uses currentColor) */
   .social-icon img {
-    width: 24px;  /* Default size */
-    height: 24px;
+    width: 18px;
+    height: 18px;
     display: block;
   }
   
-  /* Optional: hover effect for the social icon */
   .social-icon:hover {
-    color: #00CC66;  /* Or any accent color you prefer */
+    /* This sets the anchor's color; if the SVG uses currentColor, it will update */
+    color: #7642ed;
   }
   
   /* Layout Container */
@@ -246,14 +247,15 @@
     color: var(--input-text-color);
   }
   
+  /* Updated trait-count: use flex to force right alignment */
   .trait-count {
     width: 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
-    text-align: right;
-    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     transform: translateY(-2px);
-    justify-self: end;
   }
   
   /* Gallery */
@@ -283,14 +285,13 @@
   /* Mobile Styles */
   @media (max-width: 768px) {
     .header {
-      /* Keep row layout so title and social icon are inline */
+      /* Keep inline layout so title and actions appear on one row */
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       height: var(--header-height);
       padding: 10px 20px;
     }
-    /* In mobile, the header-actions remain inline with the title */
     .header-actions {
       display: flex;
       align-items: center;
@@ -301,9 +302,10 @@
       font-size: 1em;
       color: var(--text-color);
       cursor: pointer;
-      margin-right: 10px;  /* Space between filter toggle and social icon */
+      margin-right: 10px;
     }
-    /* Reduce social icon size by about 25% (from 24px to 18px) */
+    /* For mobile, you can decide to keep the same icon size or adjust differently.
+       Here we keep it at 18px (desktop size) or adjust if needed. */
     .social-icon img {
       width: 18px;
       height: 18px;

@@ -35,7 +35,6 @@
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 0 20px;
     z-index: 1000;
   }
@@ -43,6 +42,26 @@
   .header-title {
     font-size: 1.2em;
     color: #00CC66;  /* Boondex title now green */
+  }
+  
+  /* New header actions container */
+  .header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  .social-icon {
+    margin-left: 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Optional: hover effect for the social icon */
+  .social-icon:hover {
+    color: #00CC66;  /* Or any accent color you prefer */
   }
   
   /* Layout Container */

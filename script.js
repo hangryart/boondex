@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const sidebar = document.getElementById('sidebar');
     const closeSidebar = document.getElementById('close-sidebar');
     
-    if(filterToggle) {
+    if (filterToggle) {
       filterToggle.addEventListener('click', () => {
         sidebar.classList.add('open');
       });
     }
     
-    if(closeSidebar) {
+    if (closeSidebar) {
       closeSidebar.addEventListener('click', () => {
         sidebar.classList.remove('open');
       });

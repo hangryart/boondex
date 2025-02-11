@@ -42,7 +42,7 @@
   
   .header-title {
     font-size: 1.2em;
-    color: #4CC2FF;  /* Boondex title now blue */
+    color: #00CC66;  /* Boondex title now green */
   }
   
   /* Layout Container */
@@ -174,20 +174,16 @@
     margin-top: 10px;
   }
   
-  /* Attribute Item Layout using Flex */
+  /* Attribute Item Layout using Grid for Desktop */
+  /* This grid layout is retained for desktop alignment */
   .attribute-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 20px 1fr 40px;
     align-items: center;
-    width: 100%;
+    gap: 10px;
     padding: 5px 0;
     font-size: 0.9em;
-  }
-  
-  /* Container for checkbox and trait name */
-  .trait-left {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    width: 100%;
   }
   
   /* Custom Checkbox Styling */
@@ -208,29 +204,29 @@
   }
   
   /* Trait Name Styling */
+  .trait-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
   .trait-left .trait-name {
     transform: translateY(-2px);
     color: var(--input-text-color);
   }
   
-  /* Trait Count Styling: pushed to far right */
+  /* Trait Count Styling: fixed at 40px, aligned right */
   .trait-count {
-    margin-left: auto;
     width: 40px;
     font-size: 0.9em;
     color: var(--input-text-color);
     text-align: right;
+    align-self: center;
     transform: translateY(-2px);
   }
   
-  /* Mobile override for trait count alignment */
-  @media (max-width: 768px) {
-    .trait-count {
-      flex-shrink: 0;
-      width: 40px;
-    }
-  }
-  
+  /* Mobile: Keep desktop grid layout for attribute-item; no override needed */
+    
   /* Gallery */
   .gallery {
     padding: var(--gap);

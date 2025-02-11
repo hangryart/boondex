@@ -61,8 +61,8 @@
   }
   
   .social-icon img {
-    width: 24px;  /* Adjust width as needed */
-    height: 24px; /* Adjust height as needed */
+    width: 24px;  /* Default size */
+    height: 24px;
     display: block;
   }
   
@@ -282,18 +282,17 @@
   /* Mobile Styles */
   @media (max-width: 768px) {
     .header {
-      flex-direction: column;
-      align-items: flex-start;
-      height: auto;
+      /* Keep row layout so title and social icon are inline */
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--header-height);
       padding: 10px 20px;
     }
-    /* New mobile header layout: title on top; actions in a full-width row below */
+    /* In mobile, the header-actions remain inline with the title */
     .header-actions {
-      width: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-top: 10px;
     }
     .filter-toggle {
       background: none;
@@ -301,6 +300,12 @@
       font-size: 1em;
       color: var(--text-color);
       cursor: pointer;
+      margin-right: 10px;  /* Space between filter toggle and social icon */
+    }
+    /* Reduce social icon size by about 25% (from 24px to 18px) */
+    .social-icon img {
+      width: 18px;
+      height: 18px;
     }
     .layout {
       display: block;

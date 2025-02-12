@@ -59,13 +59,7 @@ body {
   align-items: center;
 }
 
-/* Social Icon: set image size to 18px on all devices */
-.social-icon-img {
-  width: 18px;
-  height: 18px;
-  display: block;
-}
-
+/* Social Icon (the x-logo) */
 .social-icon {
   text-decoration: none;
   display: flex;
@@ -73,6 +67,13 @@ body {
   color: var(--text-color);
   transition: transform 0.3s ease, color 0.3s ease;
   margin-right: 10px;
+}
+
+/* Set the social icon image size to 18px on all devices */
+.social-icon-img {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .social-icon:hover {
@@ -360,7 +361,7 @@ body {
   cursor: pointer;
 }
 
-/* Hide mobile panel toggle on desktop */
+/* Hide the mobile panel toggle button on desktop */
 @media (min-width: 769px) {
   .mobile-panel-toggle {
     display: none;

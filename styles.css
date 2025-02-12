@@ -1,10 +1,10 @@
 /* CSS Variables */
 :root {
-  --header-height: 63px; /* 10% shorter header */
+  --header-height: 63px; /* Main header height */
   --sidebar-width: 320px;
   --gap: 20px;
-  --header-extras-height: 50px;  /* Adjust this value as needed */
-  --toolbar-height: 50px;        /* Adjust this value as needed */
+  --header-extras-height: 50px;  /* Height of extra data section */
+  --toolbar-height: 50px;        /* Previous fixed height (no longer used) */
   --bg-dark: #1A1A1E;
   --bg-light: #121214;
   --card-bg: #202023;
@@ -29,7 +29,7 @@ body {
   color: var(--text-color);
 }
 
-/* Header */
+/* Fixed Header */
 .header {
   position: fixed;
   top: 0;
@@ -47,7 +47,7 @@ body {
 
 .header-title {
   visibility: hidden;
-  font-size: 2.8em; /* Updated as per your adjustment */
+  font-size: 2.8em;
   font-weight: 400;
   color: var(--accent-color);
   font-family: 'Micro 5', sans-serif;
@@ -67,7 +67,7 @@ body {
   align-items: center;
 }
 
-/* Social Icon (the x-logo) */
+/* Social Icon */
 .social-icon {
   text-decoration: none;
   display: flex;
@@ -93,7 +93,6 @@ body {
   margin-top: var(--header-height);
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
-  height: calc(100vh - var(--header-height));
 }
 
 /* Sidebar */
@@ -120,7 +119,7 @@ body {
 
 .sidebar-header h2 {
   font-size: 1.2em;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0;
   color: #f5f5f5;
 }
@@ -174,41 +173,29 @@ body {
   margin: 10px 0;
 }
 
-/* New Extra Data Area */
+/* Extra Data Section – scrolls normally */
 .header-extras {
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  right: 0;
   height: var(--header-extras-height);
-  z-index: 950;
   background-color: var(--bg-light);
   padding: 0 20px;
   display: flex;
   align-items: center;
 }
 
-.extra-data {
-  flex: 1;
-  /* Extra padding/margin can be added here if needed */
-}
-
-/* New Collection Title Style */
 .collection-title {
   display: block;
   font-size: 1em;
   font-weight: 500;
-  color: #f5f5f5; /* Matches the Traits text in the left panel */
+  color: #f5f5f5;
   text-align: left;
-  padding-top: 15px; /* Increased for more space above */
+  padding-top: 15px;
   padding-bottom: 15px;
 }
 
-/* Updated Divider in Extra Area */
 .divider-extra {
   border: none;
   border-top: 1px solid var(--border-color);
-  margin: 0; /* Divider spans the full padded width */
+  margin: 0;
 }
 
 /* Filter Groups in Sidebar */
@@ -363,14 +350,16 @@ body {
   line-height: 1;
 }
 
-/* Toolbar (Subheader Above Gallery) */
+/* ─── TOOLBAR (Subtoolbar) ────────────────────────────────────── */
+/* The toolbar is a sibling of the extra data section and uses sticky positioning.
+   It now uses symmetric padding so that the buffer space above and below its contents is equal.
+   The fixed height property is removed so that the content determines the height. */
 .toolbar {
-  position: fixed;
-  top: calc(var(--header-height) + var(--header-extras-height));
+  position: sticky;
+  top: var(--header-height);
   left: 0;
   right: 0;
-  height: var(--toolbar-height); /* Enforce a fixed height */
-  padding: var(--gap) var(--gap) calc(var(--gap) * 2) var(--gap);
+  padding: var(--gap); /* Equal top, right, bottom, and left padding */
   background-color: var(--bg-light);
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -380,35 +369,30 @@ body {
   z-index: 900;
 }
 
-/* Specific Search Input Styling in Subheader Wrapper */
-.subheader-wrapper .toolbar input#search {
+.toolbar input#search {
   padding: 8px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-dark);
-  color: #f5f5f5; /* Active text is bright */
+  color: #f5f5f5;
   border-radius: 5px;
   transition: border-color 0.3s ease, background-color 0.3s ease;
   flex: 1 1 auto;
   min-width: 150px;
-  position: sticky;
-  top: var(--header-height); /* Sticks right below the main header */
-  z-index: 950;
 }
 
-.subheader-wrapper .toolbar input#search::-webkit-input-placeholder {
+.toolbar input#search::-webkit-input-placeholder {
   color: var(--input-text-color);
 }
-.subheader-wrapper .toolbar input#search::-moz-placeholder {
+.toolbar input#search::-moz-placeholder {
   color: var(--input-text-color);
 }
-.subheader-wrapper .toolbar input#search:-ms-input-placeholder {
+.toolbar input#search:-ms-input-placeholder {
   color: var(--input-text-color);
 }
-.subheader-wrapper .toolbar input#search::placeholder {
+.toolbar input#search::placeholder {
   color: var(--input-text-color);
 }
 
-/* Toolbar inputs and selects (fallback for others) */
 .toolbar input,
 .toolbar select {
   padding: 8px;
@@ -436,7 +420,7 @@ body {
   cursor: pointer;
 }
 
-/* New sort toggle button styled like the mobile panel toggle */
+/* Sort toggle button styled like the mobile panel toggle */
 .sort-toggle {
   padding: 8px;
   border: 1px solid var(--border-color);
@@ -454,10 +438,9 @@ body {
   position: relative;
 }
 
-/* Sort Menu Popup */
 .sort-menu {
   position: absolute;
-  top: calc(100% + 5px); /* 5px gap below the sort-toggle button */
+  top: calc(100% + 5px);
   left: 0;
   background-color: var(--bg-dark);
   border: 1px solid var(--border-color);
@@ -465,7 +448,7 @@ body {
   overflow: hidden;
   display: none;
   z-index: 1000;
-  min-width: 150px; /* Adjust as needed */
+  min-width: 150px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 5px 0;
 }
@@ -481,16 +464,13 @@ body {
 }
 
 .sort-menu-item:hover {
-  background-color: #2a2a2e; /* slightly brighter */
+  background-color: #2a2a2e;
 }
 
-/* Gallery */
+/* ─── GALLERY ───────────────────────────────────────────────────── */
+/* Let the body be the scroll container */
 .gallery {
-  padding: calc(var(--header-height) + var(--header-extras-height) + var(--toolbar-height) + calc(var(--gap) * -1.5))
-          var(--gap)
-          var(--gap)
-          var(--gap);
-  overflow-y: auto;
+  padding: var(--gap);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: var(--gap);
@@ -498,8 +478,7 @@ body {
   flex: 1;
 }
 
-
-/* NFT Gallery Section */
+/* NFT Gallery Items */
 .nft-item {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color-light);
@@ -534,7 +513,7 @@ body {
   text-align: left;
 }
 
-/* Mobile Styles */
+/* ─── Mobile Styles ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .header {
     flex-direction: row;
@@ -569,7 +548,6 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
   
-  /* Disable zoom effect on mobile */
   .nft-img-wrapper:hover img {
     transform: none !important;
   }
@@ -592,21 +570,19 @@ body {
   box-shadow: none;
 }
 
-/* Desktop-specific adjustments for fixed sidebar */
+/* ─── Desktop-Specific Adjustments ─────────────────────────────── */
 @media (min-width: 769px) {
   .sidebar {
     position: fixed;
     top: var(--header-height);
     left: 0;
     width: var(--sidebar-width);
-    height: calc(100vh - var(--header-height));
     overflow-y: auto;
   }
   
   .layout {
     margin-left: var(--sidebar-width);
     display: block;
-    height: calc(100vh - var(--header-height));
   }
   
   .close-sidebar {

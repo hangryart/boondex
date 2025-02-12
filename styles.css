@@ -614,3 +614,46 @@ body {
   }
   /* Removed left/width rules from header-extras and toolbar to let them span the full width */
 }
+
+/* New container for extra data content */
+.header-extras-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 0px;
+}
+
+/* Stats section styles */
+.collection-stats {
+  display: flex;
+  gap: 40px;
+  margin-left: 60px;
+}
+
+.collection-stats .stat {
+  text-align: left; /* Ensures the stat title and value are left aligned */
+}
+
+.collection-stats .stat-title {
+  font-size: 0.9em;
+  color: var(--input-text-color);
+}
+
+.collection-stats .stat-value {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-top: 5px;
+  color: #f5f5f5;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+  .header-extras-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .collection-stats {
+    display: none;
+    margin-top: 10px;
+  }
+}

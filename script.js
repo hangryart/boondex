@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   
-  // No extra JavaScript needed for the mobile sort select since it is a native select element
+  // No extra JavaScript is needed for the mobile sort toggle button as it uses a native select replacement
   
   // Trait selection functionality
   const traitCheckboxes = document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]');

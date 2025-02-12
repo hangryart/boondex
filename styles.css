@@ -166,7 +166,7 @@ body {
   cursor: pointer;
 }
 
-/* Divider */
+/* Divider (used in the left panel) */
 .divider {
   border: none;
   border-top: 1px solid var(--border-color);
@@ -175,11 +175,10 @@ body {
 
 /* Extra Data Section – scrolls normally */
 .header-extras {
-  height: var(--header-extras-height);
   background-color: var(--bg-light);
   padding: 0 20px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .collection-title {
@@ -192,10 +191,11 @@ body {
   padding-bottom: 15px;
 }
 
+/* Divider between extra data and toolbar */
 .divider-extra {
   border: none;
   border-top: 1px solid var(--border-color);
-  margin: 0;
+  margin: 10px 0;
 }
 
 /* Filter Groups in Sidebar */
@@ -351,15 +351,12 @@ body {
 }
 
 /* ─── TOOLBAR (Subtoolbar) ────────────────────────────────────── */
-/* The toolbar is a sibling of the extra data section and uses sticky positioning.
-   It now uses symmetric padding so that the buffer space above and below its contents is equal.
-   The fixed height property is removed so that the content determines the height. */
 .toolbar {
   position: sticky;
   top: var(--header-height);
   left: 0;
   right: 0;
-  padding: var(--gap); /* Equal top, right, bottom, and left padding */
+  padding: var(--gap);
   background-color: var(--bg-light);
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -406,7 +403,6 @@ body {
   flex: 0 0 200px;
 }
 
-/* Mobile-only panel toggle button in the toolbar */
 .mobile-panel-toggle {
   padding: 8px;
   border: 1px solid var(--border-color);
@@ -420,7 +416,6 @@ body {
   cursor: pointer;
 }
 
-/* Sort toggle button styled like the mobile panel toggle */
 .sort-toggle {
   padding: 8px;
   border: 1px solid var(--border-color);
@@ -468,7 +463,6 @@ body {
 }
 
 /* ─── GALLERY ───────────────────────────────────────────────────── */
-/* Let the body be the scroll container */
 .gallery {
   padding: var(--gap);
   display: grid;
@@ -478,7 +472,6 @@ body {
   flex: 1;
 }
 
-/* NFT Gallery Items */
 .nft-item {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color-light);
@@ -544,7 +537,6 @@ body {
   }
   
   .gallery {
-    margin-top: 0;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
   
@@ -570,7 +562,7 @@ body {
   box-shadow: none;
 }
 
-/* ─── Desktop-Specific Adjustments ─────────────────────────────── */
+/* ─── Desktop-Specific Adjustments ───────────────────────────── */
 @media (min-width: 769px) {
   .sidebar {
     position: fixed;
@@ -592,14 +584,7 @@ body {
   .mobile-panel-toggle {
     display: none !important;
   }
-
-  .header-extras {
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-  }
-
-  .toolbar {
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-  }
+  
+  /* Remove left and width adjustments on header-extras and toolbar */
+  /* They will now naturally span the full width of the main content */
 }

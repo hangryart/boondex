@@ -181,21 +181,48 @@ body {
   flex-direction: column;
 }
 
+.extra-data {
+  display: flex;
+  align-items: center;
+}
+
 .collection-title {
   display: block;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 700;
   color: #f5f5f5;
   text-align: left;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  align-items: top;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.collection-description {
+  display: block;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: #cccccc;
+  margin: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 10px;
+}
+
+.collection-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  object-fit: cover;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* Divider between extra data and toolbar */
 .divider-extra {
   border: none;
   border-top: 1px solid var(--border-color);
-  margin: 10px 0;
+  margin: 0px 0;
 }
 
 /* Filter Groups in Sidebar */
@@ -569,6 +596,7 @@ body {
     top: var(--header-height);
     left: 0;
     width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height)); /* Extend sidebar to bottom */
     overflow-y: auto;
   }
   
@@ -584,7 +612,5 @@ body {
   .mobile-panel-toggle {
     display: none !important;
   }
-  
-  /* Remove left and width adjustments on header-extras and toolbar */
-  /* They will now naturally span the full width of the main content */
+  /* Removed left/width rules from header-extras and toolbar to let them span the full width */
 }

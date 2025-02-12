@@ -1,146 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boondex Gallery</title>
-  <!-- Google Font for improved typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome Free Version CDN (v6.4.0 via jsDelivr) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="script.js"></script>
-</head>
-<body>
-  <!-- Header (no Filters button in header) -->
-  <header class="header">
-    <div class="header-title">
-      <i class="fa-brands fa-btc"></i> BOONDEX
-    </div>
-    <div class="header-actions">
-      <a href="https://x.com/hangryart" target="_blank" class="social-icon">
-        <img src="images/x-logo.svg" alt="X Icon" class="social-icon-img">
-      </a>
-    </div>
-  </header>
-
-  <!-- Layout Container -->
-  <div class="layout">
-    <!-- Sidebar for filtering traits -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <h2>Filters</h2>
-        <button class="close-sidebar" id="close-sidebar">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"></script>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boondex Gallery</title>
+    <!-- Google Font for improved typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- New Google Font: Micro 5 for BOONDEX title -->
+    <link href="https://fonts.googleapis.com/css2?family=Micro+5&display=swap" rel="stylesheet">
+    <!-- Font Awesome Free Version CDN (v6.4.0 via jsDelivr) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+  </head>  
+  <body>
+    <!-- Header (no Filters button in header) -->
+    <header class="header">
+      <div class="header-title">
+        <i class="fa-brands fa-btc"></i> BOONDEX
       </div>
-      <!-- Selected Traits Area -->
-      <div class="selected-traits"></div>
-      <!-- Divider -->
-      <hr class="divider">
-      <!-- Traits Section -->
-      <div class="filter-group attributes">
-        <h3>Traits</h3>
-        <input type="text" id="attributes-search" placeholder="Search traits">
-        <div class="attributes-container">
-          <div class="attributes-accordion">
-            <!-- Trait Category: Background -->
-            <div class="attribute-category">
-              <div class="attribute-category-header">
-                <span class="category-title">Background</span>
-                <span class="category-count">2</span>
-                <span class="toggle-icon">
-                  <i class="fa-solid fa-chevron-down"></i>
-                </span>
-              </div>
-              <div class="attribute-list">
-                <label class="attribute-item">
-                  <div class="trait-left">
-                    <div class="checkbox-wrapper">
-                      <input type="checkbox" value="blue">
+      <div class="header-actions">
+        <a href="https://x.com/hangryart" target="_blank" class="social-icon">
+          <img src="images/x-logo.svg" alt="X Icon" class="social-icon-img">
+        </a>
+      </div>
+    </header>
+
+    <!-- Layout Container -->
+    <div class="layout">
+      <!-- Sidebar for filtering traits -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2>Filters</h2>
+          <button class="close-sidebar" id="close-sidebar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <!-- Selected Traits Area -->
+        <div class="selected-traits"></div>
+        <!-- Divider -->
+        <hr class="divider">
+        <!-- Traits Section -->
+        <div class="filter-group attributes">
+          <h3>Traits</h3>
+          <input type="text" id="attributes-search" placeholder="Search traits">
+          <div class="attributes-container">
+            <div class="attributes-accordion">
+              <!-- Trait Category: Background -->
+              <div class="attribute-category">
+                <div class="attribute-category-header">
+                  <span class="category-title">Background</span>
+                  <span class="category-count">2</span>
+                  <span class="toggle-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </span>
+                </div>
+                <div class="attribute-list">
+                  <label class="attribute-item">
+                    <div class="trait-left">
+                      <div class="checkbox-wrapper">
+                        <input type="checkbox" value="blue">
+                      </div>
+                      <span class="trait-text">Blue</span>
                     </div>
-                    <span class="trait-text">Blue</span>
-                  </div>
-                  <span class="trait-count">120</span>
-                </label>
-                <label class="attribute-item">
-                  <div class="trait-left">
-                    <div class="checkbox-wrapper">
-                      <input type="checkbox" value="red">
+                    <span class="trait-count">120</span>
+                  </label>
+                  <label class="attribute-item">
+                    <div class="trait-left">
+                      <div class="checkbox-wrapper">
+                        <input type="checkbox" value="red">
+                      </div>
+                      <span class="trait-text">Red</span>
                     </div>
-                    <span class="trait-text">Red</span>
-                  </div>
-                  <span class="trait-count">50</span>
-                </label>
+                    <span class="trait-count">50</span>
+                  </label>
+                </div>
               </div>
+              <!-- Trait Category: Eyes -->
+              <div class="attribute-category">
+                <div class="attribute-category-header">
+                  <span class="category-title">Eyes</span>
+                  <span class="category-count">2</span>
+                  <span class="toggle-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </span>
+                </div>
+                <div class="attribute-list">
+                  <label class="attribute-item">
+                    <div class="trait-left">
+                      <div class="checkbox-wrapper">
+                        <input type="checkbox" value="blue-eyes">
+                      </div>
+                      <span class="trait-text">Blue Eyes</span>
+                    </div>
+                    <span class="trait-count">80</span>
+                  </label>
+                  <label class="attribute-item">
+                    <div class="trait-left">
+                      <div class="checkbox-wrapper">
+                        <input type="checkbox" value="green-eyes">
+                      </div>
+                      <span class="trait-text">Green Eyes</span>
+                    </div>
+                    <span class="trait-count">40</span>
+                  </label>
+                </div>
+              </div>
+              <!-- Additional trait categories can be added here -->
             </div>
-            <!-- Trait Category: Eyes -->
-            <div class="attribute-category">
-              <div class="attribute-category-header">
-                <span class="category-title">Eyes</span>
-                <span class="category-count">2</span>
-                <span class="toggle-icon">
-                  <i class="fa-solid fa-chevron-down"></i>
-                </span>
-              </div>
-              <div class="attribute-list">
-                <label class="attribute-item">
-                  <div class="trait-left">
-                    <div class="checkbox-wrapper">
-                      <input type="checkbox" value="blue-eyes">
-                    </div>
-                    <span class="trait-text">Blue Eyes</span>
-                  </div>
-                  <span class="trait-count">80</span>
-                </label>
-                <label class="attribute-item">
-                  <div class="trait-left">
-                    <div class="checkbox-wrapper">
-                      <input type="checkbox" value="green-eyes">
-                    </div>
-                    <span class="trait-text">Green Eyes</span>
-                  </div>
-                  <span class="trait-count">40</span>
-                </label>
-              </div>
-            </div>
-            <!-- Additional trait categories can be added here -->
           </div>
         </div>
-      </div>
-    </aside>
+      </aside>
 
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <!-- Sticky sub-toolbar -->
-      <div class="toolbar">
-        <!-- Mobile-only panel toggle button (visible only on mobile) -->
-        <button class="mobile-panel-toggle" id="mobile-panel-toggle">
-          <i class="fa-solid fa-filter"></i>
-        </button>
-        <!-- New sort toggle button placed to the left of the search input -->
-        <button class="sort-toggle" id="sort-toggle">
-          <i class="fa-solid fa-sort"></i>
-        </button>
-        <input type="text" id="search" placeholder="Search by NFT Name or ID">
-      </div>
-      <!-- NFT Gallery -->
-      <div class="gallery">
-        <div class="nft-item">
-          <img src="placeholder.jpg" alt="NFT Placeholder">
-          <p>NFT Title 1</p>
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Sticky sub-toolbar -->
+        <div class="toolbar">
+          <!-- Mobile-only panel toggle button (visible only on mobile) -->
+          <button class="mobile-panel-toggle" id="mobile-panel-toggle">
+            <i class="fa-solid fa-filter"></i>
+          </button>
+          <!-- Sort container wrapping the sort toggle button and popup menu -->
+          <div class="sort-container">
+            <button class="sort-toggle" id="sort-toggle">
+              <i class="fa-solid fa-sort"></i>
+            </button>
+            <!-- Sort Menu Popup -->
+            <div class="sort-menu" id="sort-menu">
+              <div class="sort-menu-item" data-value="asc">Ascending</div>
+              <div class="sort-menu-item" data-value="desc">Descending</div>
+              <div class="sort-menu-item" data-value="inscription-low-high">Inscription #: Low to High</div>
+              <div class="sort-menu-item" data-value="inscription-high-low">Inscription #: High to Low</div>
+            </div>
+          </div>
+          <input type="text" id="search" placeholder="Search by NFT Name or ID">
         </div>
-        <div class="nft-item">
-          <img src="placeholder.jpg" alt="NFT Placeholder">
-          <p>NFT Title 2</p>
+        <!-- NFT Gallery -->
+        <div class="gallery">
+          <div class="nft-item">
+            <div class="nft-img-wrapper">
+              <img src="images/134.png" alt="NFT Placeholder">
+            </div>
+            <div class="nft-text">
+              <p>NFT Title 1</p>
+            </div>
+          </div>
+          <div class="nft-item">
+            <div class="nft-img-wrapper">
+              <img src="images/127.png" alt="NFT Placeholder">
+            </div>
+            <div class="nft-text">
+              <p>NFT Title 2</p>
+            </div>
+          </div>
+          <div class="nft-item">
+            <div class="nft-img-wrapper">
+              <img src="images/147.png" alt="NFT Placeholder">
+            </div>
+            <div class="nft-text">
+              <p>NFT Title 3</p>
+            </div>
+          </div>
+          <!-- Additional NFT items follow the same structure -->
+          <div class="nft-item">
+            <div class="nft-img-wrapper">
+              <img src="images/147.png" alt="NFT Placeholder">
+            </div>
+            <div class="nft-text">
+              <p>NFT Title 3</p>
+            </div>
+          </div>
+          <div class="nft-item">
+            <div class="nft-img-wrapper">
+              <img src="images/147.png" alt="NFT Placeholder">
+            </div>
+            <div class="nft-text">
+              <p>NFT Title 3</p>
+            </div>
+          </div>
+          <!-- ... (other items remain unchanged) ... -->
         </div>
-        <div class="nft-item">
-          <img src="placeholder.jpg" alt="NFT Placeholder">
-          <p>NFT Title 3</p>
-        </div>
-        <!-- Additional NFT items can be added here -->
-      </div>
-    </main>
-  </div>
-</body>
+      </main>
+    </div>
+  </body>
 </html>

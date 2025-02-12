@@ -11,6 +11,7 @@
   --border-color: #222225;
   --accent-color: #00eeff;
   --hover-color: #FFBC50;
+  --border-color-light: #2D2D32; /* Slightly brighter than --border-color */
 }
 
 /* Global Resets */
@@ -43,14 +44,19 @@ body {
 }
 
 .header-title {
-  font-size: 1.4em;
-  font-weight: 700;
+  visibility: hidden;
+  font-size: 3.0em;
+  font-weight: 400;
   color: var(--accent-color);
-  font-style: italic;
+  font-family: 'Micro 5', sans-serif;
+  transition: visibility 0s linear 0.001s;
 }
 
 .header-title i {
-  margin-right: 8px;
+  font-size: 0.6em;
+  margin-right: 0.2em;
+  font-style: italic;
+  vertical-align: middle;
 }
 
 .header-actions {
@@ -102,14 +108,7 @@ body {
   display: none;
 }
 
-/* Make sidebar sticky on desktop */
-@media (min-width: 769px) {
-  .sidebar {
-    position: sticky;
-    top: var(--header-height);
-  }
-}
-
+/* Sidebar Header */
 .sidebar-header {
   display: flex;
   align-items: center;
@@ -130,13 +129,6 @@ body {
   font-size: 1.5em;
   color: var(--text-color);
   cursor: pointer;
-}
-
-/* Hide the close-sidebar button on desktop */
-@media (min-width: 769px) {
-  .close-sidebar {
-    display: none;
-  }
 }
 
 /* Selected Traits */
@@ -346,6 +338,7 @@ body {
   z-index: 900;
 }
 
+/* Toolbar inputs and selects */
 .toolbar input,
 .toolbar select {
   padding: 8px;
@@ -379,480 +372,52 @@ body {
   cursor: pointer;
 }
 
-/* Hide the mobile panel toggle button on desktop */
-@media (min-width: 769px) {
-  .mobile-panel-toggle {
-    display: none;
-  }
-}
-
-/* Gallery */
-.gallery {
-  padding: var(--gap);
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: var(--gap);
-  background-color: var(--bg-dark);
-  flex: 1;
-}
-
-/* NFT Item Styles */
-.nft-item {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.nft-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-}
-
-.nft-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 10px;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: var(--header-height);
-    padding: 10px 20px;
-  }
-  
-  .layout {
-    display: block;
-  }
-  
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Fully covers the viewport */
-    height: 100%;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1100;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-  }
-  
-  .sidebar.open {
-    transform: translateX(0);
-  }
-  
-  .gallery {
-    margin-top: var(--header-height);
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}
-
-/* Override search input active text color without affecting placeholder */
-#search,
-#attributes-search {
-  color: #f5f5f5;  /* Active typing text color to match 'Traits' text color */
-}
-
-#search::placeholder,
-#attributes-search::placeholder {
-  color: var(--input-text-color);  /* Keep placeholder text as originally styled */
-}
-
-/* CSS Variables */
-:root {
-  --header-height: 70px;
-  --sidebar-width: 320px;
-  --gap: 20px;
-  --bg-dark: #1A1A1E;
-  --bg-light: #121214;
-  --card-bg: #202023;
-  --text-color: #CCCCCC;
-  --input-text-color: #6E6E78;
-  --border-color: #222225;
-  --accent-color: #00eeff;
-  --hover-color: #FFBC50;
-}
-
-/* Global Resets */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Roboto', Arial, sans-serif;
-  background-color: var(--bg-dark);
-  color: var(--text-color);
-}
-
-/* Header */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--header-height);
-  background-color: #15151A;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.header-title {
-  font-size: 1.4em;
-  font-weight: 700;
-  color: var(--accent-color);
-  font-style: italic;
-}
-
-.header-title i {
-  margin-right: 8px;
-}
-
-.header-actions {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-
-/* Social Icon (the x-logo) */
-.social-icon {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  color: var(--text-color);
-  transition: transform 0.3s ease, color 0.3s ease;
-  margin-right: 10px;
-}
-
-.social-icon-img {
-  width: 18px;
-  height: 18px;
-  display: block;
-}
-
-.social-icon:hover {
-  transform: scale(1.1);
-  color: var(--hover-color);
-}
-
-/* Layout Container */
-.layout {
-  margin-top: var(--header-height);
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  height: calc(100vh - var(--header-height));
-}
-
-/* Sidebar */
-.sidebar {
-  background-color: var(--bg-light);
-  border-right: 1px solid var(--border-color);
-  padding: var(--gap);
-  overflow-y: auto;
-  scrollbar-width: none;   /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-}
-
-.sidebar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Make sidebar sticky on desktop */
-@media (min-width: 769px) {
-  .sidebar {
-    position: sticky;
-    top: var(--header-height);
-  }
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--gap);
-}
-
-.sidebar-header h2 {
-  font-size: 1.2em;
-  font-weight: 700;
-  margin: 0;
-  color: #f5f5f5;
-}
-
-.close-sidebar {
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: var(--text-color);
-  cursor: pointer;
-}
-
-/* Hide the close-sidebar button on desktop */
-@media (min-width: 769px) {
-  .close-sidebar {
-    display: none;
-  }
-}
-
-/* Selected Traits */
-.selected-traits {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.trait-box {
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  background-color: var(--bg-dark);
-  color: var(--text-color);
-  font-size: 0.9em;
-}
-
-.trait-box .remove-trait {
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-.clear-all {
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 5px 10px;
-  background-color: var(--bg-dark);
-  color: var(--text-color);
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-/* Divider */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border-color);
-  margin: 10px 0;
-}
-
-/* Filter Groups in Sidebar */
-.filter-group {
-  margin-bottom: var(--gap);
-}
-
-.filter-group label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: #f5f5f5;
-}
-
-.filter-group h3 {
-  font-size: 1em;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: #f5f5f5;
-}
-
-/* Traits Section in Sidebar */
-.filter-group.attributes h3 {
-  margin-bottom: 15px;
-}
-
-.filter-group.attributes input[type="text"] {
-  width: 100%;
+/* New sort toggle button styled like the mobile panel toggle */
+.sort-toggle {
   padding: 8px;
   border: 1px solid var(--border-color);
   background-color: var(--bg-dark);
   color: var(--input-text-color);
   border-radius: 5px;
-  transition: border-color 0.3s ease;
-}
-
-/* Accordion Styles for Traits Section */
-.attributes-accordion {
-  margin-top: 10px;
-  transition: max-height 0.3s ease;
-}
-
-.attribute-category {
-  border-top: 1px solid var(--border-color);
-  padding: 5px 10px;
-}
-
-.attribute-category-header {
+  width: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 1em;
-  padding: 5px 10px;
-  color: #f5f5f5;
 }
 
-.category-title {
-  flex: 1;
-}
-
-.attribute-category-header .category-count {
-  margin-right: 10px;
-  color: #f5f5f5;
-}
-
-.attribute-category-header .toggle-icon {
-  margin-left: 10px;
-}
-
-.toggle-icon i {
-  transition: transform 0.2s ease-in-out;
-}
-
-.toggle-icon i.rotated {
-  transform: rotate(180deg);
-}
-
-.attribute-list {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding-left: 10px;
-  margin-top: 10px;
-}
-
-.attribute-list.open {
-  max-height: 500px;
-}
-
-/* Attribute Item Styles */
-.attribute-item {
+.sort-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
-  font-size: 0.9em;
-  white-space: nowrap;
-  line-height: 1;
 }
 
-.trait-left {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--text-color);
-}
-
-.trait-count {
+/* Sort Menu Popup */
+.sort-menu {
   position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  text-align: right;
-  line-height: 1;
-  color: var(--text-color);
-}
-
-/* Checkbox Styles */
-.checkbox-wrapper {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 5px;
-}
-
-.checkbox-wrapper input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--border-color);
-  border-radius: 3px;
-  background-color: #212125;
-  cursor: pointer;
-  vertical-align: middle;
-  transition: background-color 0.3s ease;
-}
-
-.checkbox-wrapper input[type="checkbox"]:checked {
-  background-color: var(--accent-color);
-  border: 1px solid transparent;
-}
-
-.trait-text {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-}
-
-/* Toolbar (Subheader Above Gallery) */
-.toolbar {
-  padding: var(--gap);
-  background-color: var(--bg-light);
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  flex-wrap: nowrap;
-  gap: var(--gap);
-  align-items: center;
-  position: sticky;
-  top: var(--header-height);
-  z-index: 900;
-}
-
-.toolbar input,
-.toolbar select {
-  padding: 8px;
-  border: 1px solid var(--border-color);
+  top: calc(100% + 5px); /* 5px gap below the sort-toggle button */
+  left: 0;
   background-color: var(--bg-dark);
-  color: var(--input-text-color);
-  border-radius: 5px;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.toolbar input {
-  flex: 1 1 auto;
-  min-width: 150px;
-}
-
-.toolbar select {
-  flex: 0 0 200px;
-}
-
-/* Mobile-only panel toggle button in the toolbar */
-.mobile-panel-toggle {
-  padding: 8px;
   border: 1px solid var(--border-color);
-  background-color: var(--bg-dark);
-  color: var(--input-text-color);
   border-radius: 5px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  overflow: hidden;
+  display: none;
+  z-index: 1000;
+  min-width: 150px; /* Adjust as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 5px 0;
 }
 
-/* Hide the mobile panel toggle button on desktop */
-@media (min-width: 769px) {
-  .mobile-panel-toggle {
-    display: none;
-  }
+.sort-menu.open {
+  display: block;
+}
+
+.sort-menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--input-text-color);
+}
+
+.sort-menu-item:hover {
+  background-color: #2a2a2e; /* slightly brighter */
 }
 
 /* Gallery */
@@ -866,27 +431,42 @@ body {
   flex: 1;
 }
 
-/* NFT Item Styles */
+/* NFT Gallery Section */
+/* Updated NFT Item Styles */
 .nft-item {
   background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px;
+  border: 1px solid var(--border-color-light);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.nft-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+/* Image Wrapper */
+.nft-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.nft-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  margin-bottom: 10px;
+/* Image Styling and Zoom Effect */
+.nft-img-wrapper img {
+  width: 100%;
+  display: block;
+  transition: transform 0.2s ease-in-out;
+  will-change: transform;
+}
+
+.nft-img-wrapper:hover img {
+  transform: scale(1.1);
+}
+
+/* Text Container */
+.nft-text {
+  position: relative;
+  z-index: 2;
+  background-color: var(--card-bg);
+  padding: 10px;
 }
 
 /* Mobile Styles */
@@ -912,6 +492,7 @@ body {
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1100;
+    box-shadow: none;
   }
   
   .sidebar.open {
@@ -935,16 +516,37 @@ body {
   color: var(--input-text-color);
 }
 
-/* New sort toggle button styled like the mobile panel toggle */
-.sort-toggle {
-  padding: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-dark);
-  color: var(--input-text-color);
-  border-radius: 5px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+/* Subtle focus styling for search boxes with 1px outline */
+#search:focus,
+#attributes-search:focus {
+  outline: 1px solid rgba(150, 150, 150, 0.6);
+  box-shadow: none;
+}
+
+/* --- Desktop-specific adjustments for fixed sidebar --- */
+@media (min-width: 769px) {
+  /* Fixed sidebar */
+  .sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+  }
+  
+  /* Adjust layout to account for fixed sidebar */
+  .layout {
+    margin-left: var(--sidebar-width);
+    display: block;
+    height: calc(100vh - var(--header-height));
+  }
+  
+  .close-sidebar {
+    display: none !important;
+  }
+  
+  .mobile-panel-toggle {
+    display: none !important;
+  }
 }

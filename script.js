@@ -34,7 +34,33 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   
-  // No extra JavaScript is needed for the mobile sort toggle button as it uses a native select replacement
+  // Sort Toggle Button Functionality
+  const sortToggle = document.getElementById('sort-toggle');
+  const sortMenu = document.getElementById('sort-menu');
+  if (sortToggle) {
+    sortToggle.addEventListener('click', function(e) {
+      // Toggle the sort menu popup
+      sortMenu.classList.toggle('open');
+      // Prevent the click event from propagating so it doesn't close immediately
+      e.stopPropagation();
+    });
+  }
+  
+  // Close sort menu when clicking outside of it
+  document.addEventListener('click', function(e) {
+    if (sortMenu.classList.contains('open') && !sortMenu.contains(e.target) && e.target !== sortToggle) {
+      sortMenu.classList.remove('open');
+    }
+  });
+  
+  // Close sort menu when clicking on any sort menu item
+  const sortMenuItems = document.querySelectorAll('.sort-menu-item');
+  sortMenuItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      // You can process the selection here if needed.
+      sortMenu.classList.remove('open');
+    });
+  });
   
   // Trait selection functionality
   const traitCheckboxes = document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]');
@@ -106,5 +132,17 @@ document.addEventListener("DOMContentLoaded", function() {
         removeTraitSelection(checkbox);
       }
     });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var title = document.querySelector('.header-title');
+  var micro5 = new FontFaceObserver('Micro 5');
+
+  micro5.load().then(function() {
+    title.style.visibility = 'visible';
+  }).catch(function() {
+    // In case the font fails to load, still show the title
+    title.style.visibility = 'visible';
   });
 });

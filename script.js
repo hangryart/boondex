@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
       sidebar.classList.add('open');
     });
   }
-
+  
+  // No extra JavaScript needed for the mobile sort select since it is a native select element
+  
   // Trait selection functionality
   const traitCheckboxes = document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]');
   const selectedTraitsContainer = document.querySelector('.selected-traits');

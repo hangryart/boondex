@@ -1,8 +1,10 @@
 /* CSS Variables */
 :root {
-  --header-height: 63px; /* Adjusted for 10% shorter header */
+  --header-height: 63px; /* 10% shorter header */
   --sidebar-width: 320px;
   --gap: 20px;
+  --header-extras-height: 50px;  /* Adjust this value as needed */
+  --toolbar-height: 50px;        /* Adjust this value as needed */
   --bg-dark: #1A1A1E;
   --bg-light: #121214;
   --card-bg: #202023;
@@ -22,7 +24,7 @@
 }
 
 body {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-color);
 }
@@ -118,7 +120,7 @@ body {
 
 .sidebar-header h2 {
   font-size: 1.2em;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0;
   color: #f5f5f5;
 }
@@ -174,29 +176,39 @@ body {
 
 /* New Extra Data Area */
 .header-extras {
-  position: sticky;
-  top: var(--header-height); /* sticks immediately below the fixed header */
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  height: var(--header-extras-height);
   z-index: 950;
-  height: 30px;              /* fixed height for the extra area */
-  background-color: var(--bg-light);  /* same as subtoolbar background */
-  padding: 5px 20px;         /* reduced padding for a shorter area */
+  background-color: var(--bg-light);
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .extra-data {
   flex: 1;
+  /* Extra padding/margin can be added here if needed */
 }
 
+/* New Collection Title Style */
+.collection-title {
+  display: block;
+  font-size: 1em;
+  font-weight: 500;
+  color: #f5f5f5; /* Matches the Traits text in the left panel */
+  text-align: left;
+  padding-top: 15px; /* Increased for more space above */
+  padding-bottom: 15px;
+}
+
+/* Updated Divider in Extra Area */
 .divider-extra {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   border: none;
   border-top: 1px solid var(--border-color);
-  margin: 0;
+  margin: 0; /* Divider spans the full padded width */
 }
 
 /* Filter Groups in Sidebar */
@@ -353,19 +365,50 @@ body {
 
 /* Toolbar (Subheader Above Gallery) */
 .toolbar {
-  position: sticky;
-  top: calc(var(--header-height) + 30px); /* header height + extra area height */
-  z-index: 900;
-  padding: var(--gap);
+  position: fixed;
+  top: calc(var(--header-height) + var(--header-extras-height));
+  left: 0;
+  right: 0;
+  height: var(--toolbar-height); /* Enforce a fixed height */
+  padding: var(--gap) var(--gap) calc(var(--gap) * 2) var(--gap);
   background-color: var(--bg-light);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   flex-wrap: nowrap;
   gap: var(--gap);
   align-items: center;
+  z-index: 900;
 }
 
-/* Toolbar inputs and selects */
+/* Specific Search Input Styling in Subheader Wrapper */
+.subheader-wrapper .toolbar input#search {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-dark);
+  color: #f5f5f5; /* Active text is bright */
+  border-radius: 5px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  flex: 1 1 auto;
+  min-width: 150px;
+  position: sticky;
+  top: var(--header-height); /* Sticks right below the main header */
+  z-index: 950;
+}
+
+.subheader-wrapper .toolbar input#search::-webkit-input-placeholder {
+  color: var(--input-text-color);
+}
+.subheader-wrapper .toolbar input#search::-moz-placeholder {
+  color: var(--input-text-color);
+}
+.subheader-wrapper .toolbar input#search:-ms-input-placeholder {
+  color: var(--input-text-color);
+}
+.subheader-wrapper .toolbar input#search::placeholder {
+  color: var(--input-text-color);
+}
+
+/* Toolbar inputs and selects (fallback for others) */
 .toolbar input,
 .toolbar select {
   padding: 8px;
@@ -375,12 +418,6 @@ body {
   border-radius: 5px;
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
-
-.toolbar input {
-  flex: 1 1 auto;
-  min-width: 150px;
-}
-
 .toolbar select {
   flex: 0 0 200px;
 }
@@ -440,7 +477,7 @@ body {
 .sort-menu-item {
   padding: 8px 12px;
   cursor: pointer;
-  color: var(--input-text-color);
+  color: #f5f5f5;
 }
 
 .sort-menu-item:hover {
@@ -449,7 +486,10 @@ body {
 
 /* Gallery */
 .gallery {
-  padding: var(--gap);
+  padding: calc(var(--header-height) + var(--header-extras-height) + var(--toolbar-height) + calc(var(--gap) * -1.5))
+          var(--gap)
+          var(--gap)
+          var(--gap);
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -458,8 +498,8 @@ body {
   flex: 1;
 }
 
+
 /* NFT Gallery Section */
-/* Updated NFT Item Styles */
 .nft-item {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color-light);
@@ -469,14 +509,12 @@ body {
   text-align: center;
 }
 
-/* Image Wrapper */
 .nft-img-wrapper {
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Image Styling and Zoom Effect */
 .nft-img-wrapper img {
   width: 100%;
   display: block;
@@ -488,7 +526,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Text Container */
 .nft-text {
   position: relative;
   z-index: 2;
@@ -515,7 +552,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Fully covers the viewport */
+    width: 100%;
     height: 100%;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
@@ -531,9 +568,14 @@ body {
     margin-top: 0;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
+  
+  /* Disable zoom effect on mobile */
+  .nft-img-wrapper:hover img {
+    transform: none !important;
+  }
 }
 
-/* Override active typing text color for search boxes (without affecting placeholder) */
+/* Overrides for search boxes */
 #search,
 #attributes-search {
   color: #f5f5f5;
@@ -544,16 +586,14 @@ body {
   color: var(--input-text-color);
 }
 
-/* Subtle focus styling for search boxes with 1px outline */
 #search:focus,
 #attributes-search:focus {
   outline: 1px solid rgba(150, 150, 150, 0.6);
   box-shadow: none;
 }
 
-/* --- Desktop-specific adjustments for fixed sidebar --- */
+/* Desktop-specific adjustments for fixed sidebar */
 @media (min-width: 769px) {
-  /* Fixed sidebar */
   .sidebar {
     position: fixed;
     top: var(--header-height);
@@ -563,7 +603,6 @@ body {
     overflow-y: auto;
   }
   
-  /* Adjust layout to account for fixed sidebar */
   .layout {
     margin-left: var(--sidebar-width);
     display: block;
@@ -576,5 +615,15 @@ body {
   
   .mobile-panel-toggle {
     display: none !important;
+  }
+
+  .header-extras {
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+  }
+
+  .toolbar {
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
   }
 }

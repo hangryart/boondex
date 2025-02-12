@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boondex Gallery</title>
     <!-- Google Font for improved typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- New Google Font: Micro 5 for BOONDEX title -->
     <link href="https://fonts.googleapis.com/css2?family=Micro+5&display=swap" rel="stylesheet">
     <!-- Font Awesome Free Version CDN (v6.4.0 via jsDelivr) -->
@@ -115,33 +115,34 @@
 
       <!-- Main Content Area -->
       <main class="main-content">
-        <!-- New Extra Data Area (between main header and subtoolbar) -->
-        <div class="header-extras">
-          <div class="extra-data">
-            <!-- Place additional data here -->
-          </div>
-          <hr class="divider-extra">
-        </div>
-        <!-- Sticky sub-toolbar -->
-        <div class="toolbar">
-          <!-- Mobile-only panel toggle button (visible only on mobile) -->
-          <button class="mobile-panel-toggle" id="mobile-panel-toggle">
-            <i class="fa-solid fa-filter"></i>
-          </button>
-          <!-- Sort container wrapping the sort toggle button and popup menu -->
-          <div class="sort-container">
-            <button class="sort-toggle" id="sort-toggle">
-              <i class="fa-solid fa-sort"></i>
-            </button>
-            <!-- Sort Menu Popup -->
-            <div class="sort-menu" id="sort-menu">
-              <div class="sort-menu-item" data-value="asc">Ascending</div>
-              <div class="sort-menu-item" data-value="desc">Descending</div>
-              <div class="sort-menu-item" data-value="inscription-low-high">Inscription #: Low to High</div>
-              <div class="sort-menu-item" data-value="inscription-high-low">Inscription #: High to Low</div>
+        <!-- Subheader Wrapper: Extra Data Area + Toolbar -->
+        <div class="subheader-wrapper">
+          <div class="header-extras">
+            <div class="extra-data">
+              <label class="collection-title">Boons v Lions</label>
             </div>
+            <hr class="divider-extra">
           </div>
-          <input type="text" id="search" placeholder="Search by NFT Name or ID">
+          <div class="toolbar">
+            <!-- Mobile-only panel toggle button (visible only on mobile) -->
+            <button class="mobile-panel-toggle" id="mobile-panel-toggle">
+              <i class="fa-solid fa-filter"></i>
+            </button>
+            <!-- Sort container wrapping the sort toggle button and popup menu -->
+            <div class="sort-container">
+              <button class="sort-toggle" id="sort-toggle">
+                <i class="fa-solid fa-sort"></i>
+              </button>
+              <!-- Sort Menu Popup -->
+              <div class="sort-menu" id="sort-menu">
+                <div class="sort-menu-item" data-value="asc">Ascending</div>
+                <div class="sort-menu-item" data-value="desc">Descending</div>
+                <div class="sort-menu-item" data-value="inscription-low-high">Inscription #: Low to High</div>
+                <div class="sort-menu-item" data-value="inscription-high-low">Inscription #: High to Low</div>
+              </div>
+            </div>
+            <input type="text" id="search" placeholder="Search by NFT Name or ID">
+          </div>
         </div>
         <!-- NFT Gallery -->
         <div class="gallery">
@@ -212,7 +213,7 @@
           </div>
           <div class="nft-item">
             <div class="nft-img-wrapper">
-              <img src="images/127.png" alt="NFT Placeholder">
+              <img src="images/147.png" alt="NFT Placeholder">
             </div>
             <div class="nft-text">
               <p>NFT Title 3</p>
@@ -220,15 +221,7 @@
           </div>
           <div class="nft-item">
             <div class="nft-img-wrapper">
-              <img src="images/127.png" alt="NFT Placeholder">
-            </div>
-            <div class="nft-text">
-              <p>NFT Title 3</p>
-            </div>
-          </div>
-          <div class="nft-item">
-            <div class="nft-img-wrapper">
-              <img src="images/127.png" alt="NFT Placeholder">
+              <img src="images/147.png" alt="NFT Placeholder">
             </div>
             <div class="nft-text">
               <p>NFT Title 3</p>

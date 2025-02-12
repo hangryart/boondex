@@ -1,6 +1,6 @@
 /* CSS Variables */
 :root {
-  --header-height: 70px;
+  --header-height: 63px; /* Adjusted for 10% shorter header */
   --sidebar-width: 320px;
   --gap: 20px;
   --bg-dark: #1A1A1E;
@@ -45,7 +45,7 @@ body {
 
 .header-title {
   visibility: hidden;
-  font-size: 3.0em;
+  font-size: 2.8em; /* Updated as per your adjustment */
   font-weight: 400;
   color: var(--accent-color);
   font-family: 'Micro 5', sans-serif;
@@ -170,6 +170,33 @@ body {
   border: none;
   border-top: 1px solid var(--border-color);
   margin: 10px 0;
+}
+
+/* New Extra Data Area */
+.header-extras {
+  position: sticky;
+  top: var(--header-height); /* sticks immediately below the fixed header */
+  z-index: 950;
+  height: 30px;              /* fixed height for the extra area */
+  background-color: var(--bg-light);  /* same as subtoolbar background */
+  padding: 5px 20px;         /* reduced padding for a shorter area */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.extra-data {
+  flex: 1;
+}
+
+.divider-extra {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 0;
 }
 
 /* Filter Groups in Sidebar */
@@ -326,6 +353,9 @@ body {
 
 /* Toolbar (Subheader Above Gallery) */
 .toolbar {
+  position: sticky;
+  top: calc(var(--header-height) + 30px); /* header height + extra area height */
+  z-index: 900;
   padding: var(--gap);
   background-color: var(--bg-light);
   border-bottom: 1px solid var(--border-color);
@@ -333,9 +363,6 @@ body {
   flex-wrap: nowrap;
   gap: var(--gap);
   align-items: center;
-  position: sticky;
-  top: var(--header-height);
-  z-index: 900;
 }
 
 /* Toolbar inputs and selects */
@@ -466,7 +493,8 @@ body {
   position: relative;
   z-index: 2;
   background-color: var(--card-bg);
-  padding: 10px;
+  padding: 13px;
+  text-align: left;
 }
 
 /* Mobile Styles */

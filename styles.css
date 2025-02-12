@@ -50,7 +50,7 @@ body {
 }
 
 .header-title i {
-  margin-right: 8px; /* Spacing for the icon placed to the left of the title */
+  margin-right: 8px;
 }
 
 .header-actions {
@@ -59,16 +59,13 @@ body {
   align-items: center;
 }
 
-.filter-toggle {
-  background: none;
-  border: none;
-  font-size: 1em;
-  color: var(--text-color);
-  cursor: pointer;
-  margin-left: 15px;
+/* Social Icon: set image size to 18px on all devices */
+.social-icon-img {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
-/* Social Icon */
 .social-icon {
   text-decoration: none;
   display: flex;
@@ -78,22 +75,9 @@ body {
   margin-right: 10px;
 }
 
-.social-icon-img {
-  width: 24px;
-  height: 24px;
-  display: block;
-}
-
 .social-icon:hover {
   transform: scale(1.1);
   color: var(--hover-color);
-}
-
-@media (min-width: 769px) {
-  .social-icon-img {
-    width: 18px;
-    height: 18px;
-  }
 }
 
 /* Layout Container */
@@ -111,11 +95,19 @@ body {
   padding: var(--gap);
   overflow-y: auto;
   scrollbar-width: none;   /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 .sidebar::-webkit-scrollbar {
   display: none;
+}
+
+/* Make sidebar sticky on desktop */
+@media (min-width: 769px) {
+  .sidebar {
+    position: sticky;
+    top: var(--header-height);
+  }
 }
 
 .sidebar-header {
@@ -140,16 +132,14 @@ body {
   cursor: pointer;
 }
 
+/* Hide the close-sidebar button on desktop */
 @media (min-width: 769px) {
-  .filter-toggle {
-    display: none;
-  }
   .close-sidebar {
     display: none;
   }
 }
 
-/* Selected Traits (New Area) */
+/* Selected Traits */
 .selected-traits {
   display: flex;
   flex-wrap: wrap;
@@ -183,14 +173,14 @@ body {
   cursor: pointer;
 }
 
-/* Divider below selected traits */
+/* Divider */
 .divider {
   border: none;
   border-top: 1px solid var(--border-color);
   margin: 10px 0;
 }
 
-/* Filter Groups (for Sidebar) */
+/* Filter Groups in Sidebar */
 .filter-group {
   margin-bottom: var(--gap);
 }
@@ -257,7 +247,6 @@ body {
   margin-left: 10px;
 }
 
-/* Updated CSS for smooth, quicker rotation of the toggle icon */
 .toggle-icon i {
   transition: transform 0.2s ease-in-out;
 }
@@ -343,15 +332,39 @@ body {
   line-height: 1;
 }
 
-/* Toolbar Styles (Subheader Above Gallery) */
+/* Toolbar (Subheader Above Gallery) */
 .toolbar {
   padding: var(--gap);
   background-color: var(--bg-light);
   border-bottom: 1px solid var(--border-color);
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--gap);
   align-items: center;
+  position: sticky;
+  top: var(--header-height);
+  z-index: 900;
+}
+
+/* Mobile-only panel toggle button in the toolbar */
+.mobile-panel-toggle {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-dark);
+  color: var(--input-text-color);
+  border-radius: 5px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Hide mobile panel toggle on desktop */
+@media (min-width: 769px) {
+  .mobile-panel-toggle {
+    display: none;
+  }
 }
 
 .toolbar input,
@@ -367,7 +380,6 @@ body {
 .toolbar input {
   flex: 1 1 auto;
   min-width: 150px;
-  /* The search input now flexibly fills available space */
 }
 
 .toolbar select {
@@ -382,8 +394,10 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: var(--gap);
   background-color: var(--bg-dark);
+  flex: 1;
 }
 
+/* NFT Item Styles */
 .nft-item {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -424,8 +438,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 80%;
-    max-width: 320px;
+    width: 100%; /* Fully covers the viewport */
     height: 100%;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;

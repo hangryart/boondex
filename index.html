@@ -6,23 +6,22 @@
   <title>Boondex Gallery</title>
   <!-- Google Font for improved typography -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome using jsDelivr CDN -->
+  <!-- Font Awesome Free Version CDN (v6.4.0 via jsDelivr) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (no Filters button here on mobile) -->
   <header class="header">
     <div class="header-title">
-      <i class="fa-brands fa-btc"></i></i></i></i></i> Boondex
+      <i class="fa-brands fa-btc"></i> Boondex
     </div>
     <div class="header-actions">
       <a href="https://x.com/hangryart" target="_blank" class="social-icon">
         <img src="images/x-logo.svg" alt="X Icon" class="social-icon-img">
       </a>
     </div>
-    <button class="filter-toggle" id="filter-toggle">Filters</button>
   </header>
 
   <!-- Layout Container -->
@@ -111,10 +110,14 @@
       </div>
     </aside>
 
-    <!-- Main content area including toolbar and NFT gallery -->
+    <!-- Main Content Area -->
     <main class="main-content">
-      <!-- Toolbar Subheader -->
+      <!-- Sticky sub-toolbar -->
       <div class="toolbar">
+        <!-- Mobile-only panel toggle button -->
+        <button class="mobile-panel-toggle" id="mobile-panel-toggle">
+          <i class="fa-solid fa-arrows-to-dot"></i>
+        </button>
         <input type="text" id="search" placeholder="Search by NFT Name or ID">
         <select id="sort">
           <option value="asc">Ascending</option>

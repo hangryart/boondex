@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Accordion toggle for trait categories using Font Awesome icons with smooth rotation
+  // Accordion toggle for trait categories with smooth rotation
   const categoryHeaders = document.querySelectorAll('.attribute-category-header');
   categoryHeaders.forEach(header => {
     header.addEventListener('click', () => {
       const list = header.nextElementSibling;
       list.classList.toggle('open');
       const icon = header.querySelector('.toggle-icon i');
-      // Toggle the 'rotated' class so the icon rotates 180° if open, and back when closed
       icon.classList.toggle('rotated', list.classList.contains('open'));
     });
   });
@@ -14,16 +13,24 @@ document.addEventListener("DOMContentLoaded", function() {
   // Mobile sidebar toggle functionality
   const filterToggle = document.getElementById('filter-toggle');
   const sidebar = document.getElementById('sidebar');
-  const closeSidebar = document.getElementById('close-sidebar');
-  
   if (filterToggle) {
     filterToggle.addEventListener('click', () => {
       sidebar.classList.add('open');
     });
   }
+  
+  const closeSidebar = document.getElementById('close-sidebar');
   if (closeSidebar) {
     closeSidebar.addEventListener('click', () => {
       sidebar.classList.remove('open');
+    });
+  }
+  
+  // Mobile panel toggle button in the toolbar functionality
+  const mobilePanelToggle = document.getElementById('mobile-panel-toggle');
+  if (mobilePanelToggle) {
+    mobilePanelToggle.addEventListener('click', () => {
+      sidebar.classList.add('open');
     });
   }
 

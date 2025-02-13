@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
       img.src = `https://ordinals.com/content/${item.id}`;
       // Enable lazy loading.
       img.loading = "lazy";
-      // For crisp pixel art; adjust or remove if you prefer smooth scaling.
+      // For crisp pixel art, these settings are applied:
       img.style.imageRendering = "pixelated";
       img.style.imageRendering = "crisp-edges";
       
@@ -427,7 +427,12 @@ document.addEventListener("DOMContentLoaded", function() {
   fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
     .then(response => response.json())
     .then(data => {
-      allNFTData = data;
+      // Sort the data in ascending order by the number in the meta.name string.
+      allNFTData = data.sort((a, b) => {
+        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+        return numA - numB;
+      });
       populateGallery(allNFTData);
       buildFilters();
     })
@@ -468,7 +473,11 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         }
       ];
-      allNFTData = sampleMetadata;
+      allNFTData = sampleMetadata.sort((a, b) => {
+        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+        return numA - numB;
+      });
       populateGallery(allNFTData);
       buildFilters();
     });

@@ -1,22 +1,133 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Accordion toggle for trait categories with smooth rotation
-  const categoryHeaders = document.querySelectorAll('.attribute-category-header');
-  categoryHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const list = header.nextElementSibling;
-      list.classList.toggle('open');
-      const icon = header.querySelector('.toggle-icon i');
-      icon.classList.toggle('rotated', list.classList.contains('open'));
+  // -------------- Build Left Panel Filters --------------
+  // This function reads allNFTData to generate filter groups based on meta.attributes.
+  function buildFilters() {
+    let filterData = {};
+    // Iterate over each NFT in the global data array.
+    allNFTData.forEach(nft => {
+      if (nft.meta && nft.meta.attributes) {
+        nft.meta.attributes.forEach(attr => {
+          let category = attr.trait_type;
+          let value = attr.value;
+          if (!filterData[category]) {
+            filterData[category] = {};
+          }
+          if (!filterData[category][value]) {
+            filterData[category][value] = 0;
+          }
+          filterData[category][value]++;
+        });
+      }
     });
-  });
-
-  // Mobile sidebar toggle functionality
+    
+    // Build HTML for each filter category.
+    const accordionContainer = document.querySelector('.attributes-accordion');
+    if (!accordionContainer) return;
+    accordionContainer.innerHTML = ""; // Clear any existing filters.
+    
+    for (let category in filterData) {
+      let categoryDiv = document.createElement('div');
+      categoryDiv.classList.add('attribute-category');
+      
+      // Create header.
+      let headerDiv = document.createElement('div');
+      headerDiv.classList.add('attribute-category-header');
+      
+      let titleSpan = document.createElement('span');
+      titleSpan.classList.add('category-title');
+      titleSpan.textContent = category;
+      
+      let countSpan = document.createElement('span');
+      countSpan.classList.add('category-count');
+      // Display the number of distinct trait values.
+      countSpan.textContent = Object.keys(filterData[category]).length;
+      
+      let toggleSpan = document.createElement('span');
+      toggleSpan.classList.add('toggle-icon');
+      toggleSpan.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+      
+      headerDiv.appendChild(titleSpan);
+      headerDiv.appendChild(countSpan);
+      headerDiv.appendChild(toggleSpan);
+      
+      // Create the attribute list.
+      let listDiv = document.createElement('div');
+      listDiv.classList.add('attribute-list');
+      
+      for (let value in filterData[category]) {
+        let label = document.createElement('label');
+        label.classList.add('attribute-item');
+        
+        let traitLeft = document.createElement('div');
+        traitLeft.classList.add('trait-left');
+        
+        let checkboxWrapper = document.createElement('div');
+        checkboxWrapper.classList.add('checkbox-wrapper');
+        let checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        // Store the trait value in lowercase for filtering.
+        checkbox.value = value.toLowerCase();
+        checkboxWrapper.appendChild(checkbox);
+        
+        let traitText = document.createElement('span');
+        traitText.classList.add('trait-text');
+        traitText.textContent = value;
+        
+        traitLeft.appendChild(checkboxWrapper);
+        traitLeft.appendChild(traitText);
+        
+        let traitCount = document.createElement('span');
+        traitCount.classList.add('trait-count');
+        traitCount.textContent = filterData[category][value];
+        
+        label.appendChild(traitLeft);
+        label.appendChild(traitCount);
+        
+        listDiv.appendChild(label);
+      }
+      
+      categoryDiv.appendChild(headerDiv);
+      categoryDiv.appendChild(listDiv);
+      accordionContainer.appendChild(categoryDiv);
+    }
+    
+    // Attach event listeners for the new filters.
+    attachAccordionListeners();
+    attachTraitCheckboxListeners();
+  }
+  
+  function attachAccordionListeners() {
+    const categoryHeaders = document.querySelectorAll('.attribute-category-header');
+    categoryHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const list = header.nextElementSibling;
+        list.classList.toggle('open');
+        const icon = header.querySelector('.toggle-icon i');
+        icon.classList.toggle('rotated', list.classList.contains('open'));
+      });
+    });
+  }
+  
+  function attachTraitCheckboxListeners() {
+    // Select all checkboxes from the dynamically built filters.
+    const newTraitCheckboxes = document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]');
+    newTraitCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+          addTraitSelection(checkbox);
+        } else {
+          removeTraitSelection(checkbox);
+        }
+      });
+    });
+  }
+  
+  // -------------- Mobile Sidebar & Sort Menu Functionality --------------
   const filterToggle = document.getElementById('filter-toggle');
   const sidebar = document.getElementById('sidebar');
   if (filterToggle) {
     filterToggle.addEventListener('click', () => {
       sidebar.classList.add('open');
-      // When opening the sidebar, if traits are selected, show the sticky bar
       if (window.innerWidth <= 768 && selectedTraitsExist() && mobileStickyBar) {
         mobileStickyBar.classList.add('active');
       }
@@ -27,61 +138,51 @@ document.addEventListener("DOMContentLoaded", function() {
   if (closeSidebar) {
     closeSidebar.addEventListener('click', () => {
       sidebar.classList.remove('open');
-      // Slide out the sticky bar with the panel
       if (mobileStickyBar) {
         mobileStickyBar.classList.remove('active');
       }
     });
   }
   
-  // Mobile panel toggle button in the toolbar functionality
   const mobilePanelToggle = document.getElementById('mobile-panel-toggle');
   if (mobilePanelToggle) {
     mobilePanelToggle.addEventListener('click', () => {
       sidebar.classList.add('open');
-      // When opening the panel, if traits are selected, show the sticky bar
       if (window.innerWidth <= 768 && selectedTraitsExist() && mobileStickyBar) {
         mobileStickyBar.classList.add('active');
       }
     });
   }
   
-  // Sort Toggle Button Functionality
   const sortToggle = document.getElementById('sort-toggle');
   const sortMenu = document.getElementById('sort-menu');
   if (sortToggle) {
     sortToggle.addEventListener('click', function(e) {
-      // Toggle the sort menu popup
       sortMenu.classList.toggle('open');
-      // Prevent the click event from propagating so it doesn't close immediately
       e.stopPropagation();
     });
   }
   
-  // Close sort menu when clicking outside of it
   document.addEventListener('click', function(e) {
     if (sortMenu.classList.contains('open') && !sortMenu.contains(e.target) && e.target !== sortToggle) {
       sortMenu.classList.remove('open');
     }
   });
   
-  // Close sort menu when clicking on any sort menu item
   const sortMenuItems = document.querySelectorAll('.sort-menu-item');
   sortMenuItems.forEach(item => {
     item.addEventListener('click', function(e) {
-      // You can process the selection here if needed.
       sortMenu.classList.remove('open');
     });
   });
   
-  // Trait selection functionality
-  const traitCheckboxes = document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]');
+  // -------------- Trait Selection & Filtering --------------
   const selectedTraitsContainer = document.querySelector('.selected-traits');
-  
-  // Mobile sticky bar element (should be in your HTML)
   const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
   
-  // Helper to check if any trait boxes exist
+  // Global storage for NFT metadata (for filtering).
+  let allNFTData = [];
+  
   function selectedTraitsExist() {
     return selectedTraitsContainer.querySelectorAll('.trait-box').length > 0;
   }
@@ -110,15 +211,16 @@ document.addEventListener("DOMContentLoaded", function() {
       traitBox.remove();
       checkbox.checked = false;
       updateClearAllVisibility();
+      filterGallery();
     });
     traitBox.appendChild(removeIcon);
     selectedTraitsContainer.appendChild(traitBox);
     updateClearAllVisibility();
     
-    // On mobile: if the sidebar is open and a trait is selected, slide in the sticky bar from left quickly.
     if (mobileStickyBar && window.innerWidth <= 768 && sidebar.classList.contains('open')) {
       mobileStickyBar.classList.add('active');
     }
+    filterGallery();
   }
   
   function removeTraitSelection(checkbox) {
@@ -130,6 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const traitBox = selectedTraitsContainer.querySelector(`[data-key="${key}"]`);
     if (traitBox) traitBox.remove();
     updateClearAllVisibility();
+    filterGallery();
   }
   
   function updateClearAllVisibility() {
@@ -141,11 +244,12 @@ document.addEventListener("DOMContentLoaded", function() {
         clearAll.classList.add('clear-all');
         clearAll.textContent = "Clear all";
         clearAll.addEventListener('click', function() {
-          traitCheckboxes.forEach(chk => chk.checked = false);
+          document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(chk => chk.checked = false);
           selectedTraitsContainer.innerHTML = "";
           if (mobileStickyBar) {
             mobileStickyBar.classList.remove('active');
           }
+          filterGallery();
         });
         selectedTraitsContainer.insertBefore(clearAll, selectedTraitsContainer.firstChild);
       }
@@ -157,39 +261,184 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   
-  traitCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
+  // Left panel search functionality to filter trait items in real time.
+  const attributeSearch = document.getElementById('attributes-search');
+  if (attributeSearch) {
+    attributeSearch.addEventListener('input', function() {
+      const filter = attributeSearch.value.trim().toLowerCase();
+      const categories = document.querySelectorAll('.attribute-category');
+      categories.forEach(category => {
+        const traitItems = category.querySelectorAll('.attribute-item');
+        let matchCount = 0;
+        traitItems.forEach(item => {
+          const traitTextElement = item.querySelector('.trait-text');
+          if (traitTextElement) {
+            const traitText = traitTextElement.textContent.trim().toLowerCase();
+            if (filter === "" || traitText.startsWith(filter)) {
+              item.style.display = "";
+              matchCount++;
+            } else {
+              item.style.display = "none";
+            }
+          }
+        });
+        const categoryCountElement = category.querySelector('.category-count');
+        if (categoryCountElement) {
+          categoryCountElement.textContent = matchCount;
+        }
+        category.style.display = matchCount > 0 ? "" : "none";
+      });
+    });
+  }
+  
+  // -------------- NFT Gallery Population & Filtering --------------
+  function populateGallery(metadata) {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    gallery.innerHTML = "";
+    metadata.forEach(item => {
+      const nftItem = document.createElement('div');
+      nftItem.classList.add('nft-item');
+      
+      const imgWrapper = document.createElement('div');
+      imgWrapper.classList.add('nft-img-wrapper');
+      
+      const img = document.createElement('img');
+      img.src = `https://ordinals.com/content/${item.id}`;
+      img.style.imageRendering = "pixelated";
+      img.style.imageRendering = "crisp-edges";
+      
+      imgWrapper.appendChild(img);
+      
+      const nftText = document.createElement('div');
+      nftText.classList.add('nft-text');
+      
+      const titlePara = document.createElement('p');
+      titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
+      
+      nftText.appendChild(titlePara);
+      nftItem.appendChild(imgWrapper);
+      nftItem.appendChild(nftText);
+      gallery.appendChild(nftItem);
+    });
+  }
+  
+  // Filter the NFT gallery based on selected traits.
+  function filterGallery() {
+    let filters = {};
+    document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(checkbox => {
       if (checkbox.checked) {
-        addTraitSelection(checkbox);
-      } else {
-        removeTraitSelection(checkbox);
+        const attributeItem = checkbox.closest('.attribute-item');
+        const categoryElement = attributeItem.closest('.attribute-category').querySelector('.category-title');
+        if (categoryElement) {
+          let category = categoryElement.textContent.trim();
+          let traitText = attributeItem.querySelector('.trait-text').textContent.trim().toLowerCase();
+          if (!filters[category]) filters[category] = [];
+          filters[category].push(traitText);
+        }
       }
     });
-  });
+    
+    if (Object.keys(filters).length === 0) {
+      populateGallery(allNFTData);
+      return;
+    }
+    
+    const filteredData = allNFTData.filter(nft => {
+      for (let category in filters) {
+        let match = nft.meta.attributes.some(attr => {
+          return attr.trait_type.toLowerCase() === category.toLowerCase() &&
+                 filters[category].includes(attr.value.toLowerCase());
+        });
+        if (!match) return false;
+      }
+      return true;
+    });
+    
+    populateGallery(filteredData);
+  }
   
-  // Event listeners for the mobile sticky bar buttons
+  // -------------- Sample NFT Metadata & Initial Population --------------
+  const sampleMetadata = [
+    {
+      "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
+      "meta": {
+        "name": "Boon #4",
+        "attributes": [
+          { "value": "Boons", "trait_type": "Alliance" },
+          { "value": "Gold", "trait_type": "Background" },
+          { "value": "Red", "trait_type": "Body" },
+          { "value": "Hangry", "trait_type": "Eyes" },
+          { "value": "Hangry", "trait_type": "Mouth" },
+          { "value": "Pants", "trait_type": "Style" },
+          { "value": "Ray Gun", "trait_type": "Auxiliary" },
+          { "value": "None", "trait_type": "Headwear" }
+        ]
+      }
+    },
+    {
+      "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
+      "meta": {
+        "name": "Boon #3",
+        "attributes": [
+          { "value": "Boons", "trait_type": "Alliance" },
+          { "value": "Gold", "trait_type": "Background" },
+          { "value": "Purple", "trait_type": "Body" },
+          { "value": "Hangry", "trait_type": "Eyes" },
+          { "value": "Hangry", "trait_type": "Mouth" },
+          { "value": "Pants", "trait_type": "Style" },
+          { "value": "Provenance", "trait_type": "Auxiliary" },
+          { "value": "None", "trait_type": "Headwear" }
+        ]
+      }
+    }
+  ];
+  
+  // Save sample metadata globally and populate gallery and filters.
+  allNFTData = sampleMetadata;
+  populateGallery(allNFTData);
+  buildFilters();
+  
+  /*
+  // Uncomment this block to use live data from the API.
+  fetch('https://ordinals.com/inscriptions', {
+    headers: { 'Accept': 'application/json' }
+  })
+    .then(response => response.json())
+    .then(data => {
+      allNFTData = data;
+      populateGallery(allNFTData);
+      buildFilters();
+    })
+    .catch(err => {
+      console.error('Error fetching metadata:', err);
+      populateGallery(sampleMetadata);
+      buildFilters();
+    });
+  */
+  
   const resetBtn = document.querySelector('.mobile-sticky-bar .reset-btn');
   if (resetBtn) {
     resetBtn.addEventListener('click', function() {
-      traitCheckboxes.forEach(chk => chk.checked = false);
+      document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(chk => chk.checked = false);
       selectedTraitsContainer.innerHTML = "";
       if (mobileStickyBar) {
         mobileStickyBar.classList.remove('active');
       }
+      filterGallery();
     });
   }
   
   const showBtn = document.querySelector('.mobile-sticky-bar .show-btn');
   if (showBtn) {
     showBtn.addEventListener('click', function() {
-      // Close the left panel
       if (sidebar) {
         sidebar.classList.remove('open');
       }
       if (mobileStickyBar) {
         mobileStickyBar.classList.remove('active');
       }
-      // Future functionality for "Show" button can be added here
+      // Future functionality for "Show" button can be added here.
     });
   }
 });
@@ -201,7 +450,6 @@ document.addEventListener("DOMContentLoaded", function() {
   micro5.load().then(function() {
     title.style.visibility = 'visible';
   }).catch(function() {
-    // In case the font fails to load, still show the title
     title.style.visibility = 'visible';
   });
 });

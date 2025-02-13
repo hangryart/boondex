@@ -173,6 +173,22 @@ document.addEventListener("DOMContentLoaded", function() {
   sortMenuItems.forEach(item => {
     item.addEventListener('click', function(e) {
       sortMenu.classList.remove('open');
+      let sortValue = item.dataset.value;
+      if (sortValue === "asc") {
+        allNFTData.sort((a, b) => {
+          let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+          let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+          return numA - numB;
+        });
+        populateGallery(allNFTData);
+      } else if (sortValue === "desc") {
+        allNFTData.sort((a, b) => {
+          let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+          let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+          return numB - numA;
+        });
+        populateGallery(allNFTData);
+      }
     });
   });
   

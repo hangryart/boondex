@@ -184,6 +184,7 @@ body {
 .extra-data {
   display: flex;
   align-items: center;
+  min-width: 200px;
 }
 
 .collection-title {
@@ -211,8 +212,8 @@ body {
 }
 
 .collection-image {
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   border-radius: 20%;
   object-fit: cover;
   margin-right: 15px;
@@ -291,6 +292,7 @@ body {
   color: var(--input-text-color);
   border-radius: 5px;
   transition: border-color 0.3s ease;
+  margin-bottom: 5px;
 }
 
 /* Accordion Styles for Traits Section */
@@ -427,6 +429,10 @@ body {
   z-index: 900;
 }
 
+#search {
+  font-size: 16px; /* Ensure a minimum of 16px to prevent auto zoom on mobile */
+}
+
 .toolbar input#search {
   padding: 8px;
   border: 1px solid var(--border-color);
@@ -436,6 +442,7 @@ body {
   transition: border-color 0.3s ease, background-color 0.3s ease;
   flex: 1 1 auto;
   min-width: 150px;
+  height: 36px; /* Set a fixed height */
 }
 
 .toolbar input#search::-webkit-input-placeholder {
@@ -470,11 +477,12 @@ body {
   background-color: var(--bg-dark);
   color: var(--input-text-color);
   border-radius: 5px;
-  width: 40px;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  height: 36px; /* Same fixed height as searchbar*/
 }
 
 .sort-toggle {
@@ -483,11 +491,12 @@ body {
   background-color: var(--bg-dark);
   color: var(--input-text-color);
   border-radius: 5px;
-  width: 40px;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  height: 36px; /* Same fixed height as searchbar*/
 }
 
 .sort-container {
@@ -610,6 +619,7 @@ body {
 #search,
 #attributes-search {
   color: #f5f5f5;
+  font-size: 16px;
 }
 
 #search::placeholder,
@@ -652,6 +662,7 @@ body {
 /* New container for extra data content */
 .header-extras-content {
   display: flex;
+  flex-wrap: nowrap; /* Prevents items from wrapping */
   justify-content: flex-start;
   align-items: center;
   padding: 0px 0px;
@@ -661,7 +672,7 @@ body {
 .collection-stats {
   display: flex;
   gap: 40px;
-  margin-left: 60px;
+  margin-left: 20px;
 }
 
 .collection-stats .stat {

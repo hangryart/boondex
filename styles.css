@@ -563,7 +563,15 @@ body {
 .nft-img-wrapper.placeholder {
   background: linear-gradient(to right, var(--card-bg) 8%, #2D2D32 18%, var(--card-bg) 33%);
   background-size: 1200px 100%;
-  animation: shimmer 2.2s infinite linear;
+  animation-name: shimmer;
+  animation-duration: 2.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  /* Vendor prefixes for better compatibility */
+  -webkit-animation-name: shimmer;
+  -webkit-animation-duration: 2.2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 @keyframes shimmer {
@@ -574,6 +582,16 @@ body {
     background-position: 1200px 0;
   }
 }
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
 
 
 /* ─── GALLERY ───────────────────────────────────────────────────── */

@@ -560,9 +560,9 @@ body {
 
 /* Placeholder animated gradient for image wrappers */
 .nft-img-wrapper.placeholder {
-  background: linear-gradient(90deg, var(--bg-dark) 25%, var(--border-color-light) 50%, var(--bg-dark) 75%);
+  background: linear-gradient(90deg, var(--bg-dark) 25%, #2C2C30 50%, var(--bg-dark) 75%);
   background-size: 200% 100%;
-  animation: placeholderShimmer 1.5s infinite;
+  animation: placeholderShimmer 3s infinite;
 }
 
 @keyframes placeholderShimmer {

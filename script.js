@@ -292,6 +292,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // -------------- NFT Gallery Population & Filtering --------------
+  // Using a CSS-based approach to upscale a 75x75 image to fill its container.
+  // The image is loaded at its native 75x75 size and placed inside a container sized by your CSS.
   function populateGallery(metadata) {
     const gallery = document.querySelector('.gallery');
     if (!gallery) return;
@@ -302,12 +304,16 @@ document.addEventListener("DOMContentLoaded", function() {
       
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('nft-img-wrapper');
+      // Container size is determined by your CSS; here we assume your .gallery grid sets an appropriate size.
       
       const img = document.createElement('img');
+      // Load the image at its native resolution.
       img.src = `https://ordinals.com/content/${item.id}`;
+      // These inline styles ensure nearest-neighbor scaling of the pixel art.
       img.style.imageRendering = "pixelated";
       img.style.imageRendering = "crisp-edges";
       
+      // Append the image to the wrapper.
       imgWrapper.appendChild(img);
       
       const nftText = document.createElement('div');
@@ -358,52 +364,9 @@ document.addEventListener("DOMContentLoaded", function() {
     populateGallery(filteredData);
   }
   
-  // -------------- Sample NFT Metadata & Initial Population --------------
-  const sampleMetadata = [
-    {
-      "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
-      "meta": {
-        "name": "Boon #4",
-        "attributes": [
-          { "value": "Boons", "trait_type": "Alliance" },
-          { "value": "Gold", "trait_type": "Background" },
-          { "value": "Red", "trait_type": "Body" },
-          { "value": "Hangry", "trait_type": "Eyes" },
-          { "value": "Hangry", "trait_type": "Mouth" },
-          { "value": "Pants", "trait_type": "Style" },
-          { "value": "Ray Gun", "trait_type": "Auxiliary" },
-          { "value": "None", "trait_type": "Headwear" }
-        ]
-      }
-    },
-    {
-      "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
-      "meta": {
-        "name": "Boon #3",
-        "attributes": [
-          { "value": "Boons", "trait_type": "Alliance" },
-          { "value": "Gold", "trait_type": "Background" },
-          { "value": "Purple", "trait_type": "Body" },
-          { "value": "Hangry", "trait_type": "Eyes" },
-          { "value": "Hangry", "trait_type": "Mouth" },
-          { "value": "Pants", "trait_type": "Style" },
-          { "value": "Provenance", "trait_type": "Auxiliary" },
-          { "value": "None", "trait_type": "Headwear" }
-        ]
-      }
-    }
-  ];
-  
-  // Save sample metadata globally and populate gallery and filters.
-  allNFTData = sampleMetadata;
-  populateGallery(allNFTData);
-  buildFilters();
-  
-  /*
-  // Uncomment this block to use live data from the API.
-  fetch('https://ordinals.com/inscriptions', {
-    headers: { 'Accept': 'application/json' }
-  })
+  // -------------- Load NFT Metadata from metadata.json --------------
+  // This fetch call loads metadata from a file named "metadata.json" located in the same repository.
+  fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
     .then(response => response.json())
     .then(data => {
       allNFTData = data;
@@ -411,11 +374,46 @@ document.addEventListener("DOMContentLoaded", function() {
       buildFilters();
     })
     .catch(err => {
-      console.error('Error fetching metadata:', err);
-      populateGallery(sampleMetadata);
+      console.error('Error fetching metadata.json:', err);
+      // Fallback to sample metadata.
+      const sampleMetadata = [
+        {
+          "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
+          "meta": {
+            "name": "Boon #4",
+            "attributes": [
+              { "value": "Boons", "trait_type": "Alliance" },
+              { "value": "Gold", "trait_type": "Background" },
+              { "value": "Red", "trait_type": "Body" },
+              { "value": "Hangry", "trait_type": "Eyes" },
+              { "value": "Hangry", "trait_type": "Mouth" },
+              { "value": "Pants", "trait_type": "Style" },
+              { "value": "Ray Gun", "trait_type": "Auxiliary" },
+              { "value": "None", "trait_type": "Headwear" }
+            ]
+          }
+        },
+        {
+          "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
+          "meta": {
+            "name": "Boon #3",
+            "attributes": [
+              { "value": "Boons", "trait_type": "Alliance" },
+              { "value": "Gold", "trait_type": "Background" },
+              { "value": "Purple", "trait_type": "Body" },
+              { "value": "Hangry", "trait_type": "Eyes" },
+              { "value": "Hangry", "trait_type": "Mouth" },
+              { "value": "Pants", "trait_type": "Style" },
+              { "value": "Provenance", "trait_type": "Auxiliary" },
+              { "value": "None", "trait_type": "Headwear" }
+            ]
+          }
+        }
+      ];
+      allNFTData = sampleMetadata;
+      populateGallery(allNFTData);
       buildFilters();
     });
-  */
   
   const resetBtn = document.querySelector('.mobile-sticky-bar .reset-btn');
   if (resetBtn) {
@@ -446,7 +444,6 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
   var title = document.querySelector('.header-title');
   var micro5 = new FontFaceObserver('Micro 5');
-  
   micro5.load().then(function() {
     title.style.visibility = 'visible';
   }).catch(function() {

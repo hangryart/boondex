@@ -328,53 +328,58 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   }
-  
   // -------------- NFT Gallery Population & Filtering --------------
-  // Using a CSS-based approach for the gallery layout.
-  // The gallery grid is controlled by your CSS; this function simply populates it.
-  function populateGallery(metadata) {
-    const gallery = document.querySelector('.gallery');
-    if (!gallery) return;
-    gallery.innerHTML = "";
-    metadata.forEach(item => {
-      const nftItem = document.createElement('div');
-      nftItem.classList.add('nft-item');
-      
-      const imgWrapper = document.createElement('div');
-      imgWrapper.classList.add('nft-img-wrapper');
-      // Add a placeholder class to show animated gradient until image loads.
-      imgWrapper.classList.add('placeholder');
-      
-      const img = document.createElement('img');
-      img.src = `https://ordinals.com/content/${item.id}`;
-      // Enable lazy loading.
-      img.loading = "lazy";
-      // For crisp pixel art, these settings are applied:
-      img.style.imageRendering = "pixelated";
-      img.style.imageRendering = "crisp-edges";
-      
-      // Once the image loads, remove the placeholder class.
-      img.addEventListener('load', function() {
-        imgWrapper.classList.remove('placeholder');
-      });
-      
-      imgWrapper.appendChild(img);
-      
-      const nftText = document.createElement('div');
-      nftText.classList.add('nft-text');
-      
-      const titlePara = document.createElement('p');
-      titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
-      // Set font weight and color.
-      titlePara.style.fontWeight = "500";
-      titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
-      
-      nftText.appendChild(titlePara);
-      nftItem.appendChild(imgWrapper);
-      nftItem.appendChild(nftText);
-      gallery.appendChild(nftItem);
+function populateGallery(metadata) {
+  const gallery = document.querySelector('.gallery');
+  if (!gallery) return;
+  gallery.innerHTML = "";
+  metadata.forEach(item => {
+    const nftItem = document.createElement('div');
+    nftItem.classList.add('nft-item');
+    
+    const imgWrapper = document.createElement('div');
+    imgWrapper.classList.add('nft-img-wrapper');
+    // Add a placeholder class to show animated gradient until image loads.
+    imgWrapper.classList.add('placeholder');
+    
+    const img = document.createElement('img');
+    img.src = `https://ordinals.com/content/${item.id}`;
+    // Enable lazy loading.
+    img.loading = "lazy";
+    // For crisp pixel art, these settings are applied:
+    img.style.imageRendering = "pixelated";
+    img.style.imageRendering = "crisp-edges";
+    
+    // Once the image loads, remove the placeholder class.
+    img.addEventListener('load', function() {
+      imgWrapper.classList.remove('placeholder');
     });
-  }
+    
+    imgWrapper.appendChild(img);
+    
+    const nftText = document.createElement('div');
+    nftText.classList.add('nft-text');
+    
+    const titlePara = document.createElement('p');
+    titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
+    // Set font weight and color.
+    titlePara.style.fontWeight = "500";
+    titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
+    nftText.appendChild(titlePara);
+    
+    // Add the inscription number below the name if it exists.
+    if (item.inscriptionNumber !== undefined) {
+      const inscriptionPara = document.createElement('p');
+      inscriptionPara.textContent = `◉ ${item.inscriptionNumber}`;
+      nftText.appendChild(inscriptionPara);
+    }
+    
+    nftItem.appendChild(imgWrapper);
+    nftItem.appendChild(nftText);
+    gallery.appendChild(nftItem);
+  });
+}
+
   
   // Filter the NFT gallery based on selected traits.
   function filterGallery() {

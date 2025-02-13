@@ -562,7 +562,7 @@ body {
 .nft-img-wrapper.placeholder {
   background: linear-gradient(180deg, var(--bg-dark) 25%, #24242A 50%, var(--bg-dark) 75%);
   background-size: 200% 100%;
-  animation: placeholderShimmer 4s infinite;
+  animation: placeholderShimmer 1s infinite;
 }
 
 @keyframes placeholderShimmer {

@@ -366,51 +366,52 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
-  // Insert a single grid toggle button ("grid-button") into the toolbar.
-  const toolbar = document.querySelector('.toolbar');
-  if (toolbar) {
-    // Check if a grid button already exists and remove it.
-    const existingGridBtn = toolbar.querySelector('.grid-button');
-    if (existingGridBtn) {
-      existingGridBtn.remove();
-    }
-    // Create a new grid button.
-    const gridBtn = document.createElement('button');
-    gridBtn.classList.add('grid-button');
-    gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
-    
-    // Insert gridBtn into the toolbar, to the left of the search input.
-    const searchInput = toolbar.querySelector('input#search');
-    if (searchInput) {
-      toolbar.insertBefore(gridBtn, searchInput);
-    } else {
-      toolbar.appendChild(gridBtn);
-    }
-    
-    gridBtn.addEventListener("click", function() {
-      const gallery = document.querySelector('.gallery');
-      if (!gallery) return;
-      if (!gallery.dataset.grid) gallery.dataset.grid = "default";
-      
-      if (window.innerWidth >= 768) { // Desktop behavior.
-        if (gallery.dataset.grid === "default") {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-          gallery.dataset.grid = "large";
-        } else {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-          gallery.dataset.grid = "default";
-        }
-      } else { // Mobile behavior.
-        if (gallery.dataset.grid === "default") {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
-          gallery.dataset.grid = "one-column";
-        } else {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-          gallery.dataset.grid = "default";
-        }
-      }
-    });
+const toolbar = document.querySelector('.toolbar');
+if (toolbar) {
+  // Remove any existing grid button.
+  const existingGridBtn = toolbar.querySelector('.grid-button');
+  if (existingGridBtn) {
+    existingGridBtn.remove();
   }
+  // Create a new grid button.
+  const gridBtn = document.createElement('button');
+  gridBtn.classList.add('grid-button');
+  gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
+  
+  // Insert gridBtn into the toolbar, to the left of the search input.
+  const searchInput = toolbar.querySelector('input#search');
+  if (searchInput) {
+    toolbar.insertBefore(gridBtn, searchInput);
+  } else {
+    toolbar.appendChild(gridBtn);
+  }
+  
+  // Initialize mobile grid state variable.
+  let mobileGridState = "default";
+  
+  gridBtn.addEventListener("click", function() {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    
+    if (window.innerWidth >= 768) { // Desktop behavior.
+      if (!gallery.dataset.desktopGrid || gallery.dataset.desktopGrid === "default") {
+        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+        gallery.dataset.desktopGrid = "large";
+      } else {
+        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+        gallery.dataset.desktopGrid = "default";
+      }
+    } else { // Mobile behavior.
+      if (mobileGridState === "default") {
+        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
+        mobileGridState = "one-column";
+      } else {
+        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+        mobileGridState = "default";
+      }
+    }
+  });
+}
   
   // -------------- Load NFT Metadata from metadata.json --------------
   // This fetch call loads metadata from the "metadata.json" file in your repository.

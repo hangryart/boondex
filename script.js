@@ -292,8 +292,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // -------------- NFT Gallery Population & Filtering --------------
-  // Using a CSS-based approach to upscale a 75x75 image to fill its container.
-  // The image is loaded at its native 75x75 size and placed inside a container sized by your CSS.
+  // Using a CSS-based approach for the gallery layout.
+  // The gallery grid is controlled by your CSS; this function simply populates it.
   function populateGallery(metadata) {
     const gallery = document.querySelector('.gallery');
     if (!gallery) return;
@@ -304,16 +304,14 @@ document.addEventListener("DOMContentLoaded", function() {
       
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('nft-img-wrapper');
-      // Container size is determined by your CSS; here we assume your .gallery grid sets an appropriate size.
+      // The container size is defined by your CSS grid.
       
       const img = document.createElement('img');
-      // Load the image at its native resolution.
       img.src = `https://ordinals.com/content/${item.id}`;
-      // These inline styles ensure nearest-neighbor scaling of the pixel art.
+      // For crisp pixel art, these settings are applied:
       img.style.imageRendering = "pixelated";
       img.style.imageRendering = "crisp-edges";
       
-      // Append the image to the wrapper.
       imgWrapper.appendChild(img);
       
       const nftText = document.createElement('div');
@@ -321,6 +319,9 @@ document.addEventListener("DOMContentLoaded", function() {
       
       const titlePara = document.createElement('p');
       titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
+      // Set font weight and color.
+      titlePara.style.fontWeight = "500";
+      titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
       
       nftText.appendChild(titlePara);
       nftItem.appendChild(imgWrapper);
@@ -364,8 +365,55 @@ document.addEventListener("DOMContentLoaded", function() {
     populateGallery(filteredData);
   }
   
+  // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
+  // Insert a single grid toggle button ("grid-button") into the toolbar.
+  const toolbar = document.querySelector('.toolbar');
+  if (toolbar) {
+    // Check if a grid button already exists and remove it.
+    const existingGridBtn = toolbar.querySelector('.grid-button');
+    if (existingGridBtn) {
+      existingGridBtn.remove();
+    }
+    // Create a new grid button.
+    const gridBtn = document.createElement('button');
+    gridBtn.classList.add('grid-button');
+    gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
+    
+    // Insert gridBtn into the toolbar, to the left of the search input.
+    const searchInput = toolbar.querySelector('input#search');
+    if (searchInput) {
+      toolbar.insertBefore(gridBtn, searchInput);
+    } else {
+      toolbar.appendChild(gridBtn);
+    }
+    
+    gridBtn.addEventListener("click", function() {
+      const gallery = document.querySelector('.gallery');
+      if (!gallery) return;
+      if (!gallery.dataset.grid) gallery.dataset.grid = "default";
+      
+      if (window.innerWidth >= 768) { // Desktop behavior.
+        if (gallery.dataset.grid === "default") {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+          gallery.dataset.grid = "large";
+        } else {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+          gallery.dataset.grid = "default";
+        }
+      } else { // Mobile behavior.
+        if (gallery.dataset.grid === "default") {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
+          gallery.dataset.grid = "one-column";
+        } else {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+          gallery.dataset.grid = "default";
+        }
+      }
+    });
+  }
+  
   // -------------- Load NFT Metadata from metadata.json --------------
-  // This fetch call loads metadata from a file named "metadata.json" located in the same repository.
+  // This fetch call loads metadata from the "metadata.json" file in your repository.
   fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
     .then(response => response.json())
     .then(data => {

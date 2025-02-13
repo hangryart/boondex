@@ -535,6 +535,29 @@ body {
   background-color: #2a2a2e;
 }
 
+.grid-button {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-dark);
+  color: var(--input-text-color);
+  border-radius: 5px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 36px;
+  transition: background-color 0.3s ease;
+}
+
+.sort-toggle i, .grid-button i {
+  transition: filter 0.3s ease;
+}
+
+.sort-toggle:hover i, .grid-button:hover i {
+  filter: brightness(1.5);
+}
+
 /* ─── GALLERY ───────────────────────────────────────────────────── */
 .gallery {
   padding: var(--gap);
@@ -558,6 +581,9 @@ body {
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
+  aspect-ratio: 1 / 1;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .nft-img-wrapper img {
@@ -565,6 +591,7 @@ body {
   display: block;
   transition: transform 0.2s ease-in-out;
   will-change: transform;
+  image-rendering: auto;
 }
 
 .nft-img-wrapper:hover img {
@@ -757,5 +784,11 @@ body {
   .mobile-sticky-bar .show-btn {
     background-color: var(--accent-color);
     color: #15151A; /* Matches the header background */
+  }
+}
+
+@media (max-width: 768px) {
+  .large-grid-btn {
+    display: none;
   }
 }

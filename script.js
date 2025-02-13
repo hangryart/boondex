@@ -465,65 +465,84 @@ function populateGallery(metadata) {
     });
   }
   
-  // -------------- Load NFT Metadata from metadata.json --------------
-  // This fetch call loads metadata from the "metadata.json" file in your repository.
-  fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
-    .then(response => response.json())
-    .then(data => {
-      // Sort the data in ascending order by the number in the meta.name string.
-      allNFTData = data.sort((a, b) => {
-        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-        return numA - numB;
+  // -------------- Load NFT Metadata from metadata.json with Inscription Numbers --------------
+fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
+.then(response => response.json())
+.then(data => {
+  // Sort the data in ascending order by the number in the meta.name string.
+  allNFTData = data.sort((a, b) => {
+    let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+    let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+    return numA - numB;
+  });
+  
+  // Fetch inscription numbers for each NFT using the ordinals API.
+  return Promise.all(allNFTData.map(nft => {
+    return fetch(`https://ordinals.com/inscription/${nft.id}`, { headers: { 'Accept': 'application/json' } })
+      .then(response => response.json())
+      .then(apiData => {
+        // Set the inscription number from the API data.
+        nft.inscriptionNumber = parseInt(apiData.number, 10) || 0;
+        return nft;
+      })
+      .catch(err => {
+        console.error(`Error fetching inscription number for NFT ${nft.id}:`, err);
+        nft.inscriptionNumber = 0;
+        return nft;
       });
-      populateGallery(allNFTData);
-      buildFilters();
-    })
-    .catch(err => {
-      console.error('Error fetching metadata.json:', err);
-      // Fallback to sample metadata.
-      const sampleMetadata = [
-        {
-          "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
-          "meta": {
-            "name": "Boon #4",
-            "attributes": [
-              { "value": "Boons", "trait_type": "Alliance" },
-              { "value": "Gold", "trait_type": "Background" },
-              { "value": "Red", "trait_type": "Body" },
-              { "value": "Hangry", "trait_type": "Eyes" },
-              { "value": "Hangry", "trait_type": "Mouth" },
-              { "value": "Pants", "trait_type": "Style" },
-              { "value": "Ray Gun", "trait_type": "Auxiliary" },
-              { "value": "None", "trait_type": "Headwear" }
-            ]
-          }
-        },
-        {
-          "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
-          "meta": {
-            "name": "Boon #3",
-            "attributes": [
-              { "value": "Boons", "trait_type": "Alliance" },
-              { "value": "Gold", "trait_type": "Background" },
-              { "value": "Purple", "trait_type": "Body" },
-              { "value": "Hangry", "trait_type": "Eyes" },
-              { "value": "Hangry", "trait_type": "Mouth" },
-              { "value": "Pants", "trait_type": "Style" },
-              { "value": "Provenance", "trait_type": "Auxiliary" },
-              { "value": "None", "trait_type": "Headwear" }
-            ]
-          }
-        }
-      ];
-      allNFTData = sampleMetadata.sort((a, b) => {
-        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-        return numA - numB;
-      });
-      populateGallery(allNFTData);
-      buildFilters();
-    });
+  }));
+})
+.then(updatedNFTData => {
+  allNFTData = updatedNFTData;
+  populateGallery(allNFTData);
+  buildFilters();
+})
+.catch(err => {
+  console.error('Error fetching metadata.json:', err);
+  // Fallback to sample metadata if necessary.
+  const sampleMetadata = [
+    {
+      "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
+      "meta": {
+        "name": "Boon #4",
+        "attributes": [
+          { "value": "Boons", "trait_type": "Alliance" },
+          { "value": "Gold", "trait_type": "Background" },
+          { "value": "Red", "trait_type": "Body" },
+          { "value": "Hangry", "trait_type": "Eyes" },
+          { "value": "Hangry", "trait_type": "Mouth" },
+          { "value": "Pants", "trait_type": "Style" },
+          { "value": "Ray Gun", "trait_type": "Auxiliary" },
+          { "value": "None", "trait_type": "Headwear" }
+        ]
+      }
+    },
+    {
+      "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
+      "meta": {
+        "name": "Boon #3",
+        "attributes": [
+          { "value": "Boons", "trait_type": "Alliance" },
+          { "value": "Gold", "trait_type": "Background" },
+          { "value": "Purple", "trait_type": "Body" },
+          { "value": "Hangry", "trait_type": "Eyes" },
+          { "value": "Hangry", "trait_type": "Mouth" },
+          { "value": "Pants", "trait_type": "Style" },
+          { "value": "Provenance", "trait_type": "Auxiliary" },
+          { "value": "None", "trait_type": "Headwear" }
+        ]
+      }
+    }
+  ];
+  allNFTData = sampleMetadata.sort((a, b) => {
+    let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+    let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+    return numA - numB;
+  });
+  populateGallery(allNFTData);
+  buildFilters();
+});
+
   
   const resetBtn = document.querySelector('.mobile-sticky-bar .reset-btn');
   if (resetBtn) {

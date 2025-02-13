@@ -304,13 +304,21 @@ document.addEventListener("DOMContentLoaded", function() {
       
       const imgWrapper = document.createElement('div');
       imgWrapper.classList.add('nft-img-wrapper');
-      // The container size is defined by your CSS grid.
+      // Add a placeholder class to show animated gradient until image loads.
+      imgWrapper.classList.add('placeholder');
       
       const img = document.createElement('img');
       img.src = `https://ordinals.com/content/${item.id}`;
-      // For crisp pixel art, these settings are applied:
+      // Enable lazy loading.
+      img.loading = "lazy";
+      // For crisp pixel art; adjust or remove if you prefer smooth scaling.
       img.style.imageRendering = "pixelated";
       img.style.imageRendering = "crisp-edges";
+      
+      // Once the image loads, remove the placeholder class.
+      img.addEventListener('load', function() {
+        imgWrapper.classList.remove('placeholder');
+      });
       
       imgWrapper.appendChild(img);
       
@@ -366,52 +374,53 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
-const toolbar = document.querySelector('.toolbar');
-if (toolbar) {
-  // Remove any existing grid button.
-  const existingGridBtn = toolbar.querySelector('.grid-button');
-  if (existingGridBtn) {
-    existingGridBtn.remove();
-  }
-  // Create a new grid button.
-  const gridBtn = document.createElement('button');
-  gridBtn.classList.add('grid-button');
-  gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
-  
-  // Insert gridBtn into the toolbar, to the left of the search input.
-  const searchInput = toolbar.querySelector('input#search');
-  if (searchInput) {
-    toolbar.insertBefore(gridBtn, searchInput);
-  } else {
-    toolbar.appendChild(gridBtn);
-  }
-  
-  // Initialize mobile grid state variable.
-  let mobileGridState = "default";
-  
-  gridBtn.addEventListener("click", function() {
-    const gallery = document.querySelector('.gallery');
-    if (!gallery) return;
-    
-    if (window.innerWidth >= 768) { // Desktop behavior.
-      if (!gallery.dataset.desktopGrid || gallery.dataset.desktopGrid === "default") {
-        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-        gallery.dataset.desktopGrid = "large";
-      } else {
-        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-        gallery.dataset.desktopGrid = "default";
-      }
-    } else { // Mobile behavior.
-      if (mobileGridState === "default") {
-        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
-        mobileGridState = "one-column";
-      } else {
-        gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-        mobileGridState = "default";
-      }
+  // Insert a single grid toggle button ("grid-button") into the toolbar.
+  const toolbar = document.querySelector('.toolbar');
+  if (toolbar) {
+    // Remove any existing grid button.
+    const existingGridBtn = toolbar.querySelector('.grid-button');
+    if (existingGridBtn) {
+      existingGridBtn.remove();
     }
-  });
-}
+    // Create a new grid button.
+    const gridBtn = document.createElement('button');
+    gridBtn.classList.add('grid-button');
+    gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
+    
+    // Insert gridBtn into the toolbar, to the left of the search input.
+    const searchInput = toolbar.querySelector('input#search');
+    if (searchInput) {
+      toolbar.insertBefore(gridBtn, searchInput);
+    } else {
+      toolbar.appendChild(gridBtn);
+    }
+    
+    // Initialize mobile grid state variable.
+    let mobileGridState = "default";
+    
+    gridBtn.addEventListener("click", function() {
+      const gallery = document.querySelector('.gallery');
+      if (!gallery) return;
+      
+      if (window.innerWidth >= 768) { // Desktop behavior.
+        if (!gallery.dataset.desktopGrid || gallery.dataset.desktopGrid === "default") {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+          gallery.dataset.desktopGrid = "large";
+        } else {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+          gallery.dataset.desktopGrid = "default";
+        }
+      } else { // Mobile behavior.
+        if (mobileGridState === "default") {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
+          mobileGridState = "one-column";
+        } else {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+          mobileGridState = "default";
+        }
+      }
+    });
+  }
   
   // -------------- Load NFT Metadata from metadata.json --------------
   // This fetch call loads metadata from the "metadata.json" file in your repository.

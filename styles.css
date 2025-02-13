@@ -542,12 +542,12 @@ body {
   color: var(--input-text-color);
   border-radius: 5px;
   width: 50px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  height: 36px;
-  transition: background-color 0.3s ease;
+  transition: filter 0.3s ease;
 }
 
 .sort-toggle i, .grid-button i {
@@ -556,6 +556,22 @@ body {
 
 .sort-toggle:hover i, .grid-button:hover i {
   filter: brightness(1.5);
+}
+
+/* Placeholder animated gradient for image wrappers */
+.nft-img-wrapper.placeholder {
+  background: linear-gradient(90deg, var(--bg-dark) 25%, var(--border-color-light) 50%, var(--bg-dark) 75%);
+  background-size: 200% 100%;
+  animation: placeholderShimmer 1.5s infinite;
+}
+
+@keyframes placeholderShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* ─── GALLERY ───────────────────────────────────────────────────── */

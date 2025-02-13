@@ -444,7 +444,7 @@ body {
   border-radius: 5px;
   transition: border-color 0.3s ease, background-color 0.3s ease;
   flex: 1 1 auto;
-  min-width: 150px;
+  min-width: 100px;
   height: 36px; /* Set a fixed height */
 }
 
@@ -797,6 +797,17 @@ body {
 }
 
 @media (max-width: 768px) {
+  .mobile-panel-toggle,
+  .sort-toggle,
+  .grid-button {
+    width: 50px !important;
+    min-width: 50px !important;
+    /* If flex-grow is interfering, you can also reset it */
+    flex: 0 0 50px !important;
+  }
+}
+
+@media (max-width: 768px) {
   .mobile-sticky-bar .show-btn {
     background-color: var(--accent-color);
     color: #15151A; /* Matches the header background */
@@ -806,5 +817,12 @@ body {
 @media (max-width: 768px) {
   .large-grid-btn {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-panel-toggle,
+  .grid-button {
+    width: 50px !important;
   }
 }

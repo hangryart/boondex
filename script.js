@@ -175,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
       sortMenu.classList.remove('open');
       let sortValue = item.dataset.value;
       if (sortValue === "asc") {
+        // Sort by meta.name numeric portion ascending (existing behavior).
         allNFTData.sort((a, b) => {
           let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
           let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
@@ -182,15 +183,36 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         populateGallery(allNFTData);
       } else if (sortValue === "desc") {
+        // Sort by meta.name numeric portion descending (existing behavior).
         allNFTData.sort((a, b) => {
           let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
           let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
           return numB - numA;
         });
         populateGallery(allNFTData);
+      } else if (sortValue === "inscription-low-high") {
+        // For each NFT, fetch additional API details to get the inscription number.
+        Promise.all(allNFTData.map(nft => {
+          return fetch(`https://ordinals.com/inscription/${nft.id}`, { headers: { 'Accept': 'application/json' } })
+            .then(response => response.json())
+            .then(apiData => {
+              // Assuming the API returns a numeric field "number" (as a string) that we parse:
+              nft.inscriptionNumber = parseInt(apiData.number, 10) || 0;
+              return nft;
+            })
+            .catch(err => {
+              // If an error occurs, default the number to 0.
+              nft.inscriptionNumber = 0;
+              return nft;
+            });
+        })).then(updatedNFTs => {
+          // Sort updatedNFTs by inscriptionNumber in ascending order.
+          updatedNFTs.sort((a, b) => a.inscriptionNumber - b.inscriptionNumber);
+          populateGallery(updatedNFTs);
+        });
       }
     });
-  });
+  });  
   
   // -------------- Trait Selection & Filtering --------------
   const selectedTraitsContainer = document.querySelector('.selected-traits');

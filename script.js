@@ -212,7 +212,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
     });
-  });  
+  });
+  
   
   // -------------- Trait Selection & Filtering --------------
   const selectedTraitsContainer = document.querySelector('.selected-traits');
@@ -328,58 +329,53 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   }
+  
   // -------------- NFT Gallery Population & Filtering --------------
-function populateGallery(metadata) {
-  const gallery = document.querySelector('.gallery');
-  if (!gallery) return;
-  gallery.innerHTML = "";
-  metadata.forEach(item => {
-    const nftItem = document.createElement('div');
-    nftItem.classList.add('nft-item');
-    
-    const imgWrapper = document.createElement('div');
-    imgWrapper.classList.add('nft-img-wrapper');
-    // Add a placeholder class to show animated gradient until image loads.
-    imgWrapper.classList.add('placeholder');
-    
-    const img = document.createElement('img');
-    img.src = `https://ordinals.com/content/${item.id}`;
-    // Enable lazy loading.
-    img.loading = "lazy";
-    // For crisp pixel art, these settings are applied:
-    img.style.imageRendering = "pixelated";
-    img.style.imageRendering = "crisp-edges";
-    
-    // Once the image loads, remove the placeholder class.
-    img.addEventListener('load', function() {
-      imgWrapper.classList.remove('placeholder');
+  // Using a CSS-based approach for the gallery layout.
+  // The gallery grid is controlled by your CSS; this function simply populates it.
+  function populateGallery(metadata) {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    gallery.innerHTML = "";
+    metadata.forEach(item => {
+      const nftItem = document.createElement('div');
+      nftItem.classList.add('nft-item');
+      
+      const imgWrapper = document.createElement('div');
+      imgWrapper.classList.add('nft-img-wrapper');
+      // Add a placeholder class to show animated gradient until image loads.
+      imgWrapper.classList.add('placeholder');
+      
+      const img = document.createElement('img');
+      img.src = `https://ordinals.com/content/${item.id}`;
+      // Enable lazy loading.
+      img.loading = "lazy";
+      // For crisp pixel art, these settings are applied:
+      img.style.imageRendering = "pixelated";
+      img.style.imageRendering = "crisp-edges";
+      
+      // Once the image loads, remove the placeholder class.
+      img.addEventListener('load', function() {
+        imgWrapper.classList.remove('placeholder');
+      });
+      
+      imgWrapper.appendChild(img);
+      
+      const nftText = document.createElement('div');
+      nftText.classList.add('nft-text');
+      
+      const titlePara = document.createElement('p');
+      titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
+      // Set font weight and color.
+      titlePara.style.fontWeight = "500";
+      titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
+      
+      nftText.appendChild(titlePara);
+      nftItem.appendChild(imgWrapper);
+      nftItem.appendChild(nftText);
+      gallery.appendChild(nftItem);
     });
-    
-    imgWrapper.appendChild(img);
-    
-    const nftText = document.createElement('div');
-    nftText.classList.add('nft-text');
-    
-    const titlePara = document.createElement('p');
-    titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
-    // Set font weight and color.
-    titlePara.style.fontWeight = "500";
-    titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
-    nftText.appendChild(titlePara);
-    
-    // Add the inscription number below the name if it exists.
-    if (item.inscriptionNumber !== undefined) {
-      const inscriptionPara = document.createElement('p');
-      inscriptionPara.textContent = `◉ ${item.inscriptionNumber}`;
-      nftText.appendChild(inscriptionPara);
-    }
-    
-    nftItem.appendChild(imgWrapper);
-    nftItem.appendChild(nftText);
-    gallery.appendChild(nftItem);
-  });
-}
-
+  }
   
   // Filter the NFT gallery based on selected traits.
   function filterGallery() {
@@ -465,84 +461,65 @@ function populateGallery(metadata) {
     });
   }
   
-  // -------------- Load NFT Metadata from metadata.json with Inscription Numbers --------------
-fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
-.then(response => response.json())
-.then(data => {
-  // Sort the data in ascending order by the number in the meta.name string.
-  allNFTData = data.sort((a, b) => {
-    let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-    let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-    return numA - numB;
-  });
-  
-  // Fetch inscription numbers for each NFT using the ordinals API.
-  return Promise.all(allNFTData.map(nft => {
-    return fetch(`https://ordinals.com/inscription/${nft.id}`, { headers: { 'Accept': 'application/json' } })
-      .then(response => response.json())
-      .then(apiData => {
-        // Set the inscription number from the API data.
-        nft.inscriptionNumber = parseInt(apiData.number, 10) || 0;
-        return nft;
-      })
-      .catch(err => {
-        console.error(`Error fetching inscription number for NFT ${nft.id}:`, err);
-        nft.inscriptionNumber = 0;
-        return nft;
+  // -------------- Load NFT Metadata from metadata.json --------------
+  // This fetch call loads metadata from the "metadata.json" file in your repository.
+  fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
+    .then(response => response.json())
+    .then(data => {
+      // Sort the data in ascending order by the number in the meta.name string.
+      allNFTData = data.sort((a, b) => {
+        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+        return numA - numB;
       });
-  }));
-})
-.then(updatedNFTData => {
-  allNFTData = updatedNFTData;
-  populateGallery(allNFTData);
-  buildFilters();
-})
-.catch(err => {
-  console.error('Error fetching metadata.json:', err);
-  // Fallback to sample metadata if necessary.
-  const sampleMetadata = [
-    {
-      "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
-      "meta": {
-        "name": "Boon #4",
-        "attributes": [
-          { "value": "Boons", "trait_type": "Alliance" },
-          { "value": "Gold", "trait_type": "Background" },
-          { "value": "Red", "trait_type": "Body" },
-          { "value": "Hangry", "trait_type": "Eyes" },
-          { "value": "Hangry", "trait_type": "Mouth" },
-          { "value": "Pants", "trait_type": "Style" },
-          { "value": "Ray Gun", "trait_type": "Auxiliary" },
-          { "value": "None", "trait_type": "Headwear" }
-        ]
-      }
-    },
-    {
-      "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
-      "meta": {
-        "name": "Boon #3",
-        "attributes": [
-          { "value": "Boons", "trait_type": "Alliance" },
-          { "value": "Gold", "trait_type": "Background" },
-          { "value": "Purple", "trait_type": "Body" },
-          { "value": "Hangry", "trait_type": "Eyes" },
-          { "value": "Hangry", "trait_type": "Mouth" },
-          { "value": "Pants", "trait_type": "Style" },
-          { "value": "Provenance", "trait_type": "Auxiliary" },
-          { "value": "None", "trait_type": "Headwear" }
-        ]
-      }
-    }
-  ];
-  allNFTData = sampleMetadata.sort((a, b) => {
-    let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-    let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-    return numA - numB;
-  });
-  populateGallery(allNFTData);
-  buildFilters();
-});
-
+      populateGallery(allNFTData);
+      buildFilters();
+    })
+    .catch(err => {
+      console.error('Error fetching metadata.json:', err);
+      // Fallback to sample metadata.
+      const sampleMetadata = [
+        {
+          "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
+          "meta": {
+            "name": "Boon #4",
+            "attributes": [
+              { "value": "Boons", "trait_type": "Alliance" },
+              { "value": "Gold", "trait_type": "Background" },
+              { "value": "Red", "trait_type": "Body" },
+              { "value": "Hangry", "trait_type": "Eyes" },
+              { "value": "Hangry", "trait_type": "Mouth" },
+              { "value": "Pants", "trait_type": "Style" },
+              { "value": "Ray Gun", "trait_type": "Auxiliary" },
+              { "value": "None", "trait_type": "Headwear" }
+            ]
+          }
+        },
+        {
+          "id": "d857d9a7fb6783a97b4a57523e450f543d5f50ea119027215cbf4f441bbf295ei0",
+          "meta": {
+            "name": "Boon #3",
+            "attributes": [
+              { "value": "Boons", "trait_type": "Alliance" },
+              { "value": "Gold", "trait_type": "Background" },
+              { "value": "Purple", "trait_type": "Body" },
+              { "value": "Hangry", "trait_type": "Eyes" },
+              { "value": "Hangry", "trait_type": "Mouth" },
+              { "value": "Pants", "trait_type": "Style" },
+              { "value": "Provenance", "trait_type": "Auxiliary" },
+              { "value": "None", "trait_type": "Headwear" }
+            ]
+          }
+        }
+      ];
+      allNFTData = sampleMetadata.sort((a, b) => {
+        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+        return numA - numB;
+      });
+      populateGallery(allNFTData);
+      buildFilters();
+    });
   
   const resetBtn = document.querySelector('.mobile-sticky-bar .reset-btn');
   if (resetBtn) {

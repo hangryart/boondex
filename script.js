@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if (filterToggle) {
     filterToggle.addEventListener('click', () => {
       sidebar.classList.add('open');
+      // When opening the sidebar, if traits are selected, show the sticky bar
+      if (window.innerWidth <= 768 && selectedTraitsExist() && mobileStickyBar) {
+        mobileStickyBar.classList.add('active');
+      }
     });
   }
   
@@ -23,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if (closeSidebar) {
     closeSidebar.addEventListener('click', () => {
       sidebar.classList.remove('open');
+      // Slide out the sticky bar with the panel
+      if (mobileStickyBar) {
+        mobileStickyBar.classList.remove('active');
+      }
     });
   }
   
@@ -31,6 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if (mobilePanelToggle) {
     mobilePanelToggle.addEventListener('click', () => {
       sidebar.classList.add('open');
+      // When opening the panel, if traits are selected, show the sticky bar
+      if (window.innerWidth <= 768 && selectedTraitsExist() && mobileStickyBar) {
+        mobileStickyBar.classList.add('active');
+      }
     });
   }
   
@@ -65,11 +77,19 @@ document.addEventListener("DOMContentLoaded", function() {
   // Trait selection functionality
   const traitCheckboxes = document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]');
   const selectedTraitsContainer = document.querySelector('.selected-traits');
-
+  
+  // Mobile sticky bar element (should be in your HTML)
+  const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
+  
+  // Helper to check if any trait boxes exist
+  function selectedTraitsExist() {
+    return selectedTraitsContainer.querySelectorAll('.trait-box').length > 0;
+  }
+  
   function generateKey(category, trait) {
     return category + ":" + trait;
   }
-
+  
   function addTraitSelection(checkbox) {
     const traitLabel = checkbox.closest('.attribute-item');
     const categoryElement = checkbox.closest('.attribute-category').querySelector('.category-title');
@@ -77,10 +97,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const trait = traitLabel.querySelector('.trait-text').textContent.trim();
     const key = generateKey(category, trait);
     if (selectedTraitsContainer.querySelector(`[data-key="${key}"]`)) return;
+    
     const traitBox = document.createElement('div');
     traitBox.classList.add('trait-box');
     traitBox.setAttribute('data-key', key);
     traitBox.textContent = category + ": " + trait;
+    
     const removeIcon = document.createElement('span');
     removeIcon.classList.add('remove-trait');
     removeIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
@@ -92,8 +114,13 @@ document.addEventListener("DOMContentLoaded", function() {
     traitBox.appendChild(removeIcon);
     selectedTraitsContainer.appendChild(traitBox);
     updateClearAllVisibility();
+    
+    // On mobile: if the sidebar is open and a trait is selected, slide in the sticky bar from left quickly.
+    if (mobileStickyBar && window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+      mobileStickyBar.classList.add('active');
+    }
   }
-
+  
   function removeTraitSelection(checkbox) {
     const traitLabel = checkbox.closest('.attribute-item');
     const categoryElement = checkbox.closest('.attribute-category').querySelector('.category-title');
@@ -104,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (traitBox) traitBox.remove();
     updateClearAllVisibility();
   }
-
+  
   function updateClearAllVisibility() {
     const clearAllBox = selectedTraitsContainer.querySelector('.clear-all');
     const traitBoxes = selectedTraitsContainer.querySelectorAll('.trait-box');
@@ -116,14 +143,20 @@ document.addEventListener("DOMContentLoaded", function() {
         clearAll.addEventListener('click', function() {
           traitCheckboxes.forEach(chk => chk.checked = false);
           selectedTraitsContainer.innerHTML = "";
+          if (mobileStickyBar) {
+            mobileStickyBar.classList.remove('active');
+          }
         });
         selectedTraitsContainer.insertBefore(clearAll, selectedTraitsContainer.firstChild);
       }
     } else {
       if (clearAllBox) clearAllBox.remove();
+      if (mobileStickyBar) {
+        mobileStickyBar.classList.remove('active');
+      }
     }
   }
-
+  
   traitCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function() {
       if (checkbox.checked) {
@@ -133,12 +166,38 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
+  
+  // Event listeners for the mobile sticky bar buttons
+  const resetBtn = document.querySelector('.mobile-sticky-bar .reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      traitCheckboxes.forEach(chk => chk.checked = false);
+      selectedTraitsContainer.innerHTML = "";
+      if (mobileStickyBar) {
+        mobileStickyBar.classList.remove('active');
+      }
+    });
+  }
+  
+  const showBtn = document.querySelector('.mobile-sticky-bar .show-btn');
+  if (showBtn) {
+    showBtn.addEventListener('click', function() {
+      // Close the left panel
+      if (sidebar) {
+        sidebar.classList.remove('open');
+      }
+      if (mobileStickyBar) {
+        mobileStickyBar.classList.remove('active');
+      }
+      // Future functionality for "Show" button can be added here
+    });
+  }
 });
-
+  
 document.addEventListener("DOMContentLoaded", function() {
   var title = document.querySelector('.header-title');
   var micro5 = new FontFaceObserver('Micro 5');
-
+  
   micro5.load().then(function() {
     title.style.visibility = 'visible';
   }).catch(function() {

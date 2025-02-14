@@ -182,7 +182,8 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
           removeTraitSelection(checkbox);
         }
-        // Update the gallery on every trait checkbox change.
+        // Each change in trait selection should update the gallery,
+        // while still preserving any search query typed in the subtoolbar.
         updateGalleryFromSearchAndTraits();
       });
     });
@@ -455,10 +456,224 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   
-  // Filter the NFT gallery based on selected traits (combined via getFilteredData) and update gallery.
-  function filterGallery() {
-    const filteredData = getFilteredData();
-    populateGallery(filteredData);
+  // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
+  const toolbar = document.querySelector('.toolbar');
+  if (toolbar) {
+    const existingGridBtn = toolbar.querySelector('.grid-button');
+    if (existingGridBtn) {
+      existingGridBtn.remove();
+    }
+    const gridBtn = document.createElement('button');
+    gridBtn.classList.add('grid-button');
+    gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
+    
+    const searchInput = toolbar.querySelector('input#search');
+    if (searchInput) {
+      toolbar.insertBefore(gridBtn, searchInput);
+    } else {
+      toolbar.appendChild(gridBtn);
+    }
+    
+    gridBtn.addEventListener("click", function() {
+      const gallery = document.querySelector('.gallery');
+      if (!gallery) return;
+      
+      if (window.innerWidth >= 768) { // Desktop behavior.
+        if (!gallery.dataset.desktopGrid || gallery.dataset.desktopGrid === "default") {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+          gallery.dataset.desktopGrid = "large";
+        } else {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+          gallery.dataset.desktopGrid = "default";
+        }
+      } else { // Mobile behavior using dataset.
+        if (!gallery.dataset.mobileGrid || gallery.dataset.mobileGrid === "default") {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
+          gallery.dataset.mobileGrid = "one-column";
+        } else {
+          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+          gallery.dataset.mobileGrid = "default";
+        }
+      }
+    });
+  }
+  
+  // -------------- Subtoolbar Search Functionality --------------
+  const searchBar = document.getElementById('search');
+  if (searchBar) {
+    searchBar.addEventListener('input', function() {
+      updateGalleryFromSearchAndTraits();
+    });
+  }
+  
+  // Helper that combines trait filtering and subtoolbar search.
+  function updateGalleryFromSearchAndTraits() {
+    let currentData = getCombinedFilteredData();
+    populateGallery(currentData);
+  }
+  
+  // -------------- Trait Selection & Filtering --------------
+  const selectedTraitsContainer = document.querySelector('.selected-traits');
+  const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
+  
+  function selectedTraitsExist() {
+    return selectedTraitsContainer.querySelectorAll('.trait-box').length > 0;
+  }
+  
+  function generateKey(category, trait) {
+    return category + ":" + trait;
+  }
+  
+  function addTraitSelection(checkbox) {
+    const traitLabel = checkbox.closest('.attribute-item');
+    const categoryElement = checkbox.closest('.attribute-category').querySelector('.category-title');
+    const category = categoryElement ? categoryElement.textContent.trim() : "";
+    const trait = traitLabel.querySelector('.trait-text').textContent.trim();
+    const key = generateKey(category, trait);
+    if (selectedTraitsContainer.querySelector(`[data-key="${key}"]`)) return;
+    
+    const traitBox = document.createElement('div');
+    traitBox.classList.add('trait-box');
+    traitBox.setAttribute('data-key', key);
+    traitBox.textContent = category + ": " + trait;
+    
+    const removeIcon = document.createElement('span');
+    removeIcon.classList.add('remove-trait');
+    removeIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    removeIcon.addEventListener('click', function() {
+      traitBox.remove();
+      checkbox.checked = false;
+      updateClearAllVisibility();
+      updateGalleryFromSearchAndTraits();
+    });
+    traitBox.appendChild(removeIcon);
+    selectedTraitsContainer.appendChild(traitBox);
+    updateClearAllVisibility();
+    
+    if (mobileStickyBar && window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+      mobileStickyBar.classList.add('active');
+    }
+    updateGalleryFromSearchAndTraits();
+  }
+  
+  function removeTraitSelection(checkbox) {
+    const traitLabel = checkbox.closest('.attribute-item');
+    const categoryElement = checkbox.closest('.attribute-category').querySelector('.category-title');
+    const category = categoryElement ? categoryElement.textContent.trim() : "";
+    const trait = traitLabel.querySelector('.trait-text').textContent.trim();
+    const key = generateKey(category, trait);
+    const traitBox = selectedTraitsContainer.querySelector(`[data-key="${key}"]`);
+    if (traitBox) traitBox.remove();
+    updateClearAllVisibility();
+    updateGalleryFromSearchAndTraits();
+  }
+  
+  function updateClearAllVisibility() {
+    const clearAllBox = selectedTraitsContainer.querySelector('.clear-all');
+    const traitBoxes = selectedTraitsContainer.querySelectorAll('.trait-box');
+    if (traitBoxes.length > 0) {
+      if (!clearAllBox) {
+        const clearAll = document.createElement('div');
+        clearAll.classList.add('clear-all');
+        clearAll.textContent = "Clear all";
+        clearAll.addEventListener('click', function() {
+          document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(chk => chk.checked = false);
+          selectedTraitsContainer.innerHTML = "";
+          if (mobileStickyBar) {
+            mobileStickyBar.classList.remove('active');
+          }
+          updateGalleryFromSearchAndTraits();
+        });
+        selectedTraitsContainer.insertBefore(clearAll, selectedTraitsContainer.firstChild);
+      }
+    } else {
+      if (clearAllBox) clearAllBox.remove();
+      if (mobileStickyBar) {
+        mobileStickyBar.classList.remove('active');
+      }
+    }
+  }
+  
+  // Left panel search functionality to filter trait items in real time.
+  const attributeSearch = document.getElementById('attributes-search');
+  if (attributeSearch) {
+    attributeSearch.addEventListener('input', function() {
+      const filter = attributeSearch.value.trim().toLowerCase();
+      const categories = document.querySelectorAll('.attribute-category');
+      categories.forEach(category => {
+        const traitItems = category.querySelectorAll('.attribute-item');
+        let matchCount = 0;
+        traitItems.forEach(item => {
+          const traitTextElement = item.querySelector('.trait-text');
+          if (traitTextElement) {
+            const traitText = traitTextElement.textContent.trim().toLowerCase();
+            if (filter === "" || traitText.startsWith(filter)) {
+              item.style.display = "";
+              matchCount++;
+            } else {
+              item.style.display = "none";
+            }
+          }
+        });
+        const categoryCountElement = category.querySelector('.category-count');
+        if (categoryCountElement) {
+          categoryCountElement.textContent = matchCount;
+        }
+        category.style.display = matchCount > 0 ? "" : "none";
+      });
+    });
+  }
+  
+  // -------------- NFT Gallery Population & Filtering --------------
+  function populateGallery(metadata) {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    gallery.innerHTML = "";
+    metadata.forEach(item => {
+      const nftItem = document.createElement('div');
+      nftItem.classList.add('nft-item');
+      
+      const imgWrapper = document.createElement('div');
+      imgWrapper.classList.add('nft-img-wrapper');
+      // Add a placeholder class to show animated gradient until image loads.
+      imgWrapper.classList.add('placeholder');
+      
+      const img = document.createElement('img');
+      img.src = `https://ordinals.com/content/${item.id}`;
+      // Enable lazy loading.
+      img.loading = "lazy";
+      // For crisp pixel art, these settings are applied:
+      img.style.imageRendering = "pixelated";
+      img.style.imageRendering = "crisp-edges";
+      
+      // Once the image loads, remove the placeholder class.
+      img.addEventListener('load', function() {
+        imgWrapper.classList.remove('placeholder');
+      });
+      
+      imgWrapper.appendChild(img);
+      
+      const nftText = document.createElement('div');
+      nftText.classList.add('nft-text');
+      
+      const titlePara = document.createElement('p');
+      titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
+      titlePara.style.fontWeight = "500";
+      titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
+      nftText.appendChild(titlePara);
+      
+      // Add the inscription number below the name if it exists in the metadata.
+      if (item.meta["\u25c9"]) {
+        const inscriptionPara = document.createElement('p');
+        inscriptionPara.classList.add('nft-inscription');
+        inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
+        nftText.appendChild(inscriptionPara);
+      }
+      
+      nftItem.appendChild(imgWrapper);
+      nftItem.appendChild(nftText);
+      gallery.appendChild(nftItem);
+    });
   }
   
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
@@ -479,8 +694,6 @@ document.addEventListener("DOMContentLoaded", function() {
       toolbar.appendChild(gridBtn);
     }
     
-    let mobileGridState = "default";
-    
     gridBtn.addEventListener("click", function() {
       const gallery = document.querySelector('.gallery');
       if (!gallery) return;
@@ -493,15 +706,141 @@ document.addEventListener("DOMContentLoaded", function() {
           gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
           gallery.dataset.desktopGrid = "default";
         }
-      } else { // Mobile behavior.
-        if (mobileGridState === "default") {
+      } else { // Mobile behavior using dataset.
+        if (!gallery.dataset.mobileGrid || gallery.dataset.mobileGrid === "default") {
           gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
-          mobileGridState = "one-column";
+          gallery.dataset.mobileGrid = "one-column";
         } else {
           gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-          mobileGridState = "default";
+          gallery.dataset.mobileGrid = "default";
         }
       }
+    });
+  }
+  
+  // -------------- Subtoolbar Search Functionality --------------
+  const searchBar = document.getElementById('search');
+  if (searchBar) {
+    searchBar.addEventListener('input', function() {
+      updateGalleryFromSearchAndTraits();
+    });
+  }
+  
+  // Helper that combines trait filtering and subtoolbar search.
+  function updateGalleryFromSearchAndTraits() {
+    let currentData = getCombinedFilteredData();
+    populateGallery(currentData);
+  }
+  
+  // -------------- Trait Selection & Filtering --------------
+  const selectedTraitsContainer = document.querySelector('.selected-traits');
+  const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
+  
+  function selectedTraitsExist() {
+    return selectedTraitsContainer.querySelectorAll('.trait-box').length > 0;
+  }
+  
+  function generateKey(category, trait) {
+    return category + ":" + trait;
+  }
+  
+  function addTraitSelection(checkbox) {
+    const traitLabel = checkbox.closest('.attribute-item');
+    const categoryElement = checkbox.closest('.attribute-category').querySelector('.category-title');
+    const category = categoryElement ? categoryElement.textContent.trim() : "";
+    const trait = traitLabel.querySelector('.trait-text').textContent.trim();
+    const key = generateKey(category, trait);
+    if (selectedTraitsContainer.querySelector(`[data-key="${key}"]`)) return;
+    
+    const traitBox = document.createElement('div');
+    traitBox.classList.add('trait-box');
+    traitBox.setAttribute('data-key', key);
+    traitBox.textContent = category + ": " + trait;
+    
+    const removeIcon = document.createElement('span');
+    removeIcon.classList.add('remove-trait');
+    removeIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    removeIcon.addEventListener('click', function() {
+      traitBox.remove();
+      checkbox.checked = false;
+      updateClearAllVisibility();
+      updateGalleryFromSearchAndTraits();
+    });
+    traitBox.appendChild(removeIcon);
+    selectedTraitsContainer.appendChild(traitBox);
+    updateClearAllVisibility();
+    
+    if (mobileStickyBar && window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+      mobileStickyBar.classList.add('active');
+    }
+    updateGalleryFromSearchAndTraits();
+  }
+  
+  function removeTraitSelection(checkbox) {
+    const traitLabel = checkbox.closest('.attribute-item');
+    const categoryElement = checkbox.closest('.attribute-category').querySelector('.category-title');
+    const category = categoryElement ? categoryElement.textContent.trim() : "";
+    const trait = traitLabel.querySelector('.trait-text').textContent.trim();
+    const key = generateKey(category, trait);
+    const traitBox = selectedTraitsContainer.querySelector(`[data-key="${key}"]`);
+    if (traitBox) traitBox.remove();
+    updateClearAllVisibility();
+    updateGalleryFromSearchAndTraits();
+  }
+  
+  function updateClearAllVisibility() {
+    const clearAllBox = selectedTraitsContainer.querySelector('.clear-all');
+    const traitBoxes = selectedTraitsContainer.querySelectorAll('.trait-box');
+    if (traitBoxes.length > 0) {
+      if (!clearAllBox) {
+        const clearAll = document.createElement('div');
+        clearAll.classList.add('clear-all');
+        clearAll.textContent = "Clear all";
+        clearAll.addEventListener('click', function() {
+          document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(chk => chk.checked = false);
+          selectedTraitsContainer.innerHTML = "";
+          if (mobileStickyBar) {
+            mobileStickyBar.classList.remove('active');
+          }
+          updateGalleryFromSearchAndTraits();
+        });
+        selectedTraitsContainer.insertBefore(clearAll, selectedTraitsContainer.firstChild);
+      }
+    } else {
+      if (clearAllBox) clearAllBox.remove();
+      if (mobileStickyBar) {
+        mobileStickyBar.classList.remove('active');
+      }
+    }
+  }
+  
+  // Left panel search functionality to filter trait items in real time.
+  const attributeSearch = document.getElementById('attributes-search');
+  if (attributeSearch) {
+    attributeSearch.addEventListener('input', function() {
+      const filter = attributeSearch.value.trim().toLowerCase();
+      const categories = document.querySelectorAll('.attribute-category');
+      categories.forEach(category => {
+        const traitItems = category.querySelectorAll('.attribute-item');
+        let matchCount = 0;
+        traitItems.forEach(item => {
+          const traitTextElement = item.querySelector('.trait-text');
+          if (traitTextElement) {
+            const traitText = traitTextElement.textContent.trim().toLowerCase();
+            if (filter === "" || traitText.startsWith(filter)) {
+              item.style.display = "";
+              matchCount++;
+            } else {
+              item.style.display = "none";
+            }
+          }
+        });
+        const categoryCountElement = category.querySelector('.category-count');
+        if (categoryCountElement) {
+          categoryCountElement.textContent = matchCount;
+        }
+        category.style.display = matchCount > 0 ? "" : "none";
+      });
     });
   }
   

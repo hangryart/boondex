@@ -445,10 +445,22 @@ document.addEventListener("DOMContentLoaded", function() {
       if (item.meta["\u25c9"]) {
         const inscriptionPara = document.createElement('p');
         inscriptionPara.classList.add('nft-inscription');
-        inscriptionPara.setAttribute('x-apple-data-detectors', 'false');
-        inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
+        // Insert zero-width spaces for display purposes.
+        const numText = item.meta["\u25c9"].split('').join('\u200B');
+        inscriptionPara.textContent = `◉ ${numText}`;
+        // Store the raw number for copying.
+        inscriptionPara.dataset.raw = item.meta["\u25c9"];
+        
+        // When the user copies, replace the clipboard text with the raw number.
+        inscriptionPara.addEventListener('copy', function(e) {
+          e.preventDefault();
+          if (e.clipboardData) {
+            e.clipboardData.setData('text/plain', inscriptionPara.dataset.raw);
+          }
+        });
+        
         nftText.appendChild(inscriptionPara);
-      }      
+      }                
       
       nftItem.appendChild(imgWrapper);
       nftItem.appendChild(nftText);

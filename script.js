@@ -445,9 +445,10 @@ document.addEventListener("DOMContentLoaded", function() {
       if (item.meta["\u25c9"]) {
         const inscriptionPara = document.createElement('p');
         inscriptionPara.classList.add('nft-inscription');
+        inscriptionPara.setAttribute('x-apple-data-detectors', 'false');
         inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
         nftText.appendChild(inscriptionPara);
-      }
+      }      
       
       nftItem.appendChild(imgWrapper);
       nftItem.appendChild(nftText);

@@ -38,6 +38,10 @@
           "trait_type": "Auxiliary"
         },
         {
+          "value": "OG",
+          "trait_type": "Auxiliary"
+        },
+        {
           "value": "None",
           "trait_type": "Headwear"
         }
@@ -73,6 +77,10 @@
         {
           "value": "Pants",
           "trait_type": "Style"
+        },
+        {
+          "value": "OG",
+          "trait_type": "Auxiliary"
         },
         {
           "value": "Grenade",
@@ -116,7 +124,7 @@
           "trait_type": "Style"
         },
         {
-          "value": "Provenance",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -158,6 +166,10 @@
         },
         {
           "value": "Ray Gun",
+          "trait_type": "Auxiliary"
+        },
+        {
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5213,7 +5225,7 @@
   {
     "id": "3064907c4e68da881f030d0771e97a5bf89b51a60e43be19d2aba31082f51d1bi0",
     "meta": {
-      "name": "OG Lion #128",
+      "name": "Lion #128",
       "\u25c9": "444199",
       "attributes": [
         {
@@ -5221,7 +5233,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5254,7 +5266,7 @@
   {
     "id": "99248f76128ed108554367b2e26720af4d202d6d339be66598116f5b3d6cdc3ci0",
     "meta": {
-      "name": "OG Lion #129",
+      "name": "Lion #129",
       "\u25c9": "444206",
       "attributes": [
         {
@@ -5262,7 +5274,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5295,7 +5307,7 @@
   {
     "id": "13f70ed7b17889cc157b2c8fe1dd64ba77e78b6dcbdfcd31b9b428650813e350i0",
     "meta": {
-      "name": "OG Lion #130",
+      "name": "Lion #130",
       "\u25c9": "444210",
       "attributes": [
         {
@@ -5303,7 +5315,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5336,7 +5348,7 @@
   {
     "id": "4238e31aee0417508edffa8f770216b6ac4f3afc3132cbc49b09335960996321i0",
     "meta": {
-      "name": "OG Lion #131",
+      "name": "Lion #131",
       "\u25c9": "444201",
       "attributes": [
         {
@@ -5344,7 +5356,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5377,7 +5389,7 @@
   {
     "id": "e7aa2b1b5ceb9709ee06389fab87d7935cd5aa3c61ee18593fe56d9a16a30f93i0",
     "meta": {
-      "name": "OG Lion #132",
+      "name": "Lion #132",
       "\u25c9": "444225",
       "attributes": [
         {
@@ -5385,7 +5397,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5418,7 +5430,7 @@
   {
     "id": "721ef6155211c587fcce4d26d6ea7307348608bb44b2e44e8e7970e915cfa537i0",
     "meta": {
-      "name": "OG Lion #133",
+      "name": "Lion #133",
       "\u25c9": "444205",
       "attributes": [
         {
@@ -5426,7 +5438,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5459,7 +5471,7 @@
   {
     "id": "c033a3a650c0634be2dffa375a1e6b8cf6f7b8b87b1afd21629efc015a1fa581i0",
     "meta": {
-      "name": "OG Lion #134",
+      "name": "Lion #134",
       "\u25c9": "444218",
       "attributes": [
         {
@@ -5467,7 +5479,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5500,7 +5512,7 @@
   {
     "id": "101b1724b48e430484d8b20a3f0aac2781791efb03ea15698a08a69fe595b88di0",
     "meta": {
-      "name": "OG Lion #135",
+      "name": "Lion #135",
       "\u25c9": "444222",
       "attributes": [
         {
@@ -5508,7 +5520,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5541,7 +5553,7 @@
   {
     "id": "60799c9a80f1ab3ea3f47655bada214cf28030b87a1a056b71c42c63cf515cd9i0",
     "meta": {
-      "name": "OG Lion #136",
+      "name": "Lion #136",
       "\u25c9": "444237",
       "attributes": [
         {
@@ -5549,7 +5561,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5582,7 +5594,7 @@
   {
     "id": "2c4a1f3505f93aad220aff20a24d651ffc7dbce6faba1dc676f1637558850ae8i0",
     "meta": {
-      "name": "OG Lion #137",
+      "name": "Lion #137",
       "\u25c9": "444240",
       "attributes": [
         {
@@ -5590,7 +5602,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5623,7 +5635,7 @@
   {
     "id": "59fd963ca822f21d9d0dbe7d4a87d2ceb1c48fa7b83082e4aea940984a65d2d2i0",
     "meta": {
-      "name": "OG Lion #138",
+      "name": "Lion #138",
       "\u25c9": "444236",
       "attributes": [
         {
@@ -5631,7 +5643,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5664,7 +5676,7 @@
   {
     "id": "317e0e177ece17439800bd1f1688a4417017c8d8c473b74af932efe66896fc1ci0",
     "meta": {
-      "name": "OG Lion #139",
+      "name": "Lion #139",
       "\u25c9": "444200",
       "attributes": [
         {
@@ -5672,7 +5684,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5705,7 +5717,7 @@
   {
     "id": "21d016d3af91ccf75abe6604647ada9ec45499d6be4def113a87683f0e49ab10i0",
     "meta": {
-      "name": "OG Lion #140",
+      "name": "Lion #140",
       "\u25c9": "444196",
       "attributes": [
         {
@@ -5713,7 +5725,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5746,7 +5758,7 @@
   {
     "id": "c68cd08a126d899b54446288e006ebc185c0b3f1c643d4cd5f2285a91648c88ci0",
     "meta": {
-      "name": "OG Lion #141",
+      "name": "Lion #141",
       "\u25c9": "444221",
       "attributes": [
         {
@@ -5754,7 +5766,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5787,7 +5799,7 @@
   {
     "id": "6f77ac8f00b1a5f7d49887236937dd97eea5a49f35507f4b1363803004a387eei0",
     "meta": {
-      "name": "OG Lion #142",
+      "name": "Lion #142",
       "\u25c9": "444241",
       "attributes": [
         {
@@ -5795,7 +5807,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5828,7 +5840,7 @@
   {
     "id": "f8a6f55496ab36204b51f57534b7a571cea5915d71ef7f5ac142d7e2ddadf811i0",
     "meta": {
-      "name": "OG Lion #143",
+      "name": "Lion #143",
       "\u25c9": "465421",
       "attributes": [
         {
@@ -5836,7 +5848,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5869,7 +5881,7 @@
   {
     "id": "0bb603ffb1fcb23f275445f389c33c1f4b8627cdd9df539c45ccef38d64c6040i0",
     "meta": {
-      "name": "OG Lion #144",
+      "name": "Lion #144",
       "\u25c9": "465427",
       "attributes": [
         {
@@ -5877,7 +5889,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5910,7 +5922,7 @@
   {
     "id": "21c4a0a105a8abf567b6d189d3363f3ece46f9840e754f172d9a2c36545c47b9i0",
     "meta": {
-      "name": "OG Lion #145",
+      "name": "Lion #145",
       "\u25c9": "465443",
       "attributes": [
         {
@@ -5918,7 +5930,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5951,7 +5963,7 @@
   {
     "id": "eac59848a4327bfa9276767b655398af1632c016d44951ef4fc21357ecec9247i0",
     "meta": {
-      "name": "OG Lion #146",
+      "name": "Lion #146",
       "\u25c9": "415374",
       "attributes": [
         {
@@ -5959,7 +5971,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "Provenance",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -5992,7 +6004,7 @@
   {
     "id": "8a35df83c6996cfa7807686ca94b39bc699df20ba46864970c367eb78788ebddi0",
     "meta": {
-      "name": "OG Lion #147",
+      "name": "Lion #147",
       "\u25c9": "465446",
       "attributes": [
         {
@@ -6000,7 +6012,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -6033,7 +6045,7 @@
   {
     "id": "9f84541353bf605b9af203fab8c2068b58da4af168ff35cc1ba83a4950a854d5i0",
     "meta": {
-      "name": "OG Lion #148",
+      "name": "Lion #148",
       "\u25c9": "465445",
       "attributes": [
         {
@@ -6041,7 +6053,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -6074,7 +6086,7 @@
   {
     "id": "0757102db8514867722416072788f1e9a79632c84f02285888b35ab0bcede11ai0",
     "meta": {
-      "name": "OG Lion #149",
+      "name": "Lion #149",
       "\u25c9": "465423",
       "attributes": [
         {
@@ -6082,7 +6094,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -6115,7 +6127,7 @@
   {
     "id": "e1ae689ae9203b936233ecfdd8601b6d00ce5f68e502ffaaeaee67958ef6d26ei0",
     "meta": {
-      "name": "OG Lion #150",
+      "name": "Lion #150",
       "\u25c9": "465435",
       "attributes": [
         {
@@ -6123,7 +6135,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -6156,7 +6168,7 @@
   {
     "id": "68f6f87d2b3bfa603ef4e23d2c4e2b09bb51effc7443943ebb786d55d283b669i0",
     "meta": {
-      "name": "OG Lion #151",
+      "name": "Lion #151",
       "\u25c9": "465431",
       "attributes": [
         {
@@ -6164,7 +6176,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {
@@ -6197,7 +6209,7 @@
   {
     "id": "ee4f5a48d74032c11c6397a225fa75409d7fe1a78a0ccd70fa6a7ff9e5f1b488i0",
     "meta": {
-      "name": "OG Lion #152",
+      "name": "Lion #152",
       "\u25c9": "465441",
       "attributes": [
         {
@@ -6205,7 +6217,7 @@
           "trait_type": "Alliance"
         },
         {
-          "value": "None",
+          "value": "OG",
           "trait_type": "Auxiliary"
         },
         {

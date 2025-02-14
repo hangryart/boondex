@@ -1,4 +1,27 @@
 document.addEventListener("DOMContentLoaded", function() {
+  // Global variable to track the current sort order. Default is ascending.
+  let currentSort = "asc";
+
+  // Global storage for NFT metadata (for filtering).
+  let allNFTData = [];
+
+  // Helper function to sort allNFTData based on currentSort.
+  function sortData() {
+    if (currentSort === 'asc') {
+      allNFTData.sort((a, b) => {
+        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+        return numA - numB;
+      });
+    } else if (currentSort === 'desc') {
+      allNFTData.sort((a, b) => {
+        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+        return numB - numA;
+      });
+    }
+  }
+
   // -------------- Build Left Panel Filters --------------
   // This function reads allNFTData to generate filter groups based on meta.attributes.
   function buildFilters() {
@@ -174,21 +197,9 @@ document.addEventListener("DOMContentLoaded", function() {
     item.addEventListener('click', function(e) {
       sortMenu.classList.remove('open');
       let sortValue = item.dataset.value;
-      if (sortValue === "asc") {
-        // Sort by meta.name numeric portion ascending (existing behavior).
-        allNFTData.sort((a, b) => {
-          let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-          let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-          return numA - numB;
-        });
-        populateGallery(allNFTData);
-      } else if (sortValue === "desc") {
-        // Sort by meta.name numeric portion descending (existing behavior).
-        allNFTData.sort((a, b) => {
-          let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-          let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-          return numB - numA;
-        });
+      if (sortValue === "asc" || sortValue === "desc") {
+        currentSort = sortValue;
+        sortData();
         populateGallery(allNFTData);
       } else if (sortValue === "inscription-low-high") {
         // For each NFT, fetch additional API details to get the inscription number.
@@ -214,13 +225,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   
-  
   // -------------- Trait Selection & Filtering --------------
   const selectedTraitsContainer = document.querySelector('.selected-traits');
   const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
-  
-  // Global storage for NFT metadata (for filtering).
-  let allNFTData = [];
   
   function selectedTraitsExist() {
     return selectedTraitsContainer.querySelectorAll('.trait-box').length > 0;
@@ -331,8 +338,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // -------------- NFT Gallery Population & Filtering --------------
-  // Using a CSS-based approach for the gallery layout.
-  // The gallery grid is controlled by your CSS; this function simply populates it.
   function populateGallery(metadata) {
     const gallery = document.querySelector('.gallery');
     if (!gallery) return;
@@ -366,25 +371,23 @@ document.addEventListener("DOMContentLoaded", function() {
       
       const titlePara = document.createElement('p');
       titlePara.textContent = item.meta.name || `Inscription ${item.id}`;
-      // Set font weight and color.
       titlePara.style.fontWeight = "500";
       titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
       nftText.appendChild(titlePara);
       
-// Add the inscription number below the name if it exists in the metadata.
-if (item.meta["\u25c9"]) {
-  const inscriptionPara = document.createElement('p');
-  // Add the custom CSS class for styling the inscription line.
-  inscriptionPara.classList.add('nft-inscription');
-  inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
-  nftText.appendChild(inscriptionPara);
-}
+      // Add the inscription number below the name if it exists in the metadata.
+      if (item.meta["\u25c9"]) {
+        const inscriptionPara = document.createElement('p');
+        inscriptionPara.classList.add('nft-inscription');
+        inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
+        nftText.appendChild(inscriptionPara);
+      }
       
       nftItem.appendChild(imgWrapper);
       nftItem.appendChild(nftText);
       gallery.appendChild(nftItem);
     });
-  }  
+  }
   
   // Filter the NFT gallery based on selected traits.
   function filterGallery() {
@@ -422,20 +425,16 @@ if (item.meta["\u25c9"]) {
   }
   
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
-  // Insert a single grid toggle button ("grid-button") into the toolbar.
   const toolbar = document.querySelector('.toolbar');
   if (toolbar) {
-    // Remove any existing grid button.
     const existingGridBtn = toolbar.querySelector('.grid-button');
     if (existingGridBtn) {
       existingGridBtn.remove();
     }
-    // Create a new grid button.
     const gridBtn = document.createElement('button');
     gridBtn.classList.add('grid-button');
     gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
     
-    // Insert gridBtn into the toolbar, to the left of the search input.
     const searchInput = toolbar.querySelector('input#search');
     if (searchInput) {
       toolbar.insertBefore(gridBtn, searchInput);
@@ -443,7 +442,6 @@ if (item.meta["\u25c9"]) {
       toolbar.appendChild(gridBtn);
     }
     
-    // Initialize mobile grid state variable.
     let mobileGridState = "default";
     
     gridBtn.addEventListener("click", function() {
@@ -471,22 +469,18 @@ if (item.meta["\u25c9"]) {
   }
   
   // -------------- Load NFT Metadata from metadata.json --------------
-  // This fetch call loads metadata from the "metadata.json" file in your repository.
   fetch('metadata.json', { headers: { 'Accept': 'application/json' } })
     .then(response => response.json())
     .then(data => {
-      // Sort the data in ascending order by the number in the meta.name string.
-      allNFTData = data.sort((a, b) => {
-        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-        return numA - numB;
-      });
+      // Store the raw data without forcing ascending sort.
+      allNFTData = data;
+      // Apply the current sort preference.
+      sortData();
       populateGallery(allNFTData);
       buildFilters();
     })
     .catch(err => {
       console.error('Error fetching metadata.json:', err);
-      // Fallback to sample metadata.
       const sampleMetadata = [
         {
           "id": "79c26b0a040bfc0945692294b9c504411adfde54519211dc34817a0d4519a4a8i0",
@@ -521,11 +515,8 @@ if (item.meta["\u25c9"]) {
           }
         }
       ];
-      allNFTData = sampleMetadata.sort((a, b) => {
-        let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-        let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-        return numA - numB;
-      });
+      allNFTData = sampleMetadata;
+      sortData();
       populateGallery(allNFTData);
       buildFilters();
     });
@@ -551,7 +542,6 @@ if (item.meta["\u25c9"]) {
       if (mobileStickyBar) {
         mobileStickyBar.classList.remove('active');
       }
-      // Future functionality for "Show" button can be added here.
     });
   }
 });

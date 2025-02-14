@@ -403,24 +403,24 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
     
+    // If no filters are selected, repopulate with all NFT data.
     if (Object.keys(filters).length === 0) {
       populateGallery(allNFTData);
       return;
     }
     
+    // For each NFT, check that for every selected category, it has an attribute matching one of the selected values.
     const filteredData = allNFTData.filter(nft => {
-      for (let category in filters) {
-        let match = nft.meta.attributes.some(attr => {
+      return Object.keys(filters).every(category => {
+        return nft.meta.attributes.some(attr => {
           return attr.trait_type.toLowerCase() === category.toLowerCase() &&
                  filters[category].includes(attr.value.toLowerCase());
         });
-        if (!match) return false;
-      }
-      return true;
+      });
     });
     
     populateGallery(filteredData);
-  }
+  }  
   
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
   const toolbar = document.querySelector('.toolbar');

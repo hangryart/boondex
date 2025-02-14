@@ -212,8 +212,10 @@ document.addEventListener("DOMContentLoaded", function() {
       } else if (sortValue === "inscription-high-low") {
         // Sort by the inscription number (from metadata property "\u25c9") in descending order.
         const sorted = allNFTData.slice().sort((a, b) => {
-          let insA = parseInt(a.meta["\u25c9"] || "0", 10);
-          let insB = parseInt(b.meta["\u25c9"] || "0", 10);
+          let insA = parseInt(a.meta["\u25c9"], 10);
+          let insB = parseInt(b.meta["\u25c9"], 10);
+          if (isNaN(insA)) insA = 0;
+          if (isNaN(insB)) insB = 0;
           return insB - insA;
         });
         populateGallery(sorted);

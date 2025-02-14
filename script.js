@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Global storage for NFT metadata (for filtering).
   let allNFTData = [];
 
-  // Helper function to sort allNFTData based on currentSort.
+  // Helper function to sort allNFTData based on currentSort (when no filtering is active).
   function sortData() {
     if (currentSort === 'asc') {
       allNFTData.sort((a, b) => {
@@ -20,6 +20,34 @@ document.addEventListener("DOMContentLoaded", function() {
         return numB - numA;
       });
     }
+  }
+
+  // Helper function to return the currently filtered data.
+  function getFilteredData() {
+    let filters = {};
+    document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(checkbox => {
+      if (checkbox.checked) {
+        const attributeItem = checkbox.closest('.attribute-item');
+        const categoryElement = attributeItem.closest('.attribute-category').querySelector('.category-title');
+        if (categoryElement) {
+          let category = categoryElement.textContent.trim();
+          let traitText = attributeItem.querySelector('.trait-text').textContent.trim().toLowerCase();
+          if (!filters[category]) filters[category] = [];
+          filters[category].push(traitText);
+        }
+      }
+    });
+    if (Object.keys(filters).length === 0) {
+      return allNFTData.slice(); // Return a copy of allNFTData.
+    }
+    return allNFTData.filter(nft => {
+      return Object.keys(filters).every(category => {
+        return nft.meta.attributes.some(attr => {
+          return attr.trait_type.toLowerCase() === category.toLowerCase() &&
+                 filters[category].includes(attr.value.toLowerCase());
+        });
+      });
+    });
   }
 
   // -------------- Build Left Panel Filters --------------
@@ -197,28 +225,40 @@ document.addEventListener("DOMContentLoaded", function() {
     item.addEventListener('click', function(e) {
       sortMenu.classList.remove('open');
       let sortValue = item.dataset.value;
+      // Always work on the currently filtered set
+      let currentData = getFilteredData();
+      
       if (sortValue === "asc" || sortValue === "desc") {
         currentSort = sortValue;
-        sortData();
-        populateGallery(allNFTData);
+        // Sort by the number extracted from meta.name
+        if (currentSort === 'asc') {
+          currentData.sort((a, b) => {
+            let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+            let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+            return numA - numB;
+          });
+        } else {
+          currentData.sort((a, b) => {
+            let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+            let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+            return numB - numA;
+          });
+        }
+        populateGallery(currentData);
       } else if (sortValue === "inscription-low-high") {
-        // Sort by the inscription number (from metadata property "\u25c9") in ascending order.
-        const sorted = allNFTData.slice().sort((a, b) => {
+        currentData.sort((a, b) => {
           let insA = parseInt(a.meta["\u25c9"] || "0", 10);
           let insB = parseInt(b.meta["\u25c9"] || "0", 10);
           return insA - insB;
         });
-        populateGallery(sorted);
+        populateGallery(currentData);
       } else if (sortValue === "inscription-high-low") {
-        // Sort by the inscription number (from metadata property "\u25c9") in descending order.
-        const sorted = allNFTData.slice().sort((a, b) => {
-          let insA = parseInt(a.meta["\u25c9"], 10);
-          let insB = parseInt(b.meta["\u25c9"], 10);
-          if (isNaN(insA)) insA = 0;
-          if (isNaN(insB)) insB = 0;
+        currentData.sort((a, b) => {
+          let insA = parseInt(a.meta["\u25c9"] || "0", 10);
+          let insB = parseInt(b.meta["\u25c9"] || "0", 10);
           return insB - insA;
         });
-        populateGallery(sorted);
+        populateGallery(currentData);
       }
     });
   });
@@ -389,38 +429,9 @@ document.addEventListener("DOMContentLoaded", function() {
   
   // Filter the NFT gallery based on selected traits.
   function filterGallery() {
-    let filters = {};
-    document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(checkbox => {
-      if (checkbox.checked) {
-        const attributeItem = checkbox.closest('.attribute-item');
-        const categoryElement = attributeItem.closest('.attribute-category').querySelector('.category-title');
-        if (categoryElement) {
-          let category = categoryElement.textContent.trim();
-          let traitText = attributeItem.querySelector('.trait-text').textContent.trim().toLowerCase();
-          if (!filters[category]) filters[category] = [];
-          filters[category].push(traitText);
-        }
-      }
-    });
-    
-    // If no filters are selected, repopulate with all NFT data.
-    if (Object.keys(filters).length === 0) {
-      populateGallery(allNFTData);
-      return;
-    }
-    
-    // For each NFT, check that for every selected category, it has an attribute matching one of the selected values.
-    const filteredData = allNFTData.filter(nft => {
-      return Object.keys(filters).every(category => {
-        return nft.meta.attributes.some(attr => {
-          return attr.trait_type.toLowerCase() === category.toLowerCase() &&
-                 filters[category].includes(attr.value.toLowerCase());
-        });
-      });
-    });
-    
+    const filteredData = getFilteredData();
     populateGallery(filteredData);
-  }  
+  }
   
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
   const toolbar = document.querySelector('.toolbar');

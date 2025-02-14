@@ -371,12 +371,14 @@ document.addEventListener("DOMContentLoaded", function() {
       titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
       nftText.appendChild(titlePara);
       
-      // Add the inscription number below the name if it exists in the metadata.
-      if (item.meta["\u25c9"]) {
-        const inscriptionPara = document.createElement('p');
-        inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
-        nftText.appendChild(inscriptionPara);
-      }
+// Add the inscription number below the name if it exists in the metadata.
+if (item.meta["\u25c9"]) {
+  const inscriptionPara = document.createElement('p');
+  // Add the custom CSS class for styling the inscription line.
+  inscriptionPara.classList.add('nft-inscription');
+  inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
+  nftText.appendChild(inscriptionPara);
+}
       
       nftItem.appendChild(imgWrapper);
       nftItem.appendChild(nftText);

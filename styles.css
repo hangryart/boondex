@@ -642,6 +642,14 @@ body {
   text-align: left;
 }
 
+.nft-inscription {
+  font-size: 0.8em;
+  color: #AAAAAA; /* Adjust this to your desired color */
+  opacity: 0.8;
+  margin-top: 8px;
+  /* Add any other properties such as font-family, letter-spacing, etc. */
+}
+
 /* ─── Mobile Styles ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .header {

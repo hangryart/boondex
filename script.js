@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (gallery && !gallery.classList.contains('default-grid') && !gallery.classList.contains('large-grid')) {
       gallery.classList.add('default-grid');
       // Optionally, you could also set inline style here:
-      // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+      // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
     }
     // Set initial grid button icon.
     gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
@@ -494,7 +494,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Revert to default grid.
         gallery.classList.remove('large-grid');
         gallery.classList.add('default-grid');
-        // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+        // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
         gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
       }
     });

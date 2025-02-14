@@ -224,47 +224,48 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   
   const sortMenuItems = document.querySelectorAll('.sort-menu-item');
-  sortMenuItems.forEach(item => {
-    item.addEventListener('click', function(e) {
-      sortMenu.classList.remove('open');
-      let sortValue = item.dataset.value;
-      // Always work on the currently filtered set (by traits and search).
-      let currentData = getFilteredData();
-      
-      if (sortValue === "asc" || sortValue === "desc") {
-        currentSort = sortValue;
-        // Sort by the number extracted from meta.name
-        if (currentSort === 'asc') {
-          currentData.sort((a, b) => {
-            let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-            let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-            return numA - numB;
-          });
-        } else {
-          currentData.sort((a, b) => {
-            let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
-            let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
-            return numB - numA;
-          });
-        }
-        populateGallery(currentData);
-      } else if (sortValue === "inscription-low-high") {
+sortMenuItems.forEach(item => {
+  item.addEventListener('click', function(e) {
+    sortMenu.classList.remove('open');
+    let sortValue = item.dataset.value;
+    // Always work on the currently filtered set (traits + search)
+    let currentData = getFilteredData();
+
+    if (sortValue === "asc" || sortValue === "desc") {
+      currentSort = sortValue;
+      // Sort by the number extracted from meta.name
+      if (currentSort === 'asc') {
         currentData.sort((a, b) => {
-          let insA = parseInt(a.meta["\u25c9"] || "0", 10);
-          let insB = parseInt(b.meta["\u25c9"] || "0", 10);
-          return insA - insB;
+          let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+          let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+          return numA - numB;
         });
-        populateGallery(currentData);
-      } else if (sortValue === "inscription-high-low") {
+      } else {
         currentData.sort((a, b) => {
-          let insA = parseInt(a.meta["\u25c9"] || "0", 10);
-          let insB = parseInt(b.meta["\u25c9"] || "0", 10);
-          return insB - insA;
+          let numA = parseInt(a.meta.name.match(/\d+/)?.[0] || "0", 10);
+          let numB = parseInt(b.meta.name.match(/\d+/)?.[0] || "0", 10);
+          return numB - numA;
         });
-        populateGallery(currentData);
       }
-    });
+      populateGallery(currentData);
+    } else if (sortValue === "inscription-low-high") {
+      currentData.sort((a, b) => {
+        let insA = parseInt(a.meta["\u25c9"] || "0", 10);
+        let insB = parseInt(b.meta["\u25c9"] || "0", 10);
+        return insA - insB;
+      });
+      populateGallery(currentData);
+    } else if (sortValue === "inscription-high-low") {
+      currentData.sort((a, b) => {
+        let insA = parseInt(a.meta["\u25c9"] || "0", 10);
+        let insB = parseInt(b.meta["\u25c9"] || "0", 10);
+        return insB - insA;
+      });
+      populateGallery(currentData);
+    }
   });
+});
+
   
   // -------------- Subtoolbar Search Functionality --------------
   const searchBar = document.getElementById('search');

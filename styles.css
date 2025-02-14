@@ -604,6 +604,14 @@ body {
   flex: 1;
 }
 
+.gallery.default-grid {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.gallery.large-grid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
 .nft-item {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color-light);
@@ -681,7 +689,7 @@ body {
   }
   
   .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
   
   .nft-img-wrapper:hover img {

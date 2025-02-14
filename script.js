@@ -454,75 +454,51 @@ document.addEventListener("DOMContentLoaded", function() {
       gallery.appendChild(nftItem);
     });
   }
+  
   // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
-// We'll create two helper functions to swap the grid button.
-function createGridButton(iconHTML, clickHandler) {
-  let btn = document.createElement('button');
-  btn.classList.add('grid-button');
-  btn.innerHTML = iconHTML;
-  btn.addEventListener('click', clickHandler);
-  return btn;
-}
-
-function setLargeGrid() {
-  const gallery = document.querySelector('.gallery');
-  if (!gallery) return;
-  if (window.innerWidth >= 768) {
-    gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-  } else {
-    // Changed from 100% to 250px.
-    gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(250px, 1fr))';
-  }
-  // Replace current grid button with the revert button.
-  const toolbar = document.querySelector('.toolbar');
-  if (toolbar) {
-    const currentBtn = toolbar.querySelector('.grid-button');
-    if (currentBtn) currentBtn.remove();
-    const newBtn = createGridButton('<i class="fa-solid fa-table-cells"></i>', setDefaultGrid);
-    const searchInput = toolbar.querySelector('input#search');
-    if (searchInput) {
-      toolbar.insertBefore(newBtn, searchInput);
-    } else {
-      toolbar.appendChild(newBtn);
+  // New approach: toggle a CSS class on the gallery and update the grid button icon.
+  (function() {
+    const toolbar = document.querySelector('.toolbar');
+    if (!toolbar) return;
+    let gridBtn = toolbar.querySelector('.grid-button');
+    if (!gridBtn) {
+      gridBtn = document.createElement('button');
+      gridBtn.classList.add('grid-button');
+      const searchInput = toolbar.querySelector('input#search');
+      if (searchInput) {
+        toolbar.insertBefore(gridBtn, searchInput);
+      } else {
+        toolbar.appendChild(gridBtn);
+      }
     }
-  }
-}
-
-function setDefaultGrid() {
-  const gallery = document.querySelector('.gallery');
-  if (!gallery) return;
-  gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-  // Replace current grid button with the original grid button.
-  const toolbar = document.querySelector('.toolbar');
-  if (toolbar) {
-    const currentBtn = toolbar.querySelector('.grid-button');
-    if (currentBtn) currentBtn.remove();
-    const newBtn = createGridButton('<i class="fa-solid fa-border-all"></i>', setLargeGrid);
-    const searchInput = toolbar.querySelector('input#search');
-    if (searchInput) {
-      toolbar.insertBefore(newBtn, searchInput);
-    } else {
-      toolbar.appendChild(newBtn);
+    // Initialize gallery with default grid if not already set.
+    const gallery = document.querySelector('.gallery');
+    if (gallery && !gallery.classList.contains('default-grid') && !gallery.classList.contains('large-grid')) {
+      gallery.classList.add('default-grid');
+      // Optionally, you could also set inline style here:
+      // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
     }
-  }
-}
-
-const toolbar = document.querySelector('.toolbar');
-if (toolbar) {
-  // Remove any existing grid button.
-  const existingGridBtn = toolbar.querySelector('.grid-button');
-  if (existingGridBtn) {
-    existingGridBtn.remove();
-  }
-  // Create the initial grid button (default state).
-  const initialGridBtn = createGridButton('<i class="fa-solid fa-border-all"></i>', setLargeGrid);
-  const searchInput = toolbar.querySelector('input#search');
-  if (searchInput) {
-    toolbar.insertBefore(initialGridBtn, searchInput);
-  } else {
-    toolbar.appendChild(initialGridBtn);
-  }
-}
+    // Set initial grid button icon.
+    gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
+    gridBtn.addEventListener('click', function() {
+      const gallery = document.querySelector('.gallery');
+      if (!gallery) return;
+      if (gallery.classList.contains('default-grid')) {
+        // Switch to large grid.
+        gallery.classList.remove('default-grid');
+        gallery.classList.add('large-grid');
+        // Optionally, set inline style if not using CSS classes:
+        // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(250px, 1fr))';
+        gridBtn.innerHTML = '<i class="fa-solid fa-table-cells"></i>';
+      } else {
+        // Revert to default grid.
+        gallery.classList.remove('large-grid');
+        gallery.classList.add('default-grid');
+        // gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+        gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
+      }
+    });
+  })();
   
   // -------------- Load NFT Metadata from metadata.json --------------
   fetch('metadata.json', { headers: { 'Accept': 'application/json' } })

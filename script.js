@@ -455,54 +455,73 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   
-  // Filter the NFT gallery based on selected traits (combined via getFilteredData) and update gallery.
-  function filterGallery() {
-    const filteredData = getFilteredData();
-    populateGallery(filteredData);
+  // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
+  // We'll create two helper functions to swap the grid button.
+  function createGridButton(iconHTML, clickHandler) {
+    let btn = document.createElement('button');
+    btn.classList.add('grid-button');
+    btn.innerHTML = iconHTML;
+    btn.addEventListener('click', clickHandler);
+    return btn;
   }
   
-  // -------------- Grid Toggle Button Functionality (Desktop & Mobile) --------------
+  function setLargeGrid() {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    if (window.innerWidth >= 768) {
+      gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+    } else {
+      gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
+    }
+    // Replace current grid button with the revert button.
+    const toolbar = document.querySelector('.toolbar');
+    if (toolbar) {
+      const currentBtn = toolbar.querySelector('.grid-button');
+      if (currentBtn) currentBtn.remove();
+      const newBtn = createGridButton('<i class="fa-solid fa-table-cells"></i>', setDefaultGrid);
+      const searchInput = toolbar.querySelector('input#search');
+      if (searchInput) {
+        toolbar.insertBefore(newBtn, searchInput);
+      } else {
+        toolbar.appendChild(newBtn);
+      }
+    }
+  }
+  
+  function setDefaultGrid() {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+    // Replace current grid button with the original grid button.
+    const toolbar = document.querySelector('.toolbar');
+    if (toolbar) {
+      const currentBtn = toolbar.querySelector('.grid-button');
+      if (currentBtn) currentBtn.remove();
+      const newBtn = createGridButton('<i class="fa-solid fa-border-all"></i>', setLargeGrid);
+      const searchInput = toolbar.querySelector('input#search');
+      if (searchInput) {
+        toolbar.insertBefore(newBtn, searchInput);
+      } else {
+        toolbar.appendChild(newBtn);
+      }
+    }
+  }
+  
   const toolbar = document.querySelector('.toolbar');
   if (toolbar) {
+    // Remove any existing grid button.
     const existingGridBtn = toolbar.querySelector('.grid-button');
     if (existingGridBtn) {
       existingGridBtn.remove();
     }
-    const gridBtn = document.createElement('button');
-    gridBtn.classList.add('grid-button');
-    gridBtn.innerHTML = '<i class="fa-solid fa-border-all"></i>';
-    
+    // Create the initial grid button (default state).
+    const initialGridBtn = createGridButton('<i class="fa-solid fa-border-all"></i>', setLargeGrid);
     const searchInput = toolbar.querySelector('input#search');
     if (searchInput) {
-      toolbar.insertBefore(gridBtn, searchInput);
+      toolbar.insertBefore(initialGridBtn, searchInput);
     } else {
-      toolbar.appendChild(gridBtn);
+      toolbar.appendChild(initialGridBtn);
     }
-    
-    let mobileGridState = "default";
-    
-    gridBtn.addEventListener("click", function() {
-      const gallery = document.querySelector('.gallery');
-      if (!gallery) return;
-      
-      if (window.innerWidth >= 768) { // Desktop behavior.
-        if (!gallery.dataset.desktopGrid || gallery.dataset.desktopGrid === "default") {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-          gallery.dataset.desktopGrid = "large";
-        } else {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-          gallery.dataset.desktopGrid = "default";
-        }
-      } else { // Mobile behavior.
-        if (mobileGridState === "default") {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(100%, 1fr))';
-          mobileGridState = "one-column";
-        } else {
-          gallery.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-          mobileGridState = "default";
-        }
-      }
-    });
   }
   
   // -------------- Load NFT Metadata from metadata.json --------------

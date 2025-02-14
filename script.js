@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Global storage for NFT metadata (for filtering).
   let allNFTData = [];
 
-  // Helper function to sort allNFTData based on currentSort (when no filtering is active).
+  // Helper function to sort allNFTData based on currentSort (when no additional filtering is active).
   function sortData() {
     if (currentSort === 'asc') {
       allNFTData.sort((a, b) => {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Helper function to return the currently filtered data.
+  // Helper function to return the currently filtered data based on trait selections.
   function getFilteredData() {
     let filters = {};
     document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(checkbox => {
@@ -169,6 +169,9 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
           removeTraitSelection(checkbox);
         }
+        // Each change in trait selection should update the gallery,
+        // while still preserving any search query typed in the subtoolbar.
+        updateGalleryFromSearchAndTraits();
       });
     });
   }
@@ -225,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
     item.addEventListener('click', function(e) {
       sortMenu.classList.remove('open');
       let sortValue = item.dataset.value;
-      // Always work on the currently filtered set
+      // Always work on the currently filtered set (by traits and search).
       let currentData = getFilteredData();
       
       if (sortValue === "asc" || sortValue === "desc") {
@@ -263,6 +266,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   
+  // -------------- Subtoolbar Search Functionality --------------
+  const searchBar = document.getElementById('search');
+  if (searchBar) {
+    searchBar.addEventListener('input', function() {
+      updateGalleryFromSearchAndTraits();
+    });
+  }
+  
+  // Helper that combines trait filtering and subtoolbar search.
+  function updateGalleryFromSearchAndTraits() {
+    // Start with the currently filtered data from trait selections.
+    let currentData = getFilteredData();
+    // Get the search query, removing '#' and converting to lowercase.
+    let query = (searchBar ? searchBar.value.trim().toLowerCase() : "").replace(/#/g, '');
+    if (query !== "") {
+      currentData = currentData.filter(nft => {
+        let normalizedName = nft.meta.name.toLowerCase().replace(/#/g, '');
+        return normalizedName.includes(query);
+      });
+    }
+    populateGallery(currentData);
+  }
+  
   // -------------- Trait Selection & Filtering --------------
   const selectedTraitsContainer = document.querySelector('.selected-traits');
   const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
@@ -295,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
       traitBox.remove();
       checkbox.checked = false;
       updateClearAllVisibility();
-      filterGallery();
+      updateGalleryFromSearchAndTraits();
     });
     traitBox.appendChild(removeIcon);
     selectedTraitsContainer.appendChild(traitBox);
@@ -304,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (mobileStickyBar && window.innerWidth <= 768 && sidebar.classList.contains('open')) {
       mobileStickyBar.classList.add('active');
     }
-    filterGallery();
+    updateGalleryFromSearchAndTraits();
   }
   
   function removeTraitSelection(checkbox) {
@@ -316,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const traitBox = selectedTraitsContainer.querySelector(`[data-key="${key}"]`);
     if (traitBox) traitBox.remove();
     updateClearAllVisibility();
-    filterGallery();
+    updateGalleryFromSearchAndTraits();
   }
   
   function updateClearAllVisibility() {
@@ -333,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
           if (mobileStickyBar) {
             mobileStickyBar.classList.remove('active');
           }
-          filterGallery();
+          updateGalleryFromSearchAndTraits();
         });
         selectedTraitsContainer.insertBefore(clearAll, selectedTraitsContainer.firstChild);
       }
@@ -427,7 +453,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   
-  // Filter the NFT gallery based on selected traits.
+  // Filter the NFT gallery based on selected traits (combined via getFilteredData) and update gallery.
   function filterGallery() {
     const filteredData = getFilteredData();
     populateGallery(filteredData);
@@ -538,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (mobileStickyBar) {
         mobileStickyBar.classList.remove('active');
       }
-      filterGallery();
+      updateGalleryFromSearchAndTraits();
     });
   }
   

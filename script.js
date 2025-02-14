@@ -369,13 +369,20 @@ document.addEventListener("DOMContentLoaded", function() {
       // Set font weight and color.
       titlePara.style.fontWeight = "500";
       titlePara.style.color = getComputedStyle(document.querySelector('.collection-title')).color;
-      
       nftText.appendChild(titlePara);
+      
+      // Add the inscription number below the name if it exists in the metadata.
+      if (item.meta["\u25c9"]) {
+        const inscriptionPara = document.createElement('p');
+        inscriptionPara.textContent = `◉ ${item.meta["\u25c9"]}`;
+        nftText.appendChild(inscriptionPara);
+      }
+      
       nftItem.appendChild(imgWrapper);
       nftItem.appendChild(nftText);
       gallery.appendChild(nftItem);
     });
-  }
+  }  
   
   // Filter the NFT gallery based on selected traits.
   function filterGallery() {

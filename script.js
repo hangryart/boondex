@@ -202,25 +202,21 @@ document.addEventListener("DOMContentLoaded", function() {
         sortData();
         populateGallery(allNFTData);
       } else if (sortValue === "inscription-low-high") {
-        // For each NFT, fetch additional API details to get the inscription number.
-        Promise.all(allNFTData.map(nft => {
-          return fetch(`https://ordinals.com/inscription/${nft.id}`, { headers: { 'Accept': 'application/json' } })
-            .then(response => response.json())
-            .then(apiData => {
-              // Assuming the API returns a numeric field "number" (as a string) that we parse:
-              nft.inscriptionNumber = parseInt(apiData.number, 10) || 0;
-              return nft;
-            })
-            .catch(err => {
-              // If an error occurs, default the number to 0.
-              nft.inscriptionNumber = 0;
-              return nft;
-            });
-        })).then(updatedNFTs => {
-          // Sort updatedNFTs by inscriptionNumber in ascending order.
-          updatedNFTs.sort((a, b) => a.inscriptionNumber - b.inscriptionNumber);
-          populateGallery(updatedNFTs);
+        // Sort by the inscription number (from metadata property "\u25c9") in ascending order.
+        const sorted = allNFTData.slice().sort((a, b) => {
+          let insA = parseInt(a.meta["\u25c9"] || "0", 10);
+          let insB = parseInt(b.meta["\u25c9"] || "0", 10);
+          return insA - insB;
         });
+        populateGallery(sorted);
+      } else if (sortValue === "inscription-high-low") {
+        // Sort by the inscription number (from metadata property "\u25c9") in descending order.
+        const sorted = allNFTData.slice().sort((a, b) => {
+          let insA = parseInt(a.meta["\u25c9"] || "0", 10);
+          let insB = parseInt(b.meta["\u25c9"] || "0", 10);
+          return insB - insA;
+        });
+        populateGallery(sorted);
       }
     });
   });

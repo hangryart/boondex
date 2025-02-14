@@ -419,7 +419,7 @@ body {
 /* ─── TOOLBAR (Subtoolbar) ────────────────────────────────────── */
 .toolbar {
   position: sticky;
-  top: var(--header-height);
+  top: calc(var(--header-height) - 1px);
   left: 0;
   right: 0;
   padding: var(--gap);
